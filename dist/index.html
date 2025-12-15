@@ -3,14 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="SNOZCOIN ($SNOZ) — Community-first cryptocurrency focused on steady growth. Join the community on Telegram and follow the founder." />
-  <meta name="keywords" content="SNOZCOIN, SNOZ, cryptocurrency, crypto, community" />
-  <title>SNOZCOIN ($SNOZ) — Community-Driven. Built for Holders.</title>
+  <meta name="description" content="SNOZCOIN ($SNOZ) — Transparent, community-first cryptocurrency. Real-time on-chain data, open governance, and developer-focused roadmap. No hype, just honest building." />
+  <meta name="keywords" content="SNOZCOIN, SNOZ, cryptocurrency, crypto, community, transparent, blockchain, web3, developer" />
+  <title>SNOZCOIN ($SNOZ) — Transparent. Community-First. Developer-Focused.</title>
 
   <!-- SEO/Open Graph -->
-  <meta property="og:title" content="SNOZCOIN ($SNOZ)" />
-  <meta property="og:description" content="Community-first digital asset focused on steady growth." />
+  <meta property="og:title" content="SNOZCOIN ($SNOZ) — Transparent Community Cryptocurrency" />
+  <meta property="og:description" content="Real-time on-chain data, transparent governance, and realistic roadmap. Join the community building together." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://snozcoin.xyz" />
+  <meta property="og:image" content="https://snozcoin.xyz/assets/SNOZCOIN-512.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@elijahsnoz" />
+  <meta name="twitter:title" content="SNOZCOIN ($SNOZ) — Transparent Community Cryptocurrency" />
+  <meta name="twitter:description" content="Real-time on-chain data, transparent governance, and realistic roadmap." />
+  <meta name="twitter:image" content="https://snozcoin.xyz/assets/SNOZCOIN-512.png" />
 
   <link rel="stylesheet" href="css/style.css" />
   <!-- Fonts (preconnect + display=swap for performance) -->
@@ -39,12 +46,12 @@
         <span></span><span></span><span></span>
       </button>
       <nav class="nav" id="nav">
+        <a href="#live-data">Live Data</a>
         <a href="#about">About</a>
-        <a href="#token">Token</a>
+        <a href="#transparency">Transparency</a>
         <a href="#roadmap">Roadmap</a>
         <a href="#community">Community</a>
-        <a href="https://www.instagram.com/elijahsnoz" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://www.youtube.com/@ELIJAHSNOZ" target="_blank" rel="noopener">YouTube</a>
+        <a href="#faq">FAQ</a>
         <a class="cta" href="https://t.me/snozcoin" target="_blank" rel="noopener">Join Telegram</a>
       </nav>
     </div>
@@ -54,12 +61,12 @@
     <section class="hero" id="home">
       <div class="container hero-inner">
         <div class="hero-content">
-          <h1>Community-Driven. Built for Holders.</h1>
-          <p class="lead">SNOZCOIN ($SNOZ) is a transparent, community-first digital asset focused on steady growth.</p>
+          <h1>Transparent. Community-First. Developer-Focused.</h1>
+          <p class="lead">SNOZCOIN ($SNOZ) is built on transparency, honest communication, and realistic goals. No hype. No false promises. Just community building together.</p>
           <div class="hero-ctas">
             <a class="btn btn-primary" href="https://t.me/snozcoin" target="_blank" rel="noopener">Join Telegram</a>
-            <a class="btn btn-ghost" href="https://x.com/elijahsnoz" target="_blank" rel="noopener">Follow Founder (@elijahsnoz)</a>
-            <a class="btn btn-ghost" id="openWhitepaper" href="/assets/SNOZCOIN_whitepaper.pdf" download="SNOZCOIN_whitepaper.pdf">Whitepaper</a>
+            <a class="btn btn-ghost" href="https://x.com/elijahsnoz" target="_blank" rel="noopener">Follow @elijahsnoz</a>
+            <a class="btn btn-ghost" id="openWhitepaper" href="/assets/SNOZCOIN_whitepaper.pdf" download="SNOZCOIN_whitepaper.pdf">Whitepaper (PDF)</a>
           </div>
         </div>
         <div class="hero-visual">
@@ -75,7 +82,55 @@
       </div>
     </section>
 
-    <section class="panel" id="about">
+    <!-- TRANSPARENCY & TRUST SECTION -->
+    <section class="panel dark" id="transparency">
+      <div class="container">
+        <h2>Transparency & Trust</h2>
+        <p class="muted">We believe in open communication and verifiable claims. Here's everything you need to verify SNOZCOIN.</p>
+        
+        <div class="transparency-grid">
+          <div class="transparency-card">
+            <h3>📊 Token Supply</h3>
+            <p><strong>Total Supply:</strong> <span id="total-supply">Loading...</span></p>
+            <p><strong>Circulating:</strong> <span id="circulating-supply">Loading...</span></p>
+            <p class="small-text">Fixed supply. No minting function. Verifiable on-chain.</p>
+          </div>
+
+          <div class="transparency-card">
+            <h3>🔒 Liquidity Status</h3>
+            <p><strong>Liquidity Pool:</strong> <span id="lp-status">Loading...</span></p>
+            <p><strong>Lock Status:</strong> <span id="lock-status">Check explorer for details</span></p>
+            <p class="small-text">Liquidity info can be verified via blockchain explorer and DEX.</p>
+          </div>
+
+          <div class="transparency-card">
+            <h3>👤 Ownership</h3>
+            <p><strong>Contract Owner:</strong> <span id="owner-status">Loading...</span></p>
+            <p class="small-text">Contract ownership status (renounced or active) can be verified on-chain.</p>
+          </div>
+        </div>
+
+        <div class="verify-links">
+          <h3>Verify Everything</h3>
+          <div class="link-group">
+            <a id="explorer-link-main" href="#" target="_blank" rel="noopener" class="verify-link">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/><path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/></svg>
+              Blockchain Explorer
+            </a>
+            <a id="pumpfun-link" href="#" target="_blank" rel="noopener" class="verify-link">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
+              pump.fun Page
+            </a>
+            <a href="https://github.com/elijahsnoz/snozcoin" target="_blank" rel="noopener" class="verify-link">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+              GitHub Repository
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="roadmap">
       <div class="container">
         <h2>About SNOZCOIN</h2>
         <p class="muted">Community, transparency, and fair growth are at the core of SNOZCOIN. We prioritize long-term holders and community governance.</p>
@@ -96,79 +151,253 @@
       </div>
     </section>
 
-    <section class="panel dark" id="token">
+    <!-- LIVE TOKEN DATA SECTION -->
+    <!-- Real-time on-chain data with auto-refresh -->
+    <section class="panel dark" id="live-data">
       <div class="container">
-        <h2>Token Overview</h2>
-        <p class="muted">Below are simple placeholders for token metrics. Replace with real values when ready.</p>
-        <div class="token-grid">
-          <div class="token-card">
-            <h3>Total Supply</h3>
-            <p class="big">—</p>
-          </div>
-          <div class="token-card">
-            <h3>Decimals</h3>
-            <p class="big">—</p>
-          </div>
-          <div class="token-card">
-            <h3>Contract</h3>
-            <p class="big monospace">—</p>
-          </div>
-          <div class="token-card">
-            <h3>Tokenomics</h3>
-            <p class="big">—</p>
+        <h2>Live Token Data</h2>
+        <p class="muted">Real-time on-chain metrics. Auto-refreshes every 60 seconds. <span id="last-update" class="update-time"></span></p>
+        
+        <!-- Contract Address (Always visible) -->
+        <div class="contract-info">
+          <div class="contract-label">Contract Address:</div>
+          <div class="contract-value">
+            <code id="contract-address" class="monospace">Loading...</code>
+            <a id="explorer-link" href="#" target="_blank" rel="noopener" class="explorer-btn" title="View on Explorer">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></svg>
+            </a>
+            <button id="copy-contract" class="copy-btn" title="Copy address">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
+            </button>
           </div>
         </div>
 
-        <!-- Live-looking stats (placeholders) -->
-        <div class="stats" aria-hidden="false">
-          <div class="stat">
-            <div class="label">Holders</div>
-            <div class="value counter" data-target="12456">0</div>
+        <!-- Live Stats Grid -->
+        <div class="live-stats" id="live-stats">
+          <!-- Loading state by default -->
+          <div class="live-stat">
+            <div class="live-label">Price (USD)</div>
+            <div class="live-value" id="token-price">
+              <span class="loading-placeholder">Loading...</span>
+            </div>
           </div>
-          <div class="stat">
-            <div class="label">Market Cap (est)</div>
-            <div class="value counter" data-target="4200000">$0</div>
+          <div class="live-stat">
+            <div class="live-label">Market Cap</div>
+            <div class="live-value" id="market-cap">
+              <span class="loading-placeholder">Loading...</span>
+            </div>
           </div>
-          <div class="stat">
-            <div class="label">Liquidity</div>
-            <div class="value counter" data-target="85000">$0</div>
+          <div class="live-stat">
+            <div class="live-label">Holders</div>
+            <div class="live-value" id="holder-count">
+              <span class="loading-placeholder">Loading...</span>
+            </div>
+          </div>
+          <div class="live-stat">
+            <div class="live-label">Liquidity (USD)</div>
+            <div class="live-value" id="liquidity">
+              <span class="loading-placeholder">Loading...</span>
+            </div>
           </div>
         </div>
+
+        <p class="data-disclaimer">
+          <small>
+            <strong>Note:</strong> Data is fetched from on-chain sources and third-party APIs. 
+            Accuracy depends on availability. If data fails to load, it will show "Not available yet."
+          </small>
+        </p>
       </div>
     </section>
 
     <section class="panel" id="roadmap">
       <div class="container">
-        <h2>Roadmap</h2>
+        <h2>Roadmap — Realistic Milestones</h2>
+        <p class="muted">Developer-focused goals. No price predictions. No financial promises. Just transparent progress.</p>
         <div class="timeline">
-          <div class="phase" data-progress="60">
-            <div class="phase-header">Phase 1 — Foundation</div>
-            <p>Community setup, core contract deployment, basic listings and outreach.</p>
-            <div class="progress"><div class="progress-fill" style="width:0%"></div></div>
+          <div class="phase completed">
+            <div class="phase-header">✅ Phase 1 — Website v1</div>
+            <p><strong>Status:</strong> Complete</p>
+            <ul class="roadmap-list">
+              <li>Launch informational website</li>
+              <li>Publish whitepaper</li>
+              <li>Set up social channels (Telegram, X/Twitter)</li>
+              <li>Community formation</li>
+            </ul>
           </div>
-          <div class="phase" data-progress="25">
-            <div class="phase-header">Phase 2 — Growth</div>
-            <p>Community programs, partnerships, utility exploration, audits.</p>
-            <div class="progress"><div class="progress-fill" style="width:0%"></div></div>
+          <div class="phase in-progress">
+            <div class="phase-header">🚧 Phase 2 — Live Dashboard & Transparency</div>
+            <p><strong>Status:</strong> In Progress</p>
+            <ul class="roadmap-list">
+              <li>Real-time on-chain data display</li>
+              <li>Blockchain explorer integration</li>
+              <li>Contract verification and documentation</li>
+              <li>Community engagement tools</li>
+            </ul>
           </div>
-          <div class="phase" data-progress="0">
-            <div class="phase-header">Phase 3 — Maturity</div>
-            <p>Governance tooling, long-term sustainability mechanisms, ecosystem expansion.</p>
-            <div class="progress"><div class="progress-fill" style="width:0%"></div></div>
+          <div class="phase upcoming">
+            <div class="phase-header">📋 Phase 3 — Community Tools</div>
+            <p><strong>Status:</strong> Planned</p>
+            <ul class="roadmap-list">
+              <li>Developer documentation</li>
+              <li>Community governance framework</li>
+              <li>Contribution guidelines</li>
+              <li>Ambassador program</li>
+            </ul>
+          </div>
+          <div class="phase upcoming">
+            <div class="phase-header">🔓 Phase 4 — Open Source Release</div>
+            <p><strong>Status:</strong> Future</p>
+            <ul class="roadmap-list">
+              <li>Open-source project components</li>
+              <li>Developer API/SDK (if applicable)</li>
+              <li>Community-driven feature requests</li>
+              <li>Long-term sustainability planning</li>
+            </ul>
           </div>
         </div>
+        <p class="roadmap-note">
+          <strong>Important:</strong> This roadmap is subject to change based on community feedback and realistic development timelines. 
+          We do not make promises about token price, listings, or financial returns.
+        </p>
       </div>
     </section>
 
     <section class="panel dark" id="community">
       <div class="container">
-        <h2>Community</h2>
-        <p class="muted">Sleep less, SNOZ more 😴💰</p>
-        <div class="community-links">
-          <a class="social" href="https://t.me/snozcoin" target="_blank" rel="noopener">Telegram</a>
-          <a class="social" href="https://x.com/elijahsnoz" target="_blank" rel="noopener">X / Twitter (@elijahsnoz)</a>
-          <a class="social" href="https://www.instagram.com/elijahsnoz" target="_blank" rel="noopener">Instagram (@elijahsnoz)</a>
-          <a class="social" href="https://www.youtube.com/@ELIJAHSNOZ" target="_blank" rel="noopener">YouTube</a>
+        <h2>Community Proof</h2>
+        <p class="muted">Real people building together. No bots. No fake engagement.</p>
+        
+        <div class="community-grid">
+          <!-- Twitter Feed Embed -->
+          <div class="twitter-section">
+            <h3>Latest from X/Twitter</h3>
+            <!-- Twitter timeline embed - User should replace with actual embed code from Twitter -->
+            <div class="twitter-embed-container">
+              <a class="twitter-timeline" 
+                 data-height="400" 
+                 data-theme="dark" 
+                 data-chrome="noheader nofooter noborders"
+                 href="https://twitter.com/elijahsnoz?ref_src=twsrc%5Etfw">
+                Tweets by @elijahsnoz
+              </a>
+            </div>
+            <p class="small-text"><a href="https://x.com/elijahsnoz" target="_blank" rel="noopener">Follow @elijahsnoz on X/Twitter →</a></p>
+          </div>
+
+          <!-- Community Links & Stats -->
+          <div class="community-info">
+            <h3>Join the Community</h3>
+            <div class="community-links-vertical">
+              <a class="social-card" href="https://t.me/snozcoin" target="_blank" rel="noopener">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z"/></svg>
+                <div>
+                  <strong>Telegram</strong>
+                  <span id="telegram-members" class="member-count">Join now</span>
+                </div>
+              </a>
+              
+              <a class="social-card" href="https://x.com/elijahsnoz" target="_blank" rel="noopener">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z"/></svg>
+                <div>
+                  <strong>X (Twitter)</strong>
+                  <span class="member-count">@elijahsnoz</span>
+                </div>
+              </a>
+
+              <a class="social-card" href="https://www.instagram.com/elijahsnoz" target="_blank" rel="noopener">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg>
+                <div>
+                  <strong>Instagram</strong>
+                  <span class="member-count">@elijahsnoz</span>
+                </div>
+              </a>
+
+              <a class="social-card" href="https://www.youtube.com/@ELIJAHSNOZ" target="_blank" rel="noopener">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/></svg>
+                <div>
+                  <strong>YouTube</strong>
+                  <span class="member-count">@ELIJAHSNOZ</span>
+                </div>
+              </a>
+            </div>
+
+            <div class="cta-box">
+              <h4>Join the community to build together</h4>
+              <p>We're looking for developers, designers, community managers, and anyone who believes in transparent, community-first projects.</p>
+              <a href="https://t.me/snozcoin" target="_blank" rel="noopener" class="btn btn-primary">Join Telegram Community</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="panel" id="faq">
+      <div class="container">
+        <h2>Frequently Asked Questions</h2>
+        <p class="muted">Honest answers to common questions.</p>
+        
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h3>What is SNOZCOIN?</h3>
+            <p>SNOZCOIN ($SNOZ) is a community-first cryptocurrency project focused on transparency, realistic development goals, and sustainable growth. We prioritize honest communication over hype.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Is this a meme coin or a utility project?</h3>
+            <p>SNOZCOIN started as a community-driven project with a focus on building real utility over time. While we embrace community culture and fun, our roadmap is developer-focused and realistic. We're building tools, transparency features, and governance systems—not making price promises.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>How can developers contribute?</h3>
+            <p>We welcome developers! You can contribute by:</p>
+            <ul>
+              <li>Joining our <a href="https://github.com/elijahsnoz/snozcoin" target="_blank" rel="noopener">GitHub repository</a></li>
+              <li>Participating in community discussions on <a href="https://t.me/snozcoin" target="_blank" rel="noopener">Telegram</a></li>
+              <li>Proposing features or improvements</li>
+              <li>Helping with documentation, testing, or design</li>
+            </ul>
+            <p>We're building openly and value every contribution.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Is this financial advice?</h3>
+            <p><strong>No. Absolutely not.</strong> Nothing on this website constitutes financial, investment, legal, or tax advice. Cryptocurrency investments are highly risky. You could lose all your money. Always do your own research (DYOR) and consult with a qualified financial advisor before making any investment decisions.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>How do I verify the contract is safe?</h3>
+            <p>We encourage everyone to verify everything:</p>
+            <ul>
+              <li>Check the contract address on a blockchain explorer</li>
+              <li>Review the contract source code (if verified)</li>
+              <li>Look for third-party audits (if available)</li>
+              <li>Never trust, always verify</li>
+            </ul>
+            <p>All contract links are provided in the <a href="#transparency">Transparency section</a>.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Where can I buy SNOZCOIN?</h3>
+            <p>SNOZCOIN can be traded on decentralized exchanges (DEX). Check the <a href="#transparency">Transparency section</a> for links to pump.fun and other platforms. Always verify the contract address before trading to avoid scams.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>What makes SNOZCOIN different?</h3>
+            <p>We prioritize:</p>
+            <ul>
+              <li><strong>Transparency:</strong> Real-time on-chain data, verifiable claims</li>
+              <li><strong>Honesty:</strong> No fake hype, no price predictions, no financial promises</li>
+              <li><strong>Community:</strong> Real people building together, not bots</li>
+              <li><strong>Developer focus:</strong> Realistic roadmap, open-source ethos</li>
+            </ul>
+          </div>
+
+          <div class="faq-item">
+            <h3>Will SNOZCOIN moon? 🚀</h3>
+            <p>We don't make price predictions. Token price depends on market conditions, adoption, utility, and many factors beyond our control. Anyone promising guaranteed returns is lying. Invest responsibly and only what you can afford to lose.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -191,14 +420,22 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-left">
-        <p class="disclaimer"><strong>Disclaimer:</strong> Not financial advice. Do your own research before investing.</p>
+        <p class="disclaimer">
+          <strong>Risk Disclaimer:</strong> Cryptocurrency investments carry significant risk. 
+          You could lose all your invested capital. This website does not provide financial, investment, legal, or tax advice. 
+          Always do your own research (DYOR) and consult a qualified professional before making investment decisions.
+        </p>
       </div>
       <div class="footer-right">
         <p>Built by <a href="https://x.com/elijahsnoz" target="_blank" rel="noopener">@elijahsnoz</a></p>
+        <p class="small-text">Open source on <a href="https://github.com/elijahsnoz/snozcoin" target="_blank" rel="noopener">GitHub</a></p>
       </div>
     </div>
   </footer>
 
+  <!-- Twitter Widgets Script (for embedded timeline) -->
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  
   <script src="js/main.js"></script>
 </body>
 </html>
