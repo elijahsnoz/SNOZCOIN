@@ -13,14 +13,14 @@
 // CONFIG - UPDATE THESE WITH REAL VALUES
 // ============================================
 const CONFIG = {
-  // Replace with actual Solana token address
-  contractAddress: 'YOUR_CONTRACT_ADDRESS_HERE', // Example: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v'
+  // SNOZCOIN (SNZ) Contract Address on Solana
+  contractAddress: 'CQdiqHthNfY2p1RiBEaRty6k99eJ58DyDAqzNscDpump', // SNOZCOIN (SNZ)
   
-  // Blockchain explorer base URL (e.g., Solscan for Solana)
+  // Blockchain explorer base URL (Solscan for Solana)
   explorerUrl: 'https://solscan.io/token/',
   
-  // pump.fun page (if applicable)
-  pumpFunUrl: 'https://pump.fun/YOUR_TOKEN_ID',
+  // pump.fun page
+  pumpFunUrl: 'https://pump.fun/CQdiqHthNfY2p1RiBEaRty6k99eJ58DyDAqzNscDpump',
   
   // Current market cap (fallback if API fails) - User mentioned $3900
   fallbackMarketCap: 3900,
