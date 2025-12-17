@@ -70,6 +70,20 @@
           </div>
           <p class="small-text">SnozCoin is a creator utility token. This is not financial advice.</p>
         </div>
+        <div class="transparency-card">
+          <h3>🔧 Token Status & Deployment Recommendations</h3>
+          <p class="muted">The original SNOZCOIN token is no longer supported on this site. If you plan to relaunch or deploy a new token, follow these practical, more reliable steps:</p>
+          <ul>
+            <li><strong>Use audited, standard libraries</strong> — base your token on OpenZeppelin contracts (ERC‑20 / SPL) and avoid unreviewed templates.</li>
+            <li><strong>Use multisig for admin keys</strong> (e.g., Gnosis Safe) and time-lock critical functions to increase trust.</li>
+            <li><strong>Lock liquidity</strong> or use a reputable locker service so community funds are protected immediately after launch.</li>
+            <li><strong>Test thoroughly on testnets</strong> (Ropsten/Goerli or Solana devnet) and verify the source code on explorers (Etherscan, Solscan).</li>
+            <li><strong>Get an independent audit</strong> before promoting or listing the token widely.</li>
+            <li><strong>Prefer established DEX/CEX listing processes</strong> and follow listing guidelines from CoinGecko/CoinMarketCap when applicable.</li>
+            <li><strong>Document tokenomics & vesting</strong> clearly and publish them alongside the verified contract source.</li>
+          </ul>
+          <p class="small-text">If you want, I can help implement a proper deployment pipeline (Hardhat/Foundry + OpenZeppelin + multisig + Etherscan verification) and a testnet walkthrough.</p>
+        </div>
         <div class="hero-visual">
           <div class="coin-card">
             <picture>
