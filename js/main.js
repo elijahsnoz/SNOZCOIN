@@ -13,14 +13,9 @@
 // CONFIG - UPDATE THESE WITH REAL VALUES
 // ============================================
 const CONFIG = {
-  // SNOZCOIN (SNZ) Contract Address on Solana
-  contractAddress: 'CQdiqHthNfY2p1RiBEaRty6k99eJ58DyDAqzNscDpump', // SNOZCOIN (SNZ)
-  
-  // Blockchain explorer base URL (Solscan for Solana)
+  // Note: Contract address and third-party listing links have been removed from the public site
+  contractAddress: null,
   explorerUrl: 'https://solscan.io/token/',
-  
-  // pump.fun page
-  pumpFunUrl: 'https://pump.fun/CQdiqHthNfY2p1RiBEaRty6k99eJ58DyDAqzNscDpump',
   
   // Current market cap (fallback if API fails) - User mentioned $3900
   fallbackMarketCap: 3900,
@@ -230,51 +225,7 @@ function initAutoRefresh() {
  * Initialize contract address display and links
  */
 function initContractInfo() {
-  // Set contract address
-  const contractEl = document.getElementById('contract-address');
-  if (contractEl) {
-    contractEl.textContent = CONFIG.contractAddress;
-  }
-  
-  // Set explorer link
-  const explorerLink = document.getElementById('explorer-link');
-  if (explorerLink) {
-    explorerLink.href = CONFIG.explorerUrl + CONFIG.contractAddress;
-  }
-  
-  const explorerLinkMain = document.getElementById('explorer-link-main');
-  if (explorerLinkMain) {
-    explorerLinkMain.href = CONFIG.explorerUrl + CONFIG.contractAddress;
-  }
-  
-  // Set pump.fun link
-  const pumpLink = document.getElementById('pumpfun-link');
-  if (pumpLink) {
-    pumpLink.href = CONFIG.pumpFunUrl;
-  }
-  
-  // Copy button functionality
-  const copyBtn = document.getElementById('copy-contract');
-  if (copyBtn) {
-    copyBtn.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(CONFIG.contractAddress);
-        
-        // Visual feedback
-        const originalHTML = copyBtn.innerHTML;
-        copyBtn.innerHTML = '<svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>';
-        copyBtn.style.color = '#4caf50';
-        
-        setTimeout(() => {
-          copyBtn.innerHTML = originalHTML;
-          copyBtn.style.color = '';
-        }, 2000);
-      } catch (err) {
-        console.error('Failed to copy:', err);
-        alert('Failed to copy address. Please copy manually.');
-      }
-    });
-  }
+  // Contract address display and copy functionality removed.
 }
 
 // ============================================
@@ -317,9 +268,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }, { threshold: 0.12 });
   revealItems.forEach(i => obs.observe(i));
 
-  // Initialize contract info and links
-  initContractInfo();
-  
   // Initialize live data fetching with auto-refresh
   initAutoRefresh();
   

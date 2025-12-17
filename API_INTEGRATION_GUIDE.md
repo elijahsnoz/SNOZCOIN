@@ -17,8 +17,9 @@ const CONFIG = {
   explorerUrl: 'https://solscan.io/token/', // For Solana
   // explorerUrl: 'https://etherscan.io/token/', // For Ethereum
   
-  // pump.fun page (if applicable)
-  pumpFunUrl: 'https://pump.fun/YOUR_TOKEN_ID',
+  // Third-party listing page (if applicable)
+  // Note: this project removed direct pump.fun links. Replace with your official listing URL or leave blank.
+  listingUrl: '',
   
   // Current market cap (used as fallback)
   fallbackMarketCap: 3900,
@@ -271,7 +272,7 @@ async function fetchTokenData() {
 1. **Update CONFIG in `js/main.js`**
    - Add your contract address
    - Set correct explorer URL
-   - Update pump.fun link
+  - Update third-party listing link (if applicable)
 
 2. **Choose your API(s)**
    - Start with DexScreener (easiest, no key required)
@@ -379,7 +380,7 @@ Before deploying:
 
 - [ ] Updated contract address in CONFIG
 - [ ] Tested API integration locally
-- [ ] Verified all links work (explorer, pump.fun, GitHub)
+ - [ ] Verified all links work (explorer, listing URL, GitHub)
 - [ ] Checked mobile responsiveness
 - [ ] Tested error states (disconnect internet, test fallbacks)
 - [ ] Removed any console.log in production

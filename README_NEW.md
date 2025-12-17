@@ -21,7 +21,7 @@
 - **Token supply details**: Total and circulating supply
 - **Liquidity status**: Pool size and lock status
 - **Ownership info**: Contract owner status (renounced or active)
-- **Verifiable links**: Explorer, pump.fun, GitHub
+- **Verifiable links**: Explorer, official listing (if any), GitHub
 
 ### ✅ Realistic Roadmap
 - **Developer-focused milestones**: Website v1, Live Dashboard, Community Tools, Open Source Release
@@ -75,12 +75,12 @@
    
    Open `js/main.js` and update the `CONFIG` object:
    ```javascript
-   const CONFIG = {
-     contractAddress: 'YOUR_CONTRACT_ADDRESS_HERE',
-     explorerUrl: 'https://solscan.io/token/', // Or your chain's explorer
-     pumpFunUrl: 'https://pump.fun/YOUR_TOKEN_ID',
-     fallbackMarketCap: 3900, // Current market cap
-   };
+      const CONFIG = {
+         contractAddress: 'YOUR_CONTRACT_ADDRESS_HERE',
+         explorerUrl: 'https://solscan.io/token/', // Or your chain's explorer
+         // listingUrl: 'https://your-listing.example.com',
+         fallbackMarketCap: 3900, // Current market cap
+      };
    ```
 
 3. **Integrate Live APIs** (Optional but recommended)
@@ -138,7 +138,7 @@ snozcoin/
 const CONFIG = {
   contractAddress: 'YOUR_CONTRACT_ADDRESS_HERE',
   explorerUrl: 'https://solscan.io/token/',
-  pumpFunUrl: 'https://pump.fun/YOUR_TOKEN_ID',
+   // listingUrl: 'https://your-listing.example.com',
   fallbackMarketCap: 3900,
   refreshInterval: 60000, // 60 seconds
   telegramGroup: 'snozcoin',
