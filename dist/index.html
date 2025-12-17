@@ -70,6 +70,20 @@
           </div>
           <p class="small-text">SnozCoin is a creator utility token. This is not financial advice.</p>
         </div>
+        <div class="transparency-card">
+          <h3>🔧 Token Status & Deployment Recommendations</h3>
+          <p class="muted">The original SNOZCOIN token is no longer supported on this site. If you plan to relaunch or deploy a new token, follow these practical, more reliable steps:</p>
+          <ul>
+            <li><strong>Use audited, standard libraries</strong> — base your token on OpenZeppelin contracts (ERC‑20 / SPL) and avoid unreviewed templates.</li>
+            <li><strong>Use multisig for admin keys</strong> (e.g., Gnosis Safe) and time-lock critical functions to increase trust.</li>
+            <li><strong>Lock liquidity</strong> or use a reputable locker service so community funds are protected immediately after launch.</li>
+            <li><strong>Test thoroughly on testnets</strong> (Ropsten/Goerli or Solana devnet) and verify the source code on explorers (Etherscan, Solscan).</li>
+            <li><strong>Get an independent audit</strong> before promoting or listing the token widely.</li>
+            <li><strong>Prefer established DEX/CEX listing processes</strong> and follow listing guidelines from CoinGecko/CoinMarketCap when applicable.</li>
+            <li><strong>Document tokenomics & vesting</strong> clearly and publish them alongside the verified contract source.</li>
+          </ul>
+          <p class="small-text">If you want, I can help implement a proper deployment pipeline (Hardhat/Foundry + OpenZeppelin + multisig + Etherscan verification) and a testnet walkthrough.</p>
+        </div>
         <div class="hero-visual">
           <div class="coin-card">
             <picture>
@@ -150,7 +164,7 @@
               <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/><path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/></svg>
               Blockchain Explorer
             </a>
-            <!-- pump.fun link removed -->
+            <!-- pump.fun link removed per owner request -->
             <a href="https://github.com/elijahsnoz/SNOZCOIN" target="_blank" rel="noopener" class="verify-link">
               <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
               SnozCoin Repository
@@ -204,7 +218,7 @@
         <h2>Live Token Data</h2>
         <p class="muted">Real-time on-chain metrics. Auto-refreshes every 60 seconds. <span id="last-update" class="update-time"></span></p>
         
-        <!-- Contract address and direct purchase links have been removed -->
+        <!-- Contract address and direct purchase links have been removed at owner request -->
         <div class="contract-info">
           <p class="muted">The original SNOZCOIN contract address and direct purchase links have been removed from this site. The token is no longer supported here.</p>
         </div>
@@ -403,7 +417,7 @@
 
           <div class="faq-item">
             <h3>Where can I buy SnozCoin?</h3>
-            <p>Buy SnozCoin on listed platforms (see Transparency). For convenience, use the official purchase link on this site. Always verify the contract address before trading.</p>
+            <p>The original SNOZCOIN token has been retired and is no longer supported on this site. If a new token is deployed in the future, purchase information will be made available through official channels. See the Transparency section for recommended deployment practices.</p>
           </div>
         </div>
       </div>
