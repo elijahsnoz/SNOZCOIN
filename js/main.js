@@ -218,17 +218,6 @@ function initAutoRefresh() {
 }
 
 // ============================================
-// CONTRACT ADDRESS & LINKS
-// ============================================
-
-/**
- * Initialize contract address display and links
- */
-function initContractInfo() {
-  // Contract address display and copy functionality removed.
-}
-
-// ============================================
 // NAVIGATION & UI
 // ============================================
 
