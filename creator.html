@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Creator Profile — SnozCoin</title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="Creator profile on SnozCoin — tipping, unlockables and community support." />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">
+        <img src="assets/SNOZCOIN-128.png" alt="SnozCoin" class="brand-logo">
+        <span class="brand-text">SnozCoin</span>
+      </a>
+      <nav class="nav">
+        <a href="/">Home</a>
+        <a href="/creators.html">Creators</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel" id="creator-profile">
+      <div class="container">
+        <div id="profileRoot">
+          <h1 id="creatorName">Loading...</h1>
+          <p id="creatorBio" class="muted">Loading profile…</p>
+
+          <div id="profileActions" class="profile-actions">
+            <button id="tipBtn" class="btn btn-primary">Tip with SnozCoin</button>
+            <button id="followBtn" class="btn btn-ghost">Follow</button>
+          </div>
+
+          <h3 class="section-title">Unlockables</h3>
+          <div id="unlockables" class="about-grid"></div>
+
+          <h3 class="section-title">Activity</h3>
+          <div id="activity" class="transparency-grid"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <template id="tip-modal-template">
+    <div class="modal">
+      <h3>Tip Creator</h3>
+      <p class="muted">Connect your wallet to send a tip with SnozCoin.</p>
+      <div>
+        <button data-amount="1" class="btn">1 SNZ</button>
+        <button data-amount="5" class="btn">5 SNZ</button>
+        <button data-amount="10" class="btn">10 SNZ</button>
+      </div>
+      <div style="margin-top:1rem;"><button id="connectWallet" class="btn btn-primary">Connect Wallet</button></div>
+      <div style="margin-top:0.75rem;"><button id="closeTipModal" class="btn btn-ghost">Close</button></div>
+    </div>
+  </template>
+
+  <script src="js/creator.js"></script>
+</body>
+</html>

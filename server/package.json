@@ -1,0 +1,14 @@
+{
+  "name": "snozcoin-backend-sample",
+  "version": "0.1.0",
+  "description": "Sample Node/Express backend for SnozCoin creator features (development only)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "crypto": "^1.0.1"
+  }
+}
