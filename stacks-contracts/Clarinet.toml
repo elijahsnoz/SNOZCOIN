@@ -1,0 +1,45 @@
+[project]
+name = 'stacks-contracts'
+description = ''
+authors = []
+telemetry = false
+cache_dir = './.cache'
+requirements = []
+
+[contracts.snoz-token]
+path = 'contracts/snoz-token.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.snoz-rewards-engine]
+path = 'contracts/snoz-rewards-engine.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.snoz-governance]
+path = 'contracts/snoz-governance.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.snozcoin-content]
+path = 'contracts/snozcoin-content.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.snozcoin-rewards]
+path = 'contracts/snozcoin-rewards.clar'
+clarity_version = 3
+epoch = 3.1
+
+[contracts.snozcoin-tipping]
+path = 'contracts/snozcoin-tipping.clar'
+clarity_version = 3
+epoch = 3.1
+[repl.analysis]
+passes = ['check_checker']
+
+[repl.analysis.check_checker]
+strict = false
+trusted_sender = false
+trusted_caller = false
+callee_filter = false

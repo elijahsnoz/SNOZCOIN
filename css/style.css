@@ -493,3 +493,344 @@ body{
   }
 }
 
+/* ============================================
+   SNOZ UTILITY TOKEN INTEGRATION
+   ============================================ */
+
+/* SNOZ Section */
+.snoz-section {
+  background: linear-gradient(135deg, rgba(255, 210, 120, 0.02), rgba(197, 154, 47, 0.03));
+  border: 1px solid rgba(255, 210, 120, 0.1);
+}
+
+.snoz-section h2 {
+  background: var(--accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Connect Wallet Button */
+#snoz-connect-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--glass);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--muted);
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+#snoz-connect-btn:hover {
+  border-color: var(--gold-1);
+  color: var(--gold-1);
+  background: rgba(255, 210, 120, 0.05);
+}
+
+#snoz-connect-btn.connected {
+  background: rgba(255, 210, 120, 0.08);
+  border-color: var(--gold-2);
+  color: #fff;
+}
+
+.snoz-tier-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 0.75rem;
+}
+
+/* SNOZ Balance Display */
+.snoz-balance-card {
+  background: var(--glass);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.snoz-balance-card .snoz-amount {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: var(--accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.snoz-balance-card .snoz-label {
+  display: block;
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+/* Tier Display */
+.tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  font-weight: 600;
+}
+
+.tier-icon {
+  font-size: 1.25rem;
+}
+
+.tier-name {
+  font-size: 1rem;
+}
+
+.tier-progress {
+  margin-top: 1rem;
+}
+
+.tier-progress-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.tier-progress-fill {
+  height: 100%;
+  transition: width 0.5s ease;
+}
+
+.tier-progress-text {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.tier-max {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--gold-1);
+  font-weight: 600;
+}
+
+/* SNOZ Tier Cards */
+.snoz-tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.snoz-tier-card {
+  background: var(--glass);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 1.25rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.snoz-tier-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.snoz-tier-card.bronze { border-color: #CD7F32; }
+.snoz-tier-card.silver { border-color: #C0C0C0; }
+.snoz-tier-card.gold { border-color: #FFD700; }
+.snoz-tier-card.platinum { border-color: #E5E4E2; }
+.snoz-tier-card.diamond { border-color: #B9F2FF; }
+
+.snoz-tier-card .tier-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.snoz-tier-card .tier-name {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.snoz-tier-card .tier-threshold {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* Rewards Preview */
+.snoz-rewards-preview {
+  background: var(--glass);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+.snoz-rewards-preview h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.rewards-calculator {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.reward-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.reward-row label {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.reward-input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.reward-input-group input {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-size: 1rem;
+}
+
+.reward-input-group input:focus {
+  outline: none;
+  border-color: var(--gold-1);
+}
+
+.reward-input-group .unit {
+  color: var(--muted);
+  font-size: 0.9rem;
+  min-width: 40px;
+}
+
+.reward-result {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(255, 210, 120, 0.08);
+  border-radius: 8px;
+  color: var(--gold-1);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* SNOZ Utility Grid */
+.snoz-utility-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.snoz-utility-card {
+  background: var(--glass);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.snoz-utility-card svg {
+  width: 40px;
+  height: 40px;
+  color: var(--gold-1);
+  margin-bottom: 1rem;
+}
+
+.snoz-utility-card h4 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.snoz-utility-card p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Important Notice */
+.snoz-notice {
+  background: rgba(255, 210, 120, 0.05);
+  border-left: 3px solid var(--gold-1);
+  padding: 1rem 1.5rem;
+  margin-top: 2rem;
+  border-radius: 0 8px 8px 0;
+}
+
+.snoz-notice strong {
+  color: var(--gold-1);
+}
+
+/* SNOZ Notification */
+.snoz-notification {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--panel);
+  border: 1px solid rgba(255, 210, 120, 0.2);
+  color: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1100;
+}
+
+.snoz-notification.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .snoz-tiers-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .snoz-utility-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .rewards-calculator {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .snoz-tiers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .snoz-utility-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .snoz-balance-card .snoz-amount {
+    font-size: 2rem;
+  }
+}
