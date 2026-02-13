@@ -553,10 +553,12 @@
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   
   <!-- 
-    Wallet Connection: Uses direct wallet provider detection for Leather/Xverse.
-    No external library needed - wallets inject their providers into window object.
-    Run debugWalletDetection() in console to troubleshoot wallet detection.
+    Stacks Integration Libraries
+    Using official @stacks packages for blockchain interaction
   -->
+  <script src="https://unpkg.com/@stacks/connect@7.7.2/dist/umd/index.js"></script>
+  <script src="https://unpkg.com/@stacks/network@6.13.0/dist/umd/index.js"></script>
+  <script src="https://unpkg.com/@stacks/transactions@6.13.0/dist/umd/index.js"></script>
   
   <script src="js/main.js"></script>
   <script src="js/snoz-stacks.js"></script>
