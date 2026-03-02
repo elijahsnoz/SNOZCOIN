@@ -33,6 +33,15 @@
   <meta name="theme-color" content="#0b0b0b">
 </head>
 <body>
+  <!-- Connection Status Indicator -->
+  <div id="connection-status" class="connection-status">
+    <span class="status-dot"></span>
+    <span class="status-text">Checking network...</span>
+  </div>
+
+  <!-- Toast Container for Notifications -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="#">
@@ -52,6 +61,7 @@
         <a href="#transparency">Transparency</a>
         <a href="#roadmap">Roadmap</a>
         <a href="#faq">FAQ</a>
+        <a href="/swap" class="swap-link">🔄 Swap</a>
         <a class="cta" href="https://t.me/snozcoin" target="_blank" rel="noopener">Join Telegram</a>
       </nav>
     </div>
@@ -65,6 +75,7 @@
           <p class="lead">Empower creators with direct STX payments. Unlock exclusive content. Earn community rewards. All transactions transparent and on-chain.</p>
           <div class="hero-ctas">
             <a class="btn btn-primary" href="#creators">Explore Creators</a>
+            <a class="btn btn-swap" href="/swap">🔄 Swap USDT/SOL</a>
             <a class="btn btn-ghost" id="openWhitepaper" href="/assets/SNOZCOIN_whitepaper.pdf" download="SNOZCOIN_whitepaper.pdf">Whitepaper (PDF)</a>
           </div>
           <p class="small-text">SNOZCOIN is a scalable creator monetization platform built on Stacks with Bitcoin security.</p>
@@ -244,6 +255,33 @@
               </div>
             </div>
           </div>
+        </div>
+        
+        <!-- Transaction History Panel -->
+        <div id="tx-history-panel" class="tx-history-panel" style="display: none;">
+          <div class="tx-history-header">
+            <h3>Recent Transactions</h3>
+            <button id="tx-history-close" class="tx-history-close" aria-label="Close transaction history">&times;</button>
+          </div>
+          <div id="tx-history-list" class="tx-list">
+            <div class="tx-empty">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="48" height="48">
+                <path d="M12 2v20m10-10H2"/>
+              </svg>
+              <p>No transactions yet</p>
+              <span>Your transactions will appear here</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Transaction History Toggle Button -->
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <button id="tx-history-toggle" class="btn btn-ghost" style="display: none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="margin-right: 0.5rem;">
+              <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            View Transaction History
+          </button>
         </div>
         
         <!-- SNOZ Utility Purposes -->
@@ -560,7 +598,24 @@
   <script src="https://unpkg.com/@stacks/network@6.13.0/dist/umd/index.js"></script>
   <script src="https://unpkg.com/@stacks/transactions@6.13.0/dist/umd/index.js"></script>
   
+  <!-- Core JS -->
   <script src="js/main.js"></script>
+  
+  <!-- UI Components: Toast notifications, Loading states, Modals, Transaction history -->
+  <script src="js/ui-components.js"></script>
+  
+  <!-- Stacks Integration -->
   <script src="js/snoz-stacks.js"></script>
+  
+  <!-- Loading Overlay (for async operations) -->
+  <div id="loading-overlay" class="loading-overlay" style="display: none;">
+    <div class="loading-content">
+      <div class="spinner spinner-lg"></div>
+      <p id="loading-message">Processing...</p>
+    </div>
+  </div>
+
+  <!-- Modal Container -->
+  <div id="modal-container"></div>
 </body>
 </html>

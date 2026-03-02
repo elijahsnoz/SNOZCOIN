@@ -297,6 +297,8 @@ function getWalletProvider() {
  */
 async function connectWallet() {
   console.log('Attempting wallet connection...');
+  showWalletLoading(true, 'Connecting to wallet...');
+  updateConnectionStatus('connecting', 'Connecting...');
   
   // First try direct provider connection (most reliable)
   const walletInfo = getWalletProvider();
@@ -358,6 +360,8 @@ async function connectWallet() {
       
       if (address) {
         console.log('Connected to address:', address);
+        showWalletLoading(false);
+        updateConnectionStatus('connected', 'Connected');
         updateSnozState({ connected: true, address });
         showWalletNotification(`Connected: ${address.slice(0, 8)}...${address.slice(-4)}`);
         updateSnozUI();
@@ -366,6 +370,8 @@ async function connectWallet() {
       }
     } catch (error) {
       console.error('Wallet provider error:', error);
+      showWalletLoading(false);
+      updateConnectionStatus('error', 'Connection failed');
     }
   }
   
@@ -395,6 +401,8 @@ async function connectWallet() {
               const address = userData.profile.stxAddress?.mainnet || 
                              userData.profile.stxAddress?.testnet;
               console.log('Connected via @stacks/connect:', address);
+              showWalletLoading(false);
+              updateConnectionStatus('connected', 'Connected');
               updateSnozState({ connected: true, address });
               showWalletNotification('Wallet connected!');
               updateSnozUI();
@@ -402,6 +410,8 @@ async function connectWallet() {
               resolve(address);
             },
             onCancel: () => {
+              showWalletLoading(false);
+              updateConnectionStatus('disconnected', 'Disconnected');
               showWalletNotification('Connection cancelled');
               reject(new Error('User cancelled'));
             }
@@ -410,11 +420,15 @@ async function connectWallet() {
       }
     } catch (error) {
       console.error('@stacks/connect error:', error);
+      showWalletLoading(false);
+      updateConnectionStatus('error', 'Connection failed');
     }
   }
   
   // No wallet detected - show installation prompt
   console.log('No wallet detected');
+  showWalletLoading(false);
+  updateConnectionStatus('error', 'No wallet found');
   showWalletNotification('No Stacks wallet found. Please install Leather or Xverse.');
   
   const choice = confirm(
@@ -444,6 +458,7 @@ function disconnectWallet() {
     tier: 'bronze',
     tierName: 'Bronze'
   });
+  updateConnectionStatus('disconnected', 'Disconnected');
   updateSnozUI();
   showWalletNotification('Wallet disconnected');
 }
@@ -629,9 +644,23 @@ function updateRewardsPreview() {
 
 /**
  * Show wallet notification
+ * Uses new ToastManager if available, falls back to simple notification
  */
-function showWalletNotification(message) {
-  // Create notification if it doesn't exist
+function showWalletNotification(message, type = 'info') {
+  // Try to use new ToastManager if available
+  if (typeof window.ToastManager !== 'undefined') {
+    const toastType = message.toLowerCase().includes('error') || message.toLowerCase().includes('failed') 
+      ? 'error' 
+      : message.toLowerCase().includes('disconnect') 
+        ? 'warning'
+        : message.toLowerCase().includes('connect') 
+          ? 'success' 
+          : 'info';
+    window.ToastManager[toastType](message);
+    return;
+  }
+  
+  // Fallback: Create notification if it doesn't exist
   let notification = document.getElementById('snoz-notification');
   if (!notification) {
     notification = document.createElement('div');
@@ -646,6 +675,49 @@ function showWalletNotification(message) {
   setTimeout(() => {
     notification.classList.remove('show');
   }, 3000);
+}
+
+/**
+ * Update connection status indicator
+ */
+function updateConnectionStatus(status, message) {
+  if (typeof window.ConnectionStatus !== 'undefined') {
+    window.ConnectionStatus.update(status, message);
+  }
+}
+
+/**
+ * Show loading state during wallet operations
+ */
+function showWalletLoading(show, message = 'Connecting wallet...') {
+  if (typeof window.LoadingManager !== 'undefined') {
+    if (show) {
+      window.LoadingManager.showOverlay(message);
+    } else {
+      window.LoadingManager.hideOverlay();
+    }
+  }
+}
+
+/**
+ * Log transaction to history
+ */
+function logTransaction(type, amount, recipient, txId, status = 'pending') {
+  if (typeof window.TransactionHistory !== 'undefined') {
+    window.TransactionHistory.addTransaction({
+      type,
+      amount,
+      recipient,
+      txId,
+      status
+    });
+    
+    // Show transaction history toggle button
+    const toggleBtn = document.getElementById('tx-history-toggle');
+    if (toggleBtn) {
+      toggleBtn.style.display = 'inline-flex';
+    }
+  }
 }
 
 // ============================================
@@ -689,6 +761,45 @@ function initSnozIntegration() {
   
   // Load saved state
   loadSavedState();
+  
+  // Initialize connection status
+  updateConnectionStatus('checking', 'Checking network...');
+  setTimeout(() => {
+    if (snozState.connected) {
+      updateConnectionStatus('connected', 'Connected');
+    } else {
+      updateConnectionStatus('disconnected', 'Not connected');
+    }
+  }, 1000);
+  
+  // Setup transaction history toggle
+  const txHistoryToggle = document.getElementById('tx-history-toggle');
+  const txHistoryPanel = document.getElementById('tx-history-panel');
+  const txHistoryClose = document.getElementById('tx-history-close');
+  
+  if (txHistoryToggle && txHistoryPanel) {
+    txHistoryToggle.addEventListener('click', () => {
+      txHistoryPanel.style.display = txHistoryPanel.style.display === 'none' ? 'block' : 'none';
+      // Render transaction history
+      if (typeof window.TransactionHistory !== 'undefined') {
+        window.TransactionHistory.render('tx-history-list');
+      }
+    });
+  }
+  
+  if (txHistoryClose && txHistoryPanel) {
+    txHistoryClose.addEventListener('click', () => {
+      txHistoryPanel.style.display = 'none';
+    });
+  }
+  
+  // Check if there are any transactions in history and show toggle
+  if (typeof window.TransactionHistory !== 'undefined') {
+    const transactions = window.TransactionHistory.getAll();
+    if (transactions && transactions.length > 0 && txHistoryToggle) {
+      txHistoryToggle.style.display = 'inline-flex';
+    }
+  }
   
   // Setup event listeners
   const connectBtn = document.getElementById('snoz-connect-btn');
@@ -770,6 +881,8 @@ if (typeof module !== 'undefined' && module.exports) {
     formatSnoz,
     getTierFromBalance,
     getTierProgress,
-    debugWalletDetection
+    debugWalletDetection,
+    logTransaction,
+    updateConnectionStatus
   };
 }
