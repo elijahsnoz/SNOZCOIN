@@ -31,21 +31,21 @@ export const SUPPORTED_TOKENS: Record<string, TokenInfo> = {
     name: 'Solana',
     mint: SOL_MINT,
     decimals: 9,
-    logoURI: 'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png',
+    logoURI: 'https://assets.coingecko.com/coins/images/4128/small/solana.png',
   },
   USDT: {
     symbol: 'USDT',
     name: 'Tether USD',
     mint: USDT_MINT,
     decimals: 6,
-    logoURI: 'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB/logo.png',
+    logoURI: 'https://assets.coingecko.com/coins/images/325/small/Tether.png',
   },
   USDC: {
     symbol: 'USDC',
     name: 'USD Coin',
     mint: USDC_MINT,
     decimals: 6,
-    logoURI: 'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png',
+    logoURI: 'https://assets.coingecko.com/coins/images/6319/small/usdc.png',
   },
 };
 

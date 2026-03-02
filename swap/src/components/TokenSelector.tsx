@@ -41,11 +41,7 @@ export const TokenSelector: FC<Props> = ({
         <img
           src={selectedToken.logoURI}
           alt={selectedToken.symbol}
-          className="w-6 h-6 rounded-full"
-          onError={(e) => {
-            // Fallback if logo fails to load
-            (e.target as HTMLImageElement).src = '/placeholder-token.png';
-          }}
+          className="w-6 h-6 rounded-full bg-gray-600"
         />
         <span className="font-medium">{selectedToken.symbol}</span>
         <svg
@@ -84,7 +80,7 @@ export const TokenSelector: FC<Props> = ({
                 <img
                   src={token.logoURI}
                   alt={token.symbol}
-                  className="w-6 h-6 rounded-full"
+                  className="w-6 h-6 rounded-full bg-gray-600"
                 />
                 <div className="text-left">
                   <div className="font-medium">{token.symbol}</div>
