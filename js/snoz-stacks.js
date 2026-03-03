@@ -450,6 +450,9 @@ async function connectWallet() {
  * Disconnect wallet
  */
 function disconnectWallet() {
+  // Clear saved address from localStorage
+  localStorage.removeItem('snoz_connected_address');
+  
   updateSnozState({
     connected: false,
     address: null,
@@ -461,6 +464,15 @@ function disconnectWallet() {
   updateConnectionStatus('disconnected', 'Disconnected');
   updateSnozUI();
   showWalletNotification('Wallet disconnected');
+  
+  // Update UI buttons
+  const connectBtn = document.getElementById('snoz-connect-btn');
+  const disconnectBtn = document.getElementById('snoz-disconnect-btn');
+  const walletBtnText = document.getElementById('wallet-btn-text');
+  
+  if (walletBtnText) walletBtnText.textContent = 'Connect Wallet';
+  if (connectBtn) connectBtn.classList.remove('connected');
+  if (disconnectBtn) disconnectBtn.style.display = 'none';
 }
 
 // ============================================
@@ -854,14 +866,15 @@ function initSnozIntegration() {
   
   // Disconnect button handler
   if (disconnectBtn) {
+    console.log('Disconnect button found, attaching listener');
     disconnectBtn.addEventListener('click', (e) => {
       e.preventDefault();
+      e.stopPropagation();
+      console.log('Disconnect button clicked');
       disconnectWallet();
-      // Reset button text
-      if (walletBtnText) walletBtnText.textContent = 'Connect Wallet';
-      if (connectBtn) connectBtn.classList.remove('connected');
-      disconnectBtn.style.display = 'none';
     });
+  } else {
+    console.warn('Disconnect button not found in DOM');
   }
   
   // Setup rewards preview listeners

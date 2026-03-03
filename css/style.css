@@ -548,8 +548,8 @@ body{
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: transparent;
-  border: 1px solid rgba(255, 100, 100, 0.3);
+  background: rgba(255, 100, 100, 0.15);
+  border: 1px solid rgba(255, 100, 100, 0.4);
   color: #ff6b6b;
   padding: 0.5rem 1rem;
   border-radius: 8px;
@@ -558,12 +558,16 @@ body{
   font-family: inherit;
   font-size: 0.85rem;
   margin-left: 0.75rem;
+  pointer-events: auto;
+  position: relative;
+  z-index: 10;
 }
 
 #snoz-disconnect-btn:hover,
 .wallet-disconnect-btn:hover {
-  background: rgba(255, 100, 100, 0.1);
+  background: rgba(255, 100, 100, 0.25);
   border-color: #ff6b6b;
+  transform: scale(1.02);
 }
 
 /* Connection Status Indicator */
