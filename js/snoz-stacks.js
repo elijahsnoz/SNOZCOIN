@@ -768,9 +768,11 @@ function initSnozIntegration() {
     if (snozState.connected) {
       updateConnectionStatus('connected', 'Connected');
     } else {
-      updateConnectionStatus('disconnected', 'Not connected');
+      // Hide status indicator when not connected (no need to show "Not connected")
+      const statusEl = document.getElementById('connection-status');
+      if (statusEl) statusEl.style.display = 'none';
     }
-  }, 1000);
+  }, 1500);
   
   // Setup transaction history toggle
   const txHistoryToggle = document.getElementById('tx-history-toggle');
@@ -803,21 +805,30 @@ function initSnozIntegration() {
   
   // Setup event listeners
   const connectBtn = document.getElementById('snoz-connect-btn');
+  const disconnectBtn = document.getElementById('snoz-disconnect-btn');
+  const walletBtnText = document.getElementById('wallet-btn-text');
+  
   if (connectBtn) {
     connectBtn.addEventListener('click', async (e) => {
       e.preventDefault();
       
       if (snozState.connected) {
-        // Show disconnect option
-        if (confirm('Disconnect wallet?')) {
-          disconnectWallet();
-        }
+        // Already connected - do nothing, use disconnect button
+        return;
       } else {
         console.log('Connect button clicked, attempting connection...');
         try {
           await connectWallet();
           if (snozState.connected) {
             await refreshSnozData();
+            // Update button text and show disconnect
+            if (walletBtnText) {
+              walletBtnText.textContent = snozState.address ? 
+                snozState.address.slice(0, 6) + '...' + snozState.address.slice(-4) : 
+                'Connected';
+            }
+            connectBtn.classList.add('connected');
+            if (disconnectBtn) disconnectBtn.style.display = 'inline-flex';
           }
         } catch (error) {
           console.error('Connection error:', error);
@@ -828,6 +839,18 @@ function initSnozIntegration() {
     console.log('Connect button listener attached');
   } else {
     console.warn('Connect button not found in DOM');
+  }
+  
+  // Disconnect button handler
+  if (disconnectBtn) {
+    disconnectBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      disconnectWallet();
+      // Reset button text
+      if (walletBtnText) walletBtnText.textContent = 'Connect Wallet';
+      if (connectBtn) connectBtn.classList.remove('connected');
+      disconnectBtn.style.display = 'none';
+    });
   }
   
   // Setup rewards preview listeners

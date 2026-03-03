@@ -425,6 +425,71 @@ class ErrorHandler {
 }
 
 // ============================================
+// CONNECTION STATUS INDICATOR
+// ============================================
+
+const ConnectionStatus = {
+  element: null,
+  
+  init() {
+    this.element = document.getElementById('connection-status');
+  },
+  
+  update(status, message) {
+    if (!this.element) {
+      this.element = document.getElementById('connection-status');
+    }
+    
+    if (!this.element) return;
+    
+    const dot = this.element.querySelector('.status-dot');
+    const text = this.element.querySelector('.status-text');
+    
+    // Remove all status classes
+    this.element.classList.remove('status-checking', 'status-connected', 'status-disconnected', 'status-error', 'status-connecting');
+    
+    // Add new status class
+    this.element.classList.add(`status-${status}`);
+    
+    // Update dot color
+    if (dot) {
+      dot.className = 'status-dot';
+      if (status === 'connected') {
+        dot.style.background = '#00d1b2';
+      } else if (status === 'error') {
+        dot.style.background = '#ff3860';
+      } else if (status === 'connecting' || status === 'checking') {
+        dot.style.background = '#ffdd57';
+      } else {
+        dot.style.background = '#666';
+      }
+    }
+    
+    // Update text
+    if (text) {
+      text.textContent = message;
+    }
+    
+    // Hide after connected or show for errors
+    if (status === 'connected') {
+      setTimeout(() => {
+        if (this.element) {
+          this.element.style.opacity = '0';
+          setTimeout(() => {
+            if (this.element) this.element.style.display = 'none';
+          }, 300);
+        }
+      }, 2000);
+    } else if (status === 'disconnected') {
+      this.element.style.display = 'none';
+    } else {
+      this.element.style.display = 'flex';
+      this.element.style.opacity = '1';
+    }
+  }
+};
+
+// ============================================
 // WALLET CONNECTION UI
 // ============================================
 
@@ -581,4 +646,5 @@ window.LoadingManager = LoadingManager;
 window.ErrorHandler = ErrorHandler;
 window.TransactionHistory = TransactionHistory;
 window.WalletConnectionUI = WalletConnectionUI;
+window.ConnectionStatus = ConnectionStatus;
 window.copyToClipboard = copyToClipboard;

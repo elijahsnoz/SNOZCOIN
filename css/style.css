@@ -542,6 +542,58 @@ body{
   color: #fff;
 }
 
+/* Disconnect Button */
+#snoz-disconnect-btn,
+.wallet-disconnect-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 1px solid rgba(255, 100, 100, 0.3);
+  color: #ff6b6b;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  font-size: 0.85rem;
+  margin-left: 0.75rem;
+}
+
+#snoz-disconnect-btn:hover,
+.wallet-disconnect-btn:hover {
+  background: rgba(255, 100, 100, 0.1);
+  border-color: #ff6b6b;
+}
+
+/* Connection Status Indicator */
+#connection-status {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--panel);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}
+
+#connection-status .status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #666;
+}
+
+#connection-status .status-text {
+  color: var(--muted);
+}
+
 .snoz-tier-badge {
   display: inline-flex;
   align-items: center;
