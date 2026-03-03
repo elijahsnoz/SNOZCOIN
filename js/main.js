@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Reveal on scroll
-  const revealItems = document.querySelectorAll('.reveal, .card, .token-card, .phase, .faq-item, .transparency-card');
+  const revealItems = document.querySelectorAll('.reveal, .card, .token-card, .phase, .faq-item, .transparency-card, .step-card, .contract-card, .security-card');
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -270,6 +270,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Initialize live data fetching with auto-refresh
   initAutoRefresh();
+  
+  // Getting Started connect button - trigger same wallet flow
+  const gettingStartedConnectBtn = document.getElementById('getting-started-connect-btn');
+  if (gettingStartedConnectBtn) {
+    gettingStartedConnectBtn.addEventListener('click', () => {
+      // Trigger the main connect button if it exists
+      const mainConnectBtn = document.getElementById('snoz-connect-btn');
+      if (mainConnectBtn) {
+        mainConnectBtn.click();
+      } else if (typeof connectWallet === 'function') {
+        // Fallback: call connectWallet directly
+        connectWallet();
+      }
+    });
+  }
   
   // Whitepaper download link (already set in HTML)
   const openWP = document.getElementById('openWhitepaper');

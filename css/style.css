@@ -2104,3 +2104,235 @@ a.trust-badge:hover {
   }
 }
 
+/* ========================================
+   GETTING STARTED SECTION
+   ======================================== */
+
+.getting-started {
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-secondary) 100%);
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.step-card {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 1.75rem;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.step-card:hover {
+  border-color: rgba(168,85,247,0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(168,85,247,0.15);
+}
+
+.step-number {
+  position: absolute;
+  top: -12px;
+  left: 24px;
+  width: 32px;
+  height: 32px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #fff;
+  box-shadow: 0 4px 15px var(--accent-glow);
+}
+
+.step-content h3 {
+  margin: 0.5rem 0 0.75rem;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.step-content p {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Wallet Options Mini */
+.wallet-options-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.wallet-option-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.wallet-option-link:hover {
+  background: rgba(168,85,247,0.1);
+  border-color: var(--gold-1);
+}
+
+.wallet-icon {
+  font-size: 1.25rem;
+}
+
+.recommended-badge {
+  margin-left: auto;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  background: rgba(34,197,94,0.2);
+  color: #22c55e;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* Funding Options */
+.funding-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.funding-link {
+  padding: 0.5rem 0.75rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+.funding-link:hover {
+  background: rgba(168,85,247,0.15);
+  border-color: var(--gold-1);
+  color: var(--gold-1);
+}
+
+/* Connect Step Button */
+.connect-step-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  justify-content: center;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btn-secondary {
+  background: var(--accent);
+  color: #fff;
+  padding: 0.6rem 1.25rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--accent-glow);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  padding: 0.6rem 1.25rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.btn-outline:hover {
+  border-color: var(--gold-1);
+  color: var(--gold-1);
+}
+
+/* Quick FAQ */
+.quick-faq {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 2rem;
+}
+
+.quick-faq h3 {
+  text-align: center;
+  margin: 0 0 1.5rem;
+  font-size: 1.25rem;
+}
+
+.quick-faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.quick-faq-item {
+  padding: 1rem;
+  background: rgba(255,255,255,0.02);
+  border-radius: 10px;
+}
+
+.quick-faq-item strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.quick-faq-item p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Mobile Responsiveness for Getting Started */
+@media (max-width: 768px) {
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .action-buttons .btn-secondary,
+  .action-buttons .btn-outline {
+    text-align: center;
+  }
+  
+  .quick-faq-grid {
+    grid-template-columns: 1fr;
+  }
+}
