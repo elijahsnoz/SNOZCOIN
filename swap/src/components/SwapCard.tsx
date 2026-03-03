@@ -13,7 +13,7 @@
 
 import { FC } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { WalletMultiButton, WalletDisconnectButton } from '@solana/wallet-adapter-react-ui';
 import { useSwap, SwapStatus } from '@/lib/useSwap';
 import { TokenSelector } from './TokenSelector';
 import { formatPriceImpact, getPriceImpactLevel } from '@/lib/jupiter';
@@ -235,11 +235,14 @@ export const SwapCard: FC = () => {
 
         {/* Connected Wallet Address */}
         {connected && publicKey && (
-          <div className="mt-4 text-center">
+          <div className="mt-4 flex items-center justify-center gap-3">
             <span className="text-xs text-gray-500">
               Connected: {publicKey.toString().slice(0, 4)}...
               {publicKey.toString().slice(-4)}
             </span>
+            <WalletDisconnectButton className="!bg-red-600/20 !border !border-red-500/50 
+                                               hover:!bg-red-600/40 !text-red-400 !text-xs 
+                                               !py-1 !px-3 !rounded-lg !transition-colors" />
           </div>
         )}
       </div>
