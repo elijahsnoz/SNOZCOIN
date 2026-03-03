@@ -399,7 +399,7 @@ MIT License - See [LICENSE](../LICENSE) for details.
 - **Website:** [snozcoin.xyz](https://snozcoin.xyz)
 - **GitHub:** [github.com/elijahsnoz/SNOZCOIN](https://github.com/elijahsnoz/SNOZCOIN)
 - **Telegram:** [t.me/snozcoin](https://t.me/snozcoin)
-- **Twitter/X:** [@SnozCoin](https://x.com/SnozCoin)
+- **Twitter/X:** [@Elijahsnoz](https://x.com/Elijahsnoz)
 
 ---
 

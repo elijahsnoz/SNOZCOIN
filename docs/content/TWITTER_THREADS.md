@@ -339,7 +339,7 @@ That's why I'm building on Stacks.
 • [Bullet 2]
 • [Bullet 3]
 
-Building @SnozCoin in public.
+Building @Elijahsnoz in public.
 
 #BuildOnBitcoin #Stacks
 ```

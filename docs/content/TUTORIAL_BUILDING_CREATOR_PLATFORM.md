@@ -388,7 +388,7 @@ Sharing progress on Twitter got us early users and feedback.
 
 Building SNOZCOIN to empower creators with Bitcoin-secured payments. Follow the journey:
 
-- Twitter: [@SnozCoin](https://x.com/SnozCoin)
+- Twitter: [@Elijahsnoz](https://x.com/Elijahsnoz)
 - Telegram: [t.me/snozcoin](https://t.me/snozcoin)
 - Website: [snozcoin.xyz](https://snozcoin.xyz)
 

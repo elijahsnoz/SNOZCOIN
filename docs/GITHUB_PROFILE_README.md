@@ -27,7 +27,7 @@ I'm building **SNOZCOIN** — a creator monetization platform on Stacks with Bit
 
 ### 📫 Connect With Me
 
-- 🐦 Twitter/X: [@SnozCoin](https://x.com/SnozCoin)
+- 🐦 Twitter/X: [@Elijahsnoz](https://x.com/Elijahsnoz)
 - 💬 Telegram: [t.me/snozcoin](https://t.me/snozcoin)
 - 🌐 Website: [snozcoin.xyz](https://snozcoin.xyz)
 

@@ -181,7 +181,7 @@ That's why I'm building SNOZCOIN here.
 
 ---
 
-*Follow the build: [@SnozCoin](https://x.com/SnozCoin)*
+*Follow the build: [@Elijahsnoz](https://x.com/Elijahsnoz)*
 
 *Star the repo: [github.com/elijahsnoz/SNOZCOIN](https://github.com/elijahsnoz/SNOZCOIN)*
 

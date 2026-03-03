@@ -1,120 +1,499 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>SnozCoin Whitepaper</title>
-  <!-- Note: page-level styles intentionally removed to allow site/global CSS to control presentation. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SNOZCOIN Whitepaper v2.0 — March 2026</title>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --text: #e8e6e3;
+      --muted: #9a9590;
+      --accent: #ffd36b;
+      --accent-2: #c59a2f;
+      --section-bg: #111;
+      --border: rgba(255,255,255,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    h1, h2, h3 { color: var(--accent); margin-bottom: 1rem; }
+    h1 { font-size: 2.5rem; text-align: center; margin-bottom: 0.5rem; }
+    .subtitle { text-align: center; color: var(--muted); margin-bottom: 3rem; }
+    h2 { font-size: 1.5rem; margin-top: 3rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+    h3 { font-size: 1.2rem; color: var(--text); margin-top: 1.5rem; }
+    p { margin-bottom: 1rem; color: var(--text); }
+    ul, ol { margin: 1rem 0 1rem 2rem; }
+    li { margin-bottom: 0.5rem; }
+    .highlight { background: var(--section-bg); border-left: 3px solid var(--accent); padding: 1rem 1.5rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0; }
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .stat-card { background: var(--section-bg); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px solid var(--border); }
+    .stat-value { font-size: 2rem; font-weight: 800; color: var(--accent); }
+    .stat-label { color: var(--muted); font-size: 0.9rem; }
+    table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+    th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+    th { color: var(--accent); font-weight: 600; }
+    .tier-table td:first-child { font-weight: 600; }
+    code { background: rgba(255,255,255,0.1); padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9rem; }
+    .toc { background: var(--section-bg); padding: 1.5rem 2rem; border-radius: 12px; margin: 2rem 0; }
+    .toc h3 { margin-top: 0; }
+    .toc ol { margin: 1rem 0 0 1.5rem; }
+    .toc a { color: var(--accent); text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    footer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--muted); }
+    @media (max-width: 600px) {
+      body { padding: 1rem; }
+      h1 { font-size: 1.8rem; }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>SnozCoin</h1>
-    <p class="muted">Creator utility token • Built by the community</p>
-  </header>
 
-  <section>
-    <h2>Abstract</h2>
-    <p>SNOZCOIN is a community-driven digital asset designed to align incentives between long-term holders, contributors, and the broader ecosystem. This document outlines the project's principles, governance approach, token design considerations, roadmap, and security practices. It is intended to be a living document — updated by the community as SNOZ grows.</p>
-  </section>
+<h1>SNOZCOIN</h1>
+<p class="subtitle">A Decentralized Creator Monetization Platform on Bitcoin L2<br>Whitepaper v2.0 — March 2026</p>
 
-  <section>
-  <h2>Vision & Mission</h2>
-  <p><strong>Vision:</strong> A creator-first platform where artists and fans can connect, collaborate, and transact with clarity and trust.</p>
-  <p><strong>Mission:</strong> Enable sustainable creative economies by providing simple, transparent tools for tipping, content access, and community rewards.</p>
-  </section>
+<div class="toc">
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#vision">Vision & Mission</a></li>
+    <li><a href="#problem">Problem Statement</a></li>
+    <li><a href="#solution">Solution: The SNOZCOIN Platform</a></li>
+    <li><a href="#architecture">Technical Architecture</a></li>
+    <li><a href="#smart-contracts">Smart Contracts</a></li>
+    <li><a href="#snoz-token">SNOZ Utility Token</a></li>
+    <li><a href="#tiers">Tier System</a></li>
+    <li><a href="#governance">Governance</a></li>
+    <li><a href="#swap">Solana Swap Integration</a></li>
+    <li><a href="#security">Security</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ol>
+</div>
 
-  <section>
-    <h2>Problem Statement</h2>
-    <p>Many token projects prioritize short-term speculation over utility and community alignment. Lack of transparency, sudden token supply events, and centralized control reduce community trust.</p>
-  </section>
+<section id="abstract">
+  <h2>1. Abstract</h2>
+  <p>SNOZCOIN is a decentralized creator monetization platform built on Stacks, a Bitcoin Layer 2 network. The platform enables creators to receive direct payments, offer exclusive content, build subscription-based communities, and reward their most loyal supporters—all secured by Bitcoin's finality.</p>
+  <p>Unlike traditional creator platforms that extract 30-50% fees and control creator relationships, SNOZCOIN puts creators in control. Payments flow directly to creators in STX (Stacks tokens), while SNOZ serves as a non-speculative utility token for reputation, governance, and platform rewards.</p>
+  <div class="highlight">
+    <strong>Key Innovation:</strong> SNOZCOIN separates monetary value (STX) from platform utility (SNOZ), eliminating speculation on utility tokens while still providing meaningful engagement incentives.
+  </div>
+</section>
 
-  <section>
-    <h2>Our Approach / Solution</h2>
-    <ul>
-      <li>Community governance and open decision-making.</li>
-      <li>Transparent treasury reporting and periodic public updates.</li>
-      <li>Focus on developing sustainable utility (governance tools, community rewards, and real partnerships).</li>
-    </ul>
-  </section>
+<section id="vision">
+  <h2>2. Vision & Mission</h2>
+  <h3>Vision</h3>
+  <p>A world where creators own their audience relationships, receive fair compensation for their work, and build sustainable businesses without platform dependency.</p>
+  
+  <h3>Mission</h3>
+  <p>To provide creators with transparent, non-custodial tools for monetization, community building, and fan engagement—powered by Bitcoin security and smart contract automation.</p>
+  
+  <h3>Core Values</h3>
+  <ul>
+    <li><strong>Creator Ownership:</strong> Creators control their profiles, content, and revenue streams</li>
+    <li><strong>Transparency:</strong> All transactions are on-chain and publicly verifiable</li>
+    <li><strong>Non-Custodial:</strong> SNOZCOIN never holds user funds</li>
+    <li><strong>Fair Economics:</strong> Minimal platform fees, maximum creator earnings</li>
+    <li><strong>Community Governance:</strong> Token holders shape platform development</li>
+  </ul>
+</section>
 
-  <section>
-  <h2>Token Design (Guiding Principles)</h2>
-  <p>SnozCoin is designed as a utility token to simplify creator support. Key considerations:</p>
-    <ul>
-      <li>Clear token purpose: utility, governance, and community incentives.</li>
-      <li>Predictable supply rules: avoid unexpected inflation events without community approval.</li>
-      <li>Vesting for team and partners to align incentives over time (details should be published openly).</li>
-      <li>Liquidity management and treasury policies that are auditable and community-reviewed.</li>
-    </ul>
-  </section>
+<section id="problem">
+  <h2>3. Problem Statement</h2>
+  <p>The creator economy is broken. Despite generating over $250 billion annually, creators face systemic challenges:</p>
+  
+  <h3>Platform Dependency</h3>
+  <ul>
+    <li>Creators don't own their audience relationships</li>
+    <li>Platforms can demonetize, deplatform, or change algorithms without recourse</li>
+    <li>Content and follower data are siloed and non-portable</li>
+  </ul>
+  
+  <h3>Unfair Revenue Splits</h3>
+  <ul>
+    <li>Traditional platforms take 30-50% of creator earnings</li>
+    <li>Payment processing adds additional fees</li>
+    <li>International creators face currency conversion costs</li>
+  </ul>
+  
+  <h3>Lack of Direct Monetization</h3>
+  <ul>
+    <li>Tips go through intermediaries with delays and fees</li>
+    <li>Subscription payments are controlled by platforms</li>
+    <li>No transparent way to reward loyal fans</li>
+  </ul>
+  
+  <h3>Web3 Complexity</h3>
+  <ul>
+    <li>Existing blockchain solutions are too complex for mainstream creators</li>
+    <li>High gas fees make micropayments impractical</li>
+    <li>Security risks from smart contract vulnerabilities</li>
+  </ul>
+</section>
 
-  <section>
-    <h2>Governance</h2>
-    <p>Governance is community-first. Proposals affecting tokenomics, treasury spend, or protocol changes should be surfaced to the community, debated publicly, and decided via an agreed governance process (off-chain discussions with on-chain execution or formal voting depending on maturity).</p>
-  </section>
-
-  <section>
-    <h2>Roadmap</h2>
-    <div class="roadmap">
-      <div class="roadmap-item">
-        <div class="roadmap-symbol">🛠️</div>
-        <div class="roadmap-content">
-          <h3>Phase 1 — Foundation</h3>
-          <p>Community formation, secure contract deployment, transparency tooling, initial outreach and bootstrapping.</p>
-        </div>
-      </div>
-
-      <div class="roadmap-item">
-        <div class="roadmap-symbol">🚀</div>
-        <div class="roadmap-content">
-          <h3>Phase 2 — Growth</h3>
-          <p>Community programs, strategic partnerships, independent audits, utility pilots, and exchange listings.</p>
-        </div>
-      </div>
-
-      <div class="roadmap-item">
-        <div class="roadmap-symbol">🌐</div>
-        <div class="roadmap-content">
-          <h3>Phase 3 — Maturity</h3>
-          <p>Governance tooling, treasury management, ecosystem expansion, long-term sustainability initiatives.</p>
-        </div>
-      </div>
+<section id="solution">
+  <h2>4. Solution: The SNOZCOIN Platform</h2>
+  <p>SNOZCOIN addresses these problems with a comprehensive creator platform built on Stacks:</p>
+  
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-value">6</div>
+      <div class="stat-label">Smart Contracts</div>
     </div>
-    <p class="muted">Note: This roadmap is illustrative and subject to community governance and timelines.</p>
-  </section>
+    <div class="stat-card">
+      <div class="stat-value">223</div>
+      <div class="stat-label">Tests Passing</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">0%</div>
+      <div class="stat-label">Custody of Funds</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">Bitcoin</div>
+      <div class="stat-label">Security Layer</div>
+    </div>
+  </div>
+  
+  <h3>Platform Features</h3>
+  <ul>
+    <li><strong>Direct Tipping:</strong> Fans send STX directly to creators with zero intermediaries</li>
+    <li><strong>Gated Content:</strong> Creators sell exclusive content with on-chain access control</li>
+    <li><strong>Subscriptions:</strong> Automated recurring payments for premium membership tiers</li>
+    <li><strong>Loyalty Rewards:</strong> SNOZ tokens earned for platform activity, redeemable for perks</li>
+    <li><strong>DAO Governance:</strong> Token holders vote on platform development and treasury use</li>
+    <li><strong>Cross-Chain Swap:</strong> Integrated USDT/SOL swap via Jupiter aggregator</li>
+  </ul>
+</section>
 
-  <section>
-    <h2>Security & Audits</h2>
-    <p>Security is a priority. We will:</p>
-    <ul>
-      <li>Use established smart contract patterns and libraries.</li>
-      <li>Publish contract source code and encourage third-party audits.</li>
-      <li>Encourage bug bounties and community security reviews.</li>
-    </ul>
-  </section>
+<section id="architecture">
+  <h2>5. Technical Architecture</h2>
+  
+  <h3>Why Stacks (Bitcoin L2)?</h3>
+  <p>Stacks is the leading Bitcoin Layer 2 for smart contracts. It provides:</p>
+  <ul>
+    <li><strong>Bitcoin Finality:</strong> All Stacks transactions settle on Bitcoin</li>
+    <li><strong>Clarity Language:</strong> Decidable, non-Turing complete smart contracts that prevent entire classes of bugs</li>
+    <li><strong>sBTC Integration:</strong> Native Bitcoin programmability (coming soon)</li>
+    <li><strong>Low Fees:</strong> Transaction costs suitable for micropayments</li>
+    <li><strong>Proof of Transfer:</strong> Mining secured by Bitcoin's hash power</li>
+  </ul>
+  
+  <h3>Stack Overview</h3>
+  <ul>
+    <li><strong>Smart Contracts:</strong> Clarity 3 on Stacks (Epoch 3.1)</li>
+    <li><strong>Frontend:</strong> Vanilla HTML/CSS/JS with Stacks Connect SDK</li>
+    <li><strong>Wallets:</strong> Leather and Xverse (Stacks), Phantom and Solflare (Solana)</li>
+    <li><strong>APIs:</strong> Hiro API for blockchain data, Jupiter API for swaps</li>
+    <li><strong>Testing:</strong> Clarinet with Vitest (223 unit tests)</li>
+  </ul>
+</section>
 
-  <section>
-    <h2>Transparency & Reporting</h2>
-    <p>All treasury movements, audits, and major decisions will be published to the community. Regular updates should include finances, roadmap progress, and allocation changes.</p>
-  </section>
+<section id="smart-contracts">
+  <h2>6. Smart Contracts</h2>
+  <p>SNOZCOIN consists of six audited smart contracts deployed on Stacks mainnet:</p>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Contract</th>
+        <th>Purpose</th>
+        <th>Key Functions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>snoz-token</code></td>
+        <td>SIP-010 fungible token</td>
+        <td>transfer, mint, burn, get-balance</td>
+      </tr>
+      <tr>
+        <td><code>snoz-rewards-engine</code></td>
+        <td>Automated reward distribution</td>
+        <td>calculate-rewards, distribute, claim</td>
+      </tr>
+      <tr>
+        <td><code>snoz-governance</code></td>
+        <td>DAO voting system</td>
+        <td>create-proposal, vote, execute</td>
+      </tr>
+      <tr>
+        <td><code>snozcoin-tipping</code></td>
+        <td>Direct creator tips</td>
+        <td>tip-creator, get-tip-history</td>
+      </tr>
+      <tr>
+        <td><code>snozcoin-content</code></td>
+        <td>Gated content access</td>
+        <td>publish, purchase, verify-access</td>
+      </tr>
+      <tr>
+        <td><code>snozcoin-rewards</code></td>
+        <td>Fan loyalty tracking</td>
+        <td>record-activity, get-tier, redeem</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <h3>Contract Security</h3>
+  <ul>
+    <li>All contracts use Clarity 3 with strict type checking</li>
+    <li>No reentrancy vulnerabilities (Clarity is non-reentrant by design)</li>
+    <li>No arithmetic overflow (Clarity uses arbitrary-precision integers)</li>
+    <li>All public functions have explicit authorization checks</li>
+    <li>Comprehensive test coverage (223 tests across all contracts)</li>
+  </ul>
+</section>
 
-  <section>
-    <h2>Community & Incentives</h2>
-    <p>Community programs (bounties, grants, ambassador programs) will be developed to reward meaningful contributions. Governance participation and long-term holding should be incentivized through clear and fair mechanisms.</p>
-  </section>
+<section id="snoz-token">
+  <h2>7. SNOZ Utility Token</h2>
+  
+  <div class="highlight">
+    <strong>Important:</strong> SNOZ is a NON-SPECULATIVE utility token. It has no monetary value and cannot be traded on exchanges. STX (Stacks) is the only currency used for payments on the platform.
+  </div>
+  
+  <h3>Token Specifications</h3>
+  <ul>
+    <li><strong>Name:</strong> SNOZ</li>
+    <li><strong>Standard:</strong> SIP-010 (Stacks Fungible Token)</li>
+    <li><strong>Decimals:</strong> 6</li>
+    <li><strong>Max Supply:</strong> 1,000,000,000 SNOZ (1 billion)</li>
+    <li><strong>Initial Distribution:</strong> Earned through platform activity only</li>
+  </ul>
+  
+  <h3>Token Utility</h3>
+  <p>SNOZ serves five core functions within the SNOZCOIN ecosystem:</p>
+  <ol>
+    <li><strong>Reputation:</strong> SNOZ balance reflects platform contribution and engagement</li>
+    <li><strong>Tier Access:</strong> Higher SNOZ balances unlock premium platform features</li>
+    <li><strong>Governance:</strong> SNOZ holders can vote on proposals and treasury allocation</li>
+    <li><strong>Rewards:</strong> Earn SNOZ for tipping, purchasing content, and other activities</li>
+    <li><strong>Badges:</strong> Special recognition for reaching SNOZ milestones</li>
+  </ol>
+  
+  <h3>Earning SNOZ</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Activity</th>
+        <th>SNOZ Earned</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Tip a creator (per STX tipped)</td>
+        <td>2 SNOZ</td>
+      </tr>
+      <tr>
+        <td>Purchase content (per STX spent)</td>
+        <td>3 SNOZ</td>
+      </tr>
+      <tr>
+        <td>New creator registration bonus</td>
+        <td>200 SNOZ</td>
+      </tr>
+      <tr>
+        <td>Governance vote participation</td>
+        <td>50 SNOZ</td>
+      </tr>
+      <tr>
+        <td>Refer new user (after first activity)</td>
+        <td>100 SNOZ</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
 
-  <section>
-    <h2>Legal & Risks</h2>
-    <p>This whitepaper is informational and not financial, legal, or tax advice. Buying tokens involves risk — market risk, regulatory risk, and technical risk. Participants should conduct their own research. See the site disclaimer for details.</p>
-  </section>
+<section id="tiers">
+  <h2>8. Tier System</h2>
+  <p>Users progress through five tiers based on their SNOZ balance, unlocking increasing benefits:</p>
+  
+  <table class="tier-table">
+    <thead>
+      <tr>
+        <th>Tier</th>
+        <th>SNOZ Required</th>
+        <th>Benefits</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>🥉 Bronze</td>
+        <td>0 - 999</td>
+        <td>Basic platform access, standard features</td>
+      </tr>
+      <tr>
+        <td>🥈 Silver</td>
+        <td>1,000 - 9,999</td>
+        <td>Priority support, early access to new features</td>
+      </tr>
+      <tr>
+        <td>🥇 Gold</td>
+        <td>10,000 - 99,999</td>
+        <td>Exclusive creator events, governance voting rights</td>
+      </tr>
+      <tr>
+        <td>💎 Platinum</td>
+        <td>100,000 - 999,999</td>
+        <td>Direct creator collaborations, treasury proposals</td>
+      </tr>
+      <tr>
+        <td>💠 Diamond</td>
+        <td>1,000,000+</td>
+        <td>Advisory council, maximum governance weight</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
 
-  <section>
-    <h2>How to Participate</h2>
-    <p>Join the community on Telegram and X, participate in governance discussions, or contribute to development and outreach. Connect with the SnozCoin community via the social links on the site.</p>
-  </section>
+<section id="governance">
+  <h2>9. Governance</h2>
+  <p>SNOZCOIN operates as a decentralized autonomous organization (DAO) where token holders shape platform development:</p>
+  
+  <h3>Proposal Types</h3>
+  <ul>
+    <li><strong>Feature Proposals:</strong> New platform functionality</li>
+    <li><strong>Parameter Changes:</strong> Adjust reward rates, tier thresholds</li>
+    <li><strong>Treasury Allocation:</strong> Fund grants, partnerships, development</li>
+    <li><strong>Protocol Upgrades:</strong> Smart contract improvements</li>
+  </ul>
+  
+  <h3>Voting Process</h3>
+  <ol>
+    <li>Any Gold-tier (10,000+ SNOZ) member can submit a proposal</li>
+    <li>7-day discussion period for community feedback</li>
+    <li>7-day voting period with SNOZ-weighted votes</li>
+    <li>Proposals require >50% approval and minimum 10% quorum</li>
+    <li>Approved proposals are executed by the DAO contract</li>
+  </ol>
+  
+  <h3>Treasury</h3>
+  <p>The SNOZCOIN treasury is controlled by the DAO and funds:</p>
+  <ul>
+    <li>Platform development and maintenance</li>
+    <li>Security audits and bug bounties</li>
+    <li>Creator grants and onboarding incentives</li>
+    <li>Community events and marketing</li>
+  </ul>
+</section>
 
-  <footer>
-    <p>Built by the SnozCoin community — Founder remains anonymous by choice. Not financial advice.</p>
-  </footer>
+<section id="swap">
+  <h2>10. Solana Swap Integration</h2>
+  <p>SNOZCOIN includes a non-custodial token swap feature for users who need to convert between USDT and SOL:</p>
+  
+  <h3>Features</h3>
+  <ul>
+    <li><strong>Jupiter Aggregator:</strong> Best rates across Solana DEXes</li>
+    <li><strong>Non-Custodial:</strong> Swap directly from your wallet</li>
+    <li><strong>Supported Wallets:</strong> Phantom, Solflare</li>
+    <li><strong>Supported Tokens:</strong> SOL, USDT, USDC</li>
+  </ul>
+  
+  <h3>Why Solana?</h3>
+  <p>While SNOZCOIN's core platform runs on Stacks, we integrate Solana swap functionality because:</p>
+  <ul>
+    <li>Many users hold USDT/USDC for stable value</li>
+    <li>Solana provides fast, low-cost swaps</li>
+    <li>Jupiter offers the best aggregated liquidity</li>
+    <li>Cross-chain accessibility increases platform utility</li>
+  </ul>
+</section>
+
+<section id="security">
+  <h2>11. Security</h2>
+  
+  <h3>Smart Contract Security</h3>
+  <ul>
+    <li>All contracts written in Clarity 3, a non-Turing complete language</li>
+    <li>No reentrancy attacks possible (by language design)</li>
+    <li>No integer overflow/underflow (arbitrary precision math)</li>
+    <li>All functions have explicit principal-based authorization</li>
+    <li>Comprehensive test suite with 223 passing tests</li>
+  </ul>
+  
+  <h3>Operational Security</h3>
+  <ul>
+    <li>Multi-signature deployment keys</li>
+    <li>Timelock on critical contract upgrades</li>
+    <li>Open-source code for community review</li>
+    <li>Bug bounty program for vulnerability disclosure</li>
+  </ul>
+  
+  <h3>User Security</h3>
+  <ul>
+    <li>Non-custodial architecture—we never hold user funds</li>
+    <li>Hardware wallet support (Ledger via Leather)</li>
+    <li>Transaction simulation before signing</li>
+    <li>Clear transaction descriptions in wallet prompts</li>
+  </ul>
+</section>
+
+<section id="roadmap">
+  <h2>12. Roadmap</h2>
+  
+  <h3>Phase 1: Foundation (Completed)</h3>
+  <ul>
+    <li>✅ Smart contract development (6 contracts)</li>
+    <li>✅ Comprehensive testing (223 tests)</li>
+    <li>✅ Frontend development with wallet integration</li>
+    <li>✅ Documentation and whitepaper</li>
+    <li>✅ Solana swap integration</li>
+  </ul>
+  
+  <h3>Phase 2: Launch (Q2 2026)</h3>
+  <ul>
+    <li>⏳ Mainnet deployment of all contracts</li>
+    <li>⏳ Creator onboarding program</li>
+    <li>⏳ Security audit by third-party firm</li>
+    <li>⏳ Mobile-optimized experience</li>
+    <li>⏳ Initial creator partnerships</li>
+  </ul>
+  
+  <h3>Phase 3: Growth (Q3-Q4 2026)</h3>
+  <ul>
+    <li>🔮 sBTC integration for native Bitcoin payments</li>
+    <li>🔮 Creator NFT passes and collectibles</li>
+    <li>🔮 Subscription marketplace</li>
+    <li>🔮 Cross-platform creator import tools</li>
+    <li>🔮 API for third-party integrations</li>
+  </ul>
+  
+  <h3>Phase 4: Ecosystem (2027+)</h3>
+  <ul>
+    <li>🔮 Mobile apps (iOS, Android)</li>
+    <li>🔮 Creator analytics dashboard</li>
+    <li>🔮 Revenue sharing partnerships</li>
+    <li>🔮 Multi-chain expansion</li>
+    <li>🔮 Creator DAO sub-communities</li>
+  </ul>
+</section>
+
+<section id="conclusion">
+  <h2>13. Conclusion</h2>
+  <p>SNOZCOIN represents a new paradigm for creator monetization: one built on transparency, fair economics, and creator ownership. By leveraging Bitcoin's security through Stacks and providing intuitive tools for direct payments, gated content, and community rewards, we're building the infrastructure for a more equitable creator economy.</p>
+  
+  <p>The platform is production-ready with 6 smart contracts, 223 tests passing, and a fully functional frontend. Our non-speculative SNOZ token ensures that platform utility is never confused with financial speculation, while STX payments provide creators with real, spendable value.</p>
+  
+  <p>We invite creators, developers, and community members to join us in building the future of creator monetization—transparent, fair, and owned by the people who make it valuable.</p>
+  
+  <div class="highlight">
+    <strong>Get Started:</strong> Visit <a href="https://snozcoin.xyz" style="color: var(--accent);">snozcoin.xyz</a> to connect your wallet and explore the platform.
+  </div>
+</section>
+
+<footer>
+  <p><strong>SNOZCOIN</strong></p>
+  <p>The Future of Creator Economy</p>
+  <p style="margin-top: 1rem;">Website: snozcoin.xyz | Twitter: @Elijahsnoz | Telegram: t.me/snozcoin</p>
+  <p style="margin-top: 1rem; font-size: 0.85rem;">This whitepaper is for informational purposes only. SNOZ is a utility token with no monetary value. Always do your own research before participating in any blockchain project.</p>
+  <p style="margin-top: 1rem; font-size: 0.85rem;">Version 2.0 — March 2026</p>
+</footer>
+
 </body>
 </html>

@@ -370,7 +370,7 @@ MIT License - see [LICENSE](LICENSE)
 - **Website**: [snozcoin.io](https://snozcoin.io)
 - **Documentation**: [docs.snozcoin.io](https://docs.snozcoin.io)
 - **Explorer**: [explorer.stacks.co](https://explorer.stacks.co)
-- **Community**: [Discord](https://discord.gg/snozcoin) | [Twitter](https://twitter.com/snozcoin)
+- **Community**: [Discord](https://discord.gg/snozcoin) | [Twitter](https://twitter.com/Elijahsnoz)
 
 ---
 
