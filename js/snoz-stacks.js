@@ -498,6 +498,23 @@ function loadSavedState() {
   if (savedAddress) {
     updateSnozState({ connected: true, address: savedAddress });
     refreshSnozData();
+    
+    // Update UI to show connected state
+    setTimeout(() => {
+      const connectBtn = document.getElementById('snoz-connect-btn');
+      const disconnectBtn = document.getElementById('snoz-disconnect-btn');
+      const walletBtnText = document.getElementById('wallet-btn-text');
+      
+      if (walletBtnText) {
+        walletBtnText.textContent = savedAddress.slice(0, 6) + '...' + savedAddress.slice(-4);
+      }
+      if (connectBtn) {
+        connectBtn.classList.add('connected');
+      }
+      if (disconnectBtn) {
+        disconnectBtn.style.display = 'inline-flex';
+      }
+    }, 100);
   }
 }
 
@@ -762,17 +779,11 @@ function initSnozIntegration() {
   // Load saved state
   loadSavedState();
   
-  // Initialize connection status
-  updateConnectionStatus('checking', 'Checking network...');
-  setTimeout(() => {
-    if (snozState.connected) {
-      updateConnectionStatus('connected', 'Connected');
-    } else {
-      // Hide status indicator when not connected (no need to show "Not connected")
-      const statusEl = document.getElementById('connection-status');
-      if (statusEl) statusEl.style.display = 'none';
-    }
-  }, 1500);
+  // Hide connection status by default - only show when actively connecting
+  const connectionStatusEl = document.getElementById('connection-status');
+  if (connectionStatusEl) {
+    connectionStatusEl.style.display = 'none';
+  }
   
   // Setup transaction history toggle
   const txHistoryToggle = document.getElementById('tx-history-toggle');
