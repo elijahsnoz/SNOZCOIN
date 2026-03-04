@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SNOZCOIN Creator Dashboard - Track your earnings, tips, and platform statistics">
+  <meta name="theme-color" content="#000000">
+  <title>Creator Dashboard | SNOZCOIN</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon-32x32.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/SNOZCOIN-512.png">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="logo">
+        <img src="assets/SNOZCOIN-512.webp" alt="SNOZCOIN" width="40" height="40">
+        <span>SNOZCOIN</span>
+      </a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/creators.html">Creators</a>
+        <a href="/dashboard.html" class="active">Dashboard</a>
+        <a href="/stats.html">Stats</a>
+      </div>
+      <div class="nav-actions">
+        <button id="dashboard-connect-btn" class="btn btn-primary wallet-connect-trigger">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+            <rect x="2" y="6" width="20" height="12" rx="2"/>
+            <path d="M22 10H18a2 2 0 00-2 2v0a2 2 0 002 2h4"/>
+          </svg>
+          Connect Wallet
+        </button>
+      </div>
+      <button class="mobile-menu-btn" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="dashboard-main">
+    <div class="container">
+      
+      <!-- Dashboard Header -->
+      <div class="dashboard-header">
+        <div class="dashboard-title">
+          <h1>Creator Dashboard</h1>
+          <span class="dashboard-badge">
+            <span class="status-dot"></span>
+            Demo Mode
+          </span>
+        </div>
+        <p class="dashboard-subtitle">Track your earnings, view your content performance, and manage your creator profile.</p>
+      </div>
+
+      <!-- Not Connected State -->
+      <div id="dashboard-not-connected" class="dashboard-state">
+        <div class="connect-prompt">
+          <div class="connect-prompt-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="64" height="64">
+              <rect x="2" y="6" width="20" height="12" rx="2"/>
+              <path d="M22 10H18a2 2 0 00-2 2v0a2 2 0 002 2h4"/>
+              <circle cx="18" cy="12" r="1" fill="currentColor"/>
+            </svg>
+          </div>
+          <h2>Connect Your Wallet</h2>
+          <p>Connect your Stacks wallet to view your creator dashboard, track earnings, and manage your content.</p>
+          <button id="dashboard-connect-main" class="btn btn-primary btn-lg wallet-connect-trigger">
+            Connect Wallet to Continue
+          </button>
+          <p class="connect-note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            Non-custodial. We never access your private keys.
+          </p>
+        </div>
+      </div>
+
+      <!-- Connected State - Dashboard Content -->
+      <div id="dashboard-connected" class="dashboard-state" style="display: none;">
+        
+        <!-- User Overview Card -->
+        <div class="dashboard-user-card">
+          <div class="user-info">
+            <div class="user-avatar" id="dashboard-avatar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/>
+              </svg>
+            </div>
+            <div class="user-details">
+              <h3 id="dashboard-username">Creator Name</h3>
+              <p id="dashboard-address" class="user-address">SP1...ABC</p>
+            </div>
+          </div>
+          <div class="user-tier" id="dashboard-tier">
+            <span class="tier-label">Current Tier</span>
+            <span class="tier-value bronze">Bronze</span>
+          </div>
+        </div>
+
+        <!-- Stats Overview Grid -->
+        <div class="dashboard-stats-grid">
+          <div class="dashboard-stat-card">
+            <div class="stat-icon earnings">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+              </svg>
+            </div>
+            <div class="stat-content">
+              <span class="stat-label">Total Earnings</span>
+              <span class="stat-value" id="stat-total-earnings">0 STX</span>
+              <span class="stat-change positive">+0% this month</span>
+            </div>
+          </div>
+
+          <div class="dashboard-stat-card">
+            <div class="stat-icon tips">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+              </svg>
+            </div>
+            <div class="stat-content">
+              <span class="stat-label">Tips Received</span>
+              <span class="stat-value" id="stat-tips-received">0</span>
+              <span class="stat-change">From 0 supporters</span>
+            </div>
+          </div>
+
+          <div class="dashboard-stat-card">
+            <div class="stat-icon content">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <path d="M9 3v18M21 9H3M21 15H3"/>
+              </svg>
+            </div>
+            <div class="stat-content">
+              <span class="stat-label">Content Created</span>
+              <span class="stat-value" id="stat-content-count">0</span>
+              <span class="stat-change">0 unlocks total</span>
+            </div>
+          </div>
+
+          <div class="dashboard-stat-card">
+            <div class="stat-icon snoz">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M16 8l-4 4-4-4M8 16l4-4 4 4"/>
+              </svg>
+            </div>
+            <div class="stat-content">
+              <span class="stat-label">SNOZ Balance</span>
+              <span class="stat-value" id="stat-snoz-balance">0 SNOZ</span>
+              <span class="stat-change neutral">Utility token</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Activity Section -->
+        <div class="dashboard-section">
+          <div class="section-header">
+            <h2>Recent Activity</h2>
+            <a href="#" class="section-link">View All →</a>
+          </div>
+          <div class="activity-list" id="activity-list">
+            <!-- Activity items will be populated here -->
+            <div class="activity-empty">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+              <p>No recent activity yet</p>
+              <span>Your tips, content unlocks, and rewards will appear here.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content Performance Section -->
+        <div class="dashboard-section">
+          <div class="section-header">
+            <h2>Your Content</h2>
+            <a href="/creator.html" class="btn btn-ghost btn-sm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <path d="M12 5v14M5 12h14"/>
+              </svg>
+              Create Content
+            </a>
+          </div>
+          <div class="content-grid" id="content-grid">
+            <!-- Content cards will be populated here -->
+            <div class="content-empty">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <path d="M12 8v8M8 12h8"/>
+              </svg>
+              <p>No content yet</p>
+              <span>Create your first piece of content to start earning.</span>
+              <a href="/creator.html" class="btn btn-primary btn-sm" style="margin-top: 1rem;">Get Started</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Earnings Chart Placeholder -->
+        <div class="dashboard-section">
+          <div class="section-header">
+            <h2>Earnings Over Time</h2>
+            <div class="chart-period-selector">
+              <button class="period-btn active" data-period="week">7D</button>
+              <button class="period-btn" data-period="month">30D</button>
+              <button class="period-btn" data-period="all">All</button>
+            </div>
+          </div>
+          <div class="chart-placeholder" id="earnings-chart">
+            <div class="chart-empty">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48">
+                <path d="M3 3v18h18"/>
+                <path d="M7 14l4-4 4 4 5-5"/>
+              </svg>
+              <p>Chart Coming Soon</p>
+              <span>Earnings visualization will be available after mainnet launch.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Demo Mode Banner -->
+      <div class="demo-banner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 16v-4M12 8h.01"/>
+        </svg>
+        <span><strong>Demo Mode:</strong> This dashboard shows sample data. Real statistics will be available after mainnet deployment.</span>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/SNOZCOIN-512.webp" alt="SNOZCOIN" width="48" height="48">
+          <p>Empowering creators with transparent, on-chain monetization.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Platform</h4>
+          <a href="/">Home</a>
+          <a href="/creators.html">Creators</a>
+          <a href="/dashboard.html">Dashboard</a>
+          <a href="/stats.html">Statistics</a>
+        </div>
+        <div class="footer-links">
+          <h4>Resources</h4>
+          <a href="/assets/whitepaper.html">Whitepaper</a>
+          <a href="https://github.com/elijahsnoz/SNOZCOIN" target="_blank" rel="noopener">GitHub</a>
+          <a href="/docs/Security_Checklist.md">Security</a>
+          <a href="/PROTOCOL_SPEC.md">Protocol Spec</a>
+        </div>
+        <div class="footer-links">
+          <h4>Connect</h4>
+          <a href="https://x.com/SNOZCOIN" target="_blank" rel="noopener">X (Twitter)</a>
+          <a href="mailto:support@snozcoin.xyz">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 SNOZCOIN. Built on Stacks.</p>
+        <p class="footer-disclaimer">SNOZ is a utility token with no monetary value.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/ui-components.js"></script>
+  <script src="js/snoz-stacks.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
