@@ -1,648 +1,519 @@
 /**
  * SNOZCOIN Wallet Authentication Service
- * Handles multi-wallet connection, state persistence, and auth events
- * Supports: Xverse, Leather, Phantom, MetaMask, Trust Wallet
+ * Simplified wallet connection for MetaMask, Phantom, and Stacks wallets
  */
 
-const WalletAuth = (function() {
+var WalletAuth = (function() {
   'use strict';
 
   // Configuration
-  const CONFIG = {
+  var CONFIG = {
     appName: 'SNOZCOIN',
-    appIconUrl: 'https://snozcoin.xyz/assets/SNOZCOIN-512.png',
     redirectTo: '/dashboard.html',
-    storageKey: 'snozcoin_wallet',
-    network: 'mainnet' // 'mainnet' or 'testnet'
+    storageKey: 'snozcoin_wallet'
   };
 
-  // Supported wallets configuration
-  const WALLETS = {
-    xverse: {
-      name: 'Xverse',
-      icon: '🟠',
-      iconUrl: 'https://www.xverse.app/favicon.ico',
-      type: 'stacks',
-      installUrl: 'https://www.xverse.app/',
-      detect: () => typeof window.XverseProviders !== 'undefined' || typeof window.BitcoinProvider !== 'undefined'
-    },
-    leather: {
-      name: 'Leather',
-      icon: '🟤',
-      iconUrl: 'https://leather.io/favicon.ico',
-      type: 'stacks',
-      installUrl: 'https://leather.io/install-extension',
-      detect: () => typeof window.LeatherProvider !== 'undefined' || typeof window.HiroWalletProvider !== 'undefined'
-    },
-    phantom: {
-      name: 'Phantom',
-      icon: '👻',
-      iconUrl: 'https://phantom.app/favicon.ico',
-      type: 'solana',
-      installUrl: 'https://phantom.app/',
-      detect: () => typeof window.phantom?.solana !== 'undefined'
-    },
-    metamask: {
+  // Supported wallets
+  var WALLETS = [
+    {
+      id: 'metamask',
       name: 'MetaMask',
       icon: '🦊',
-      iconUrl: 'https://metamask.io/favicon.ico',
       type: 'evm',
       installUrl: 'https://metamask.io/download/',
-      detect: () => typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask
+      detect: function() { 
+        return typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask; 
+      }
     },
-    trustwallet: {
-      name: 'Trust Wallet',
-      icon: '🛡️',
-      iconUrl: 'https://trustwallet.com/favicon.ico',
-      type: 'evm',
-      installUrl: 'https://trustwallet.com/',
-      detect: () => typeof window.trustwallet !== 'undefined' || (typeof window.ethereum !== 'undefined' && window.ethereum.isTrust)
+    {
+      id: 'phantom',
+      name: 'Phantom',
+      icon: '👻',
+      type: 'solana',
+      installUrl: 'https://phantom.app/',
+      detect: function() { 
+        return window.phantom && window.phantom.solana; 
+      }
+    },
+    {
+      id: 'xverse',
+      name: 'Xverse',
+      icon: '🟠',
+      type: 'stacks',
+      installUrl: 'https://www.xverse.app/',
+      detect: function() { 
+        return typeof window.XverseProviders !== 'undefined' || typeof window.BitcoinProvider !== 'undefined'; 
+      }
+    },
+    {
+      id: 'leather',
+      name: 'Leather',
+      icon: '🟤',
+      type: 'stacks',
+      installUrl: 'https://leather.io/install-extension',
+      detect: function() { 
+        return typeof window.LeatherProvider !== 'undefined' || typeof window.HiroWalletProvider !== 'undefined'; 
+      }
     }
-  };
+  ];
 
-  // Private state
-  let _state = {
+  // State
+  var _state = {
     isConnected: false,
     address: null,
     walletType: null,
-    walletName: null,
-    chainType: null, // 'stacks', 'evm', 'solana'
-    userData: null
+    walletName: null
   };
 
   // Event listeners
-  const _listeners = {
+  var _listeners = {
     connect: [],
     disconnect: [],
     stateChange: []
   };
 
-  // Modal element reference
-  let _modalElement = null;
+  // Modal reference
+  var _modal = null;
 
-  /**
-   * Initialize wallet state from localStorage
-   */
+  // Initialize from localStorage
   function init() {
-    const saved = localStorage.getItem(CONFIG.storageKey);
-    if (saved) {
-      try {
-        const data = JSON.parse(saved);
-        if (data.address && data.isConnected) {
-          _state = { ...data };
+    try {
+      var saved = localStorage.getItem(CONFIG.storageKey);
+      if (saved) {
+        var data = JSON.parse(saved);
+        if (data && data.address) {
+          _state = data;
           _emit('stateChange', _state);
         }
-      } catch (e) {
-        console.warn('Failed to restore wallet state:', e);
-        localStorage.removeItem(CONFIG.storageKey);
       }
+    } catch (e) {
+      console.warn('WalletAuth init error:', e);
     }
     return _state;
   }
 
-  /**
-   * Save state to localStorage
-   */
+  // Save state
   function _saveState() {
-    localStorage.setItem(CONFIG.storageKey, JSON.stringify(_state));
+    try {
+      localStorage.setItem(CONFIG.storageKey, JSON.stringify(_state));
+    } catch (e) {
+      console.warn('Failed to save wallet state:', e);
+    }
   }
 
-  /**
-   * Emit event to listeners
-   */
+  // Emit events
   function _emit(event, data) {
     if (_listeners[event]) {
-      _listeners[event].forEach(fn => fn(data));
+      _listeners[event].forEach(function(fn) { fn(data); });
     }
   }
 
-  /**
-   * Format wallet address for display
-   */
-  function formatAddress(address) {
-    if (!address) return '';
-    if (address.length <= 12) return address;
-    return `${address.slice(0, 5)}...${address.slice(-4)}`;
+  // Format address
+  function formatAddress(addr) {
+    if (!addr) return '';
+    if (addr.length <= 10) return addr;
+    return addr.slice(0, 6) + '...' + addr.slice(-4);
   }
 
-  /**
-   * Get detected wallets
-   */
-  function getDetectedWallets() {
-    const detected = [];
-    for (const [key, wallet] of Object.entries(WALLETS)) {
-      if (wallet.detect()) {
-        detected.push({ id: key, ...wallet });
-      }
+  // Get state
+  function getState() {
+    return {
+      isConnected: _state.isConnected,
+      address: _state.address,
+      walletType: _state.walletType,
+      walletName: _state.walletName
+    };
+  }
+
+  // Check if connected
+  function isConnected() {
+    return _state.isConnected;
+  }
+
+  // Get address
+  function getAddress() {
+    return _state.address;
+  }
+
+  // Subscribe to events
+  function on(event, callback) {
+    if (_listeners[event]) {
+      _listeners[event].push(callback);
     }
-    return detected;
   }
 
-  /**
-   * Get all supported wallets
-   */
+  // Unsubscribe
+  function off(event, callback) {
+    if (_listeners[event]) {
+      _listeners[event] = _listeners[event].filter(function(fn) { return fn !== callback; });
+    }
+  }
+
+  // Get all wallets with install status
   function getAllWallets() {
-    return Object.entries(WALLETS).map(([id, wallet]) => ({
-      id,
-      ...wallet,
-      installed: wallet.detect()
-    }));
-  }
-
-  /**
-   * Show wallet selection modal
-   */
-  function showWalletModal() {
-    console.log('showWalletModal called');
-    return new Promise((resolve, reject) => {
-      // Remove existing modal if any
-      hideWalletModal();
-
-      const wallets = getAllWallets();
-      console.log('Available wallets:', wallets);
-      
-      const modalHTML = `
-        <div class="wallet-modal-overlay" id="walletModalOverlay">
-          <div class="wallet-modal" role="dialog" aria-labelledby="walletModalTitle">
-            <div class="wallet-modal-header">
-              <h2 id="walletModalTitle">Connect Wallet</h2>
-              <button class="wallet-modal-close" id="walletModalClose" aria-label="Close">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M18 6L6 18M6 6l12 12"/>
-                </svg>
-              </button>
-            </div>
-            <div class="wallet-modal-body">
-              <p class="wallet-modal-subtitle">Choose your preferred wallet to connect to SNOZCOIN</p>
-              <div class="wallet-list">
-                ${wallets.map(wallet => `
-                  <button class="wallet-option ${wallet.installed ? 'installed' : 'not-installed'}" 
-                          data-wallet-id="${wallet.id}"
-                          data-wallet-type="${wallet.type}">
-                    <span class="wallet-option-icon">${wallet.icon}</span>
-                    <span class="wallet-option-info">
-                      <span class="wallet-option-name">${wallet.name}</span>
-                      <span class="wallet-option-status">${wallet.installed ? 'Detected' : 'Not installed'}</span>
-                    </span>
-                    ${!wallet.installed ? '<span class="wallet-option-install">Install →</span>' : '<span class="wallet-option-arrow">→</span>'}
-                  </button>
-                `).join('')}
-              </div>
-              <div class="wallet-modal-footer">
-                <p class="wallet-modal-note">
-                  <strong>Recommended:</strong> Xverse or Leather for Stacks blockchain
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-
-      console.log('Creating modal element...');
-      // Add modal to DOM
-      const modalContainer = document.createElement('div');
-      modalContainer.innerHTML = modalHTML;
-      _modalElement = modalContainer.firstElementChild;
-      document.body.appendChild(_modalElement);
-      console.log('Modal added to DOM:', _modalElement);
-
-      // Prevent body scroll
-      document.body.style.overflow = 'hidden';
-
-      // Attach event listeners
-      const closeBtn = document.getElementById('walletModalClose');
-      const overlay = document.getElementById('walletModalOverlay');
-      console.log('Modal elements:', { closeBtn, overlay });
-      
-      const handleClose = () => {
-        hideWalletModal();
-        reject(new Error('User closed wallet modal'));
+    return WALLETS.map(function(w) {
+      return {
+        id: w.id,
+        name: w.name,
+        icon: w.icon,
+        type: w.type,
+        installUrl: w.installUrl,
+        installed: w.detect()
       };
-
-      closeBtn.addEventListener('click', handleClose);
-      overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) handleClose();
-      });
-
-      // Handle escape key
-      const handleEscape = (e) => {
-        if (e.key === 'Escape') {
-          handleClose();
-          document.removeEventListener('keydown', handleEscape);
-        }
-      };
-      document.addEventListener('keydown', handleEscape);
-
-      // Handle wallet selection
-      const walletButtons = _modalElement.querySelectorAll('.wallet-option');
-      walletButtons.forEach(btn => {
-        btn.addEventListener('click', async () => {
-          const walletId = btn.dataset.walletId;
-          const wallet = WALLETS[walletId];
-          
-          if (!wallet.detect()) {
-            // Wallet not installed, open install page
-            window.open(wallet.installUrl, '_blank');
-            return;
-          }
-
-          // Show loading state
-          btn.classList.add('loading');
-          btn.innerHTML = `
-            <span class="wallet-option-icon">${wallet.icon}</span>
-            <span class="wallet-option-info">
-              <span class="wallet-option-name">${wallet.name}</span>
-              <span class="wallet-option-status">Connecting...</span>
-            </span>
-            <span class="wallet-option-spinner"></span>
-          `;
-
-          try {
-            const result = await connect(walletId);
-            hideWalletModal();
-            resolve(result);
-          } catch (error) {
-            btn.classList.remove('loading');
-            btn.innerHTML = `
-              <span class="wallet-option-icon">${wallet.icon}</span>
-              <span class="wallet-option-info">
-                <span class="wallet-option-name">${wallet.name}</span>
-                <span class="wallet-option-status wallet-error">Connection failed</span>
-              </span>
-              <span class="wallet-option-arrow">→</span>
-            `;
-          }
-        });
-      });
     });
   }
 
-  /**
-   * Hide wallet selection modal
-   */
-  function hideWalletModal() {
-    if (_modalElement) {
-      _modalElement.remove();
-      _modalElement = null;
-      document.body.style.overflow = '';
-    }
+  // Show wallet modal
+  function showWalletModal() {
+    return new Promise(function(resolve, reject) {
+      // Remove existing modal
+      hideWalletModal();
+
+      var wallets = getAllWallets();
+      
+      // Create modal HTML
+      var html = '<div class="wallet-modal-overlay" id="walletModalOverlay">' +
+        '<div class="wallet-modal">' +
+          '<div class="wallet-modal-header">' +
+            '<h2>Connect Wallet</h2>' +
+            '<button class="wallet-modal-close" id="walletModalClose">&times;</button>' +
+          '</div>' +
+          '<div class="wallet-modal-body">' +
+            '<p class="wallet-modal-subtitle">Select a wallet to connect</p>' +
+            '<div class="wallet-list">';
+      
+      for (var i = 0; i < wallets.length; i++) {
+        var wallet = wallets[i];
+        var statusText = wallet.installed ? 'Detected' : 'Not installed';
+        var statusClass = wallet.installed ? 'detected' : 'not-installed';
+        var actionText = wallet.installed ? '→' : 'Install →';
+        
+        html += '<button class="wallet-option ' + statusClass + '" data-wallet="' + wallet.id + '">' +
+          '<span class="wallet-icon">' + wallet.icon + '</span>' +
+          '<span class="wallet-info">' +
+            '<span class="wallet-name">' + wallet.name + '</span>' +
+            '<span class="wallet-status">' + statusText + '</span>' +
+          '</span>' +
+          '<span class="wallet-action">' + actionText + '</span>' +
+        '</button>';
+      }
+      
+      html += '</div>' +
+            '<p class="wallet-modal-note"><strong>Recommended:</strong> MetaMask or Phantom</p>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+      // Add to page
+      var container = document.createElement('div');
+      container.innerHTML = html;
+      _modal = container.firstChild;
+      document.body.appendChild(_modal);
+      document.body.style.overflow = 'hidden';
+
+      // Close handlers
+      function closeModal() {
+        hideWalletModal();
+        reject(new Error('User closed wallet modal'));
+      }
+
+      document.getElementById('walletModalClose').onclick = closeModal;
+      document.getElementById('walletModalOverlay').onclick = function(e) {
+        if (e.target.id === 'walletModalOverlay') closeModal();
+      };
+
+      // Wallet click handlers
+      var buttons = _modal.querySelectorAll('.wallet-option');
+      for (var j = 0; j < buttons.length; j++) {
+        (function(btn) {
+          btn.onclick = function() {
+            var walletId = btn.getAttribute('data-wallet');
+            var walletData = null;
+            for (var k = 0; k < WALLETS.length; k++) {
+              if (WALLETS[k].id === walletId) {
+                walletData = WALLETS[k];
+                break;
+              }
+            }
+            
+            if (!walletData.detect()) {
+              window.open(walletData.installUrl, '_blank');
+              return;
+            }
+
+            // Show connecting state
+            btn.innerHTML = '<span class="wallet-icon">' + walletData.icon + '</span>' +
+              '<span class="wallet-info">' +
+                '<span class="wallet-name">' + walletData.name + '</span>' +
+                '<span class="wallet-status">Connecting...</span>' +
+              '</span>' +
+              '<span class="wallet-spinner"></span>';
+
+            connect(walletId).then(function(result) {
+              hideWalletModal();
+              resolve(result);
+            }).catch(function(err) {
+              btn.innerHTML = '<span class="wallet-icon">' + walletData.icon + '</span>' +
+                '<span class="wallet-info">' +
+                  '<span class="wallet-name">' + walletData.name + '</span>' +
+                  '<span class="wallet-status wallet-error">Failed - Try again</span>' +
+                '</span>' +
+                '<span class="wallet-action">→</span>';
+            });
+          };
+        })(buttons[j]);
+      }
+    });
   }
 
-  /**
-   * Connect wallet by type
-   */
-  async function connect(walletId = 'xverse') {
-    const wallet = WALLETS[walletId];
+  // Hide modal
+  function hideWalletModal() {
+    if (_modal && _modal.parentNode) {
+      _modal.parentNode.removeChild(_modal);
+    }
+    _modal = null;
+    document.body.style.overflow = '';
+  }
+
+  // Connect to wallet
+  function connect(walletId) {
+    var wallet = null;
+    for (var i = 0; i < WALLETS.length; i++) {
+      if (WALLETS[i].id === walletId) {
+        wallet = WALLETS[i];
+        break;
+      }
+    }
     
     if (!wallet) {
-      throw new Error(`Unknown wallet: ${walletId}`);
+      return Promise.reject(new Error('Unknown wallet'));
     }
 
-    if (!wallet.detect()) {
-      throw new Error(`${wallet.name} wallet not detected`);
+    if (wallet.type === 'evm') {
+      return connectEVM(wallet);
+    } else if (wallet.type === 'solana') {
+      return connectSolana(wallet);
+    } else if (wallet.type === 'stacks') {
+      return connectStacks(wallet);
     }
-
-    try {
-      let result;
-      
-      switch (wallet.type) {
-        case 'stacks':
-          result = await _connectStacksWallet(walletId);
-          break;
-        case 'evm':
-          result = await _connectEVMWallet(walletId);
-          break;
-        case 'solana':
-          result = await _connectSolanaWallet(walletId);
-          break;
-        default:
-          throw new Error(`Unsupported wallet type: ${wallet.type}`);
-      }
-
-      return result;
-    } catch (error) {
-      console.error(`${wallet.name} connection failed:`, error);
-      throw error;
-    }
+    
+    return Promise.reject(new Error('Unsupported wallet type'));
   }
 
-  /**
-   * Connect Stacks wallet (Xverse, Leather)
-   */
-  async function _connectStacksWallet(walletId) {
-    let provider = null;
-
-    // Get the appropriate provider
-    if (walletId === 'leather') {
-      provider = window.LeatherProvider || window.HiroWalletProvider;
-    } else if (walletId === 'xverse') {
-      provider = window.XverseProviders?.StacksProvider || window.BitcoinProvider;
-    }
-
-    // Fallback to generic StacksProvider
-    if (!provider && window.StacksProvider) {
-      provider = window.StacksProvider;
-    }
-
-    if (!provider) {
-      throw new Error(`${WALLETS[walletId].name} provider not found`);
-    }
-
-    // Try modern RPC method first
-    try {
-      const response = await provider.request({ method: 'stx_requestAccounts' });
-      
-      if (response?.result?.addresses) {
-        const addresses = response.result.addresses;
-        const stxAddress = addresses.find(a => a.symbol === 'STX' || a.type === 'stacks');
-        
-        if (stxAddress) {
-          _state = {
-            isConnected: true,
-            address: stxAddress.address,
-            walletType: walletId,
-            walletName: WALLETS[walletId].name,
-            chainType: 'stacks',
-            userData: { addresses }
-          };
-          
-          _saveState();
-          _emit('connect', _state);
-          _emit('stateChange', _state);
-          
-          return _state;
-        }
+  // Connect EVM (MetaMask)
+  function connectEVM(wallet) {
+    return new Promise(function(resolve, reject) {
+      if (!window.ethereum) {
+        reject(new Error('MetaMask not found'));
+        return;
       }
-    } catch (e) {
-      console.log('Modern RPC failed, trying legacy method...');
-    }
 
-    // Try legacy connect method
-    if (typeof provider.connect === 'function') {
-      const result = await provider.connect();
-      
-      if (result?.addresses?.[0]) {
-        const addr = result.addresses[0];
-        _state = {
-          isConnected: true,
-          address: addr.address || addr,
-          walletType: walletId,
-          walletName: WALLETS[walletId].name,
-          chainType: 'stacks',
-          userData: result
-        };
-        
-        _saveState();
-        _emit('connect', _state);
-        _emit('stateChange', _state);
-        
-        return _state;
-      }
-    }
-
-    // Try getAddresses for Xverse
-    if (walletId === 'xverse' && window.BitcoinProvider) {
-      try {
-        const getAddressOptions = {
-          payload: {
-            purposes: ['stacks'],
-            message: 'Connect to SNOZCOIN',
-            network: { type: CONFIG.network === 'mainnet' ? 'Mainnet' : 'Testnet' }
-          },
-          onFinish: (response) => response,
-          onCancel: () => { throw new Error('User cancelled'); }
-        };
-        
-        // This uses Xverse's getAddress API
-        if (window.sats?.getAddress) {
-          const response = await window.sats.getAddress(getAddressOptions);
-          if (response?.addresses) {
-            const stacksAddr = response.addresses.find(a => a.purpose === 'stacks');
-            if (stacksAddr) {
-              _state = {
-                isConnected: true,
-                address: stacksAddr.address,
-                walletType: walletId,
-                walletName: WALLETS[walletId].name,
-                chainType: 'stacks',
-                userData: response
-              };
-              
-              _saveState();
-              _emit('connect', _state);
-              _emit('stateChange', _state);
-              
-              return _state;
-            }
+      window.ethereum.request({ method: 'eth_requestAccounts' })
+        .then(function(accounts) {
+          if (accounts && accounts.length > 0) {
+            _state = {
+              isConnected: true,
+              address: accounts[0],
+              walletType: wallet.id,
+              walletName: wallet.name
+            };
+            _saveState();
+            _emit('connect', _state);
+            _emit('stateChange', _state);
+            resolve(_state);
+          } else {
+            reject(new Error('No accounts found'));
           }
-        }
-      } catch (e) {
-        console.log('Xverse getAddress failed:', e);
-      }
-    }
-
-    throw new Error('Failed to get wallet address');
+        })
+        .catch(function(err) {
+          reject(err);
+        });
+    });
   }
 
-  /**
-   * Connect EVM wallet (MetaMask, Trust Wallet)
-   */
-  async function _connectEVMWallet(walletId) {
-    let provider = null;
-
-    if (walletId === 'metamask') {
-      provider = window.ethereum;
-    } else if (walletId === 'trustwallet') {
-      provider = window.trustwallet?.ethereum || window.ethereum;
-    }
-
-    if (!provider) {
-      throw new Error(`${WALLETS[walletId].name} provider not found`);
-    }
-
-    try {
-      const accounts = await provider.request({ method: 'eth_requestAccounts' });
-      
-      if (accounts && accounts.length > 0) {
-        _state = {
-          isConnected: true,
-          address: accounts[0],
-          walletType: walletId,
-          walletName: WALLETS[walletId].name,
-          chainType: 'evm',
-          userData: { accounts }
-        };
-        
-        _saveState();
-        _emit('connect', _state);
-        _emit('stateChange', _state);
-        
-        return _state;
+  // Connect Solana (Phantom)
+  function connectSolana(wallet) {
+    return new Promise(function(resolve, reject) {
+      if (!window.phantom || !window.phantom.solana) {
+        reject(new Error('Phantom not found'));
+        return;
       }
-      
-      throw new Error('No accounts found');
-    } catch (error) {
-      if (error.code === 4001) {
-        throw new Error('User rejected the connection request');
-      }
-      throw error;
-    }
+
+      window.phantom.solana.connect()
+        .then(function(resp) {
+          if (resp && resp.publicKey) {
+            _state = {
+              isConnected: true,
+              address: resp.publicKey.toString(),
+              walletType: wallet.id,
+              walletName: wallet.name
+            };
+            _saveState();
+            _emit('connect', _state);
+            _emit('stateChange', _state);
+            resolve(_state);
+          } else {
+            reject(new Error('No public key'));
+          }
+        })
+        .catch(function(err) {
+          reject(err);
+        });
+    });
   }
 
-  /**
-   * Connect Solana wallet (Phantom)
-   */
-  async function _connectSolanaWallet(walletId) {
-    const provider = window.phantom?.solana;
-
-    if (!provider) {
-      throw new Error('Phantom wallet not found');
-    }
-
-    try {
-      const response = await provider.connect();
+  // Connect Stacks (Xverse/Leather)
+  function connectStacks(wallet) {
+    return new Promise(function(resolve, reject) {
+      var provider = null;
       
-      if (response?.publicKey) {
-        _state = {
-          isConnected: true,
-          address: response.publicKey.toString(),
-          walletType: walletId,
-          walletName: WALLETS[walletId].name,
-          chainType: 'solana',
-          userData: { publicKey: response.publicKey.toString() }
-        };
-        
-        _saveState();
-        _emit('connect', _state);
-        _emit('stateChange', _state);
-        
-        return _state;
+      if (wallet.id === 'leather') {
+        provider = window.LeatherProvider || window.HiroWalletProvider;
+      } else if (wallet.id === 'xverse') {
+        provider = window.XverseProviders ? window.XverseProviders.StacksProvider : null;
+        if (!provider) provider = window.BitcoinProvider;
       }
       
-      throw new Error('Failed to get public key');
-    } catch (error) {
-      if (error.code === 4001) {
-        throw new Error('User rejected the connection request');
+      if (!provider && window.StacksProvider) {
+        provider = window.StacksProvider;
       }
-      throw error;
-    }
+
+      if (!provider) {
+        reject(new Error(wallet.name + ' not found'));
+        return;
+      }
+
+      // Try modern method
+      if (provider.request) {
+        provider.request({ method: 'stx_requestAccounts' })
+          .then(function(resp) {
+            if (resp && resp.result && resp.result.addresses) {
+              var stxAddr = null;
+              for (var i = 0; i < resp.result.addresses.length; i++) {
+                var a = resp.result.addresses[i];
+                if (a.symbol === 'STX' || a.type === 'stacks') {
+                  stxAddr = a;
+                  break;
+                }
+              }
+              if (stxAddr) {
+                _state = {
+                  isConnected: true,
+                  address: stxAddr.address,
+                  walletType: wallet.id,
+                  walletName: wallet.name
+                };
+                _saveState();
+                _emit('connect', _state);
+                _emit('stateChange', _state);
+                resolve(_state);
+                return;
+              }
+            }
+            reject(new Error('No STX address found'));
+          })
+          .catch(function(err) {
+            // Try legacy connect
+            if (provider.connect) {
+              provider.connect().then(function(result) {
+                if (result && result.addresses && result.addresses[0]) {
+                  _state = {
+                    isConnected: true,
+                    address: result.addresses[0].address || result.addresses[0],
+                    walletType: wallet.id,
+                    walletName: wallet.name
+                  };
+                  _saveState();
+                  _emit('connect', _state);
+                  _emit('stateChange', _state);
+                  resolve(_state);
+                } else {
+                  reject(new Error('Connection failed'));
+                }
+              }).catch(reject);
+            } else {
+              reject(err);
+            }
+          });
+      } else if (provider.connect) {
+        provider.connect().then(function(result) {
+          if (result && result.addresses && result.addresses[0]) {
+            _state = {
+              isConnected: true,
+              address: result.addresses[0].address || result.addresses[0],
+              walletType: wallet.id,
+              walletName: wallet.name
+            };
+            _saveState();
+            _emit('connect', _state);
+            _emit('stateChange', _state);
+            resolve(_state);
+          } else {
+            reject(new Error('Connection failed'));
+          }
+        }).catch(reject);
+      } else {
+        reject(new Error('No connect method available'));
+      }
+    });
   }
 
-  /**
-   * Disconnect wallet
-   */
+  // Disconnect
   function disconnect() {
     _state = {
       isConnected: false,
       address: null,
       walletType: null,
-      userData: null
+      walletName: null
     };
-    
-    localStorage.removeItem(CONFIG.storageKey);
+    try {
+      localStorage.removeItem(CONFIG.storageKey);
+    } catch (e) {}
     _emit('disconnect', _state);
     _emit('stateChange', _state);
-    
     return _state;
   }
 
-  /**
-   * Check if wallet is connected
-   */
-  function isConnected() {
-    return _state.isConnected;
-  }
-
-  /**
-   * Get current wallet state
-   */
-  function getState() {
-    return { ..._state };
-  }
-
-  /**
-   * Get connected address
-   */
-  function getAddress() {
-    return _state.address;
-  }
-
-  /**
-   * Subscribe to wallet events
-   */
-  function on(event, callback) {
-    if (_listeners[event]) {
-      _listeners[event].push(callback);
-    }
-    return () => off(event, callback);
-  }
-
-  /**
-   * Unsubscribe from wallet events
-   */
-  function off(event, callback) {
-    if (_listeners[event]) {
-      _listeners[event] = _listeners[event].filter(fn => fn !== callback);
-    }
-  }
-
-  /**
-   * Require wallet connection (for route protection)
-   */
-  function requireAuth(redirectUrl = '/') {
-    if (!_state.isConnected) {
-      sessionStorage.setItem('snozcoin_redirect_after_auth', window.location.pathname);
-      window.location.href = redirectUrl;
-      return false;
-    }
-    return true;
-  }
-
-  /**
-   * Handle post-auth redirect
-   */
+  // Redirect after auth
   function handleRedirectAfterAuth() {
-    const redirect = sessionStorage.getItem('snozcoin_redirect_after_auth');
+    var redirect = sessionStorage.getItem('snozcoin_redirect');
     if (redirect) {
-      sessionStorage.removeItem('snozcoin_redirect_after_auth');
+      sessionStorage.removeItem('snozcoin_redirect');
       window.location.href = redirect;
     } else {
       window.location.href = CONFIG.redirectTo;
     }
   }
 
+  // Require auth
+  function requireAuth(redirectUrl) {
+    if (!_state.isConnected) {
+      sessionStorage.setItem('snozcoin_redirect', window.location.pathname);
+      window.location.href = redirectUrl || '/';
+      return false;
+    }
+    return true;
+  }
+
+  // Initialize on load
+  init();
+
   // Public API
   return {
-    init,
-    connect,
-    disconnect,
-    isConnected,
-    getState,
-    getAddress,
-    formatAddress,
-    on,
-    off,
-    requireAuth,
-    handleRedirectAfterAuth,
-    showWalletModal,
-    hideWalletModal,
-    getDetectedWallets,
-    getAllWallets,
-    WALLETS,
-    CONFIG
+    init: init,
+    connect: connect,
+    disconnect: disconnect,
+    isConnected: isConnected,
+    getState: getState,
+    getAddress: getAddress,
+    formatAddress: formatAddress,
+    on: on,
+    off: off,
+    showWalletModal: showWalletModal,
+    hideWalletModal: hideWalletModal,
+    getAllWallets: getAllWallets,
+    handleRedirectAfterAuth: handleRedirectAfterAuth,
+    requireAuth: requireAuth,
+    CONFIG: CONFIG
   };
 })();
-
-// Auto-initialize on load
-if (typeof document !== 'undefined') {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => WalletAuth.init());
-  } else {
-    WalletAuth.init();
-  }
-}
-
-// Export for module systems
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = WalletAuth;
-}
