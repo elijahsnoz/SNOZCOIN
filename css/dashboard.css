@@ -889,3 +889,19 @@
     font-size: 1.5rem;
   }
 }
+
+/* ========================================
+   Mini Bar Height Classes
+======================================== */
+.mini-bar.h-40 { height: 40%; }
+.mini-bar.h-45 { height: 45%; }
+.mini-bar.h-60 { height: 60%; }
+.mini-bar.h-65 { height: 65%; }
+.mini-bar.h-70 { height: 70%; }
+.mini-bar.h-80 { height: 80%; }
+.mini-bar.h-90 { height: 90%; }
+
+/* Legend dot colors */
+.legend-dot.dot-primary { background: var(--gold-1); }
+.legend-dot.dot-success { background: #22c55e; }
+.legend-dot.dot-info { background: #60a5fa; }

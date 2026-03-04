@@ -115,9 +115,9 @@
               </div>
             </div>
             <div class="setting-row">
-              <label>Transaction Deadline</label>
+              <label for="tx-deadline">Transaction Deadline</label>
               <div class="deadline-input">
-                <input type="number" id="tx-deadline" value="20" min="1" max="60">
+                <input type="number" id="tx-deadline" value="20" min="1" max="60" title="Transaction deadline in minutes" aria-label="Transaction deadline in minutes">
                 <span>minutes</span>
               </div>
             </div>
@@ -203,7 +203,7 @@
           <!-- Swap Button -->
           <button class="swap-execute-btn" id="swap-btn" disabled>
             <span class="swap-btn-text">Connect Wallet</span>
-            <span class="swap-btn-loading" style="display: none;">
+            <span class="swap-btn-loading hidden-default">
               <svg class="spinner" viewBox="0 0 24 24" width="20" height="20">
                 <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="31.4 31.4" transform="rotate(-90 12 12)"/>
               </svg>
@@ -215,7 +215,7 @@
           <div class="swap-route" id="swap-route">
             <div class="route-header">
               <span>Route</span>
-              <button class="route-toggle" id="route-toggle">
+              <button class="route-toggle" id="route-toggle" title="Toggle route details" aria-label="Toggle route details">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
                   <path d="M6 9l6 6 6-6"/>
                 </svg>
@@ -428,7 +428,7 @@
     <div class="modal-content token-modal">
       <div class="modal-header">
         <h3>Select Token</h3>
-        <button class="modal-close" id="token-modal-close">
+        <button class="modal-close" id="token-modal-close" title="Close modal" aria-label="Close modal">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
             <path d="M18 6L6 18M6 6l12 12"/>
           </svg>

@@ -2677,6 +2677,7 @@ a.trust-badge:hover {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.8);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
 
@@ -3698,8 +3699,8 @@ a.trust-badge:hover {
   border: 1px solid rgba(168, 85, 247, 0.3);
   border-radius: 24px;
   padding: 24px;
-  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   position: relative;
 }
 
@@ -4054,4 +4055,118 @@ a.trust-badge:hover {
   .token-badges {
     justify-content: center;
   }
+}
+
+/* ========================================
+   Utility Classes for Inline Style Replacement
+======================================== */
+
+/* Hidden by default (display: none) */
+.hidden-default {
+  display: none;
+}
+
+/* Text alignment and spacing utilities */
+.text-center {
+  text-align: center;
+}
+
+.margin-top-0 {
+  margin-top: 0;
+}
+
+.margin-bottom-2 {
+  margin-bottom: 2rem;
+}
+
+.margin-y-2 {
+  margin: 2rem 0;
+}
+
+.margin-top-1 {
+  margin-top: 1rem;
+}
+
+/* SNOZ Section Grid */
+.snoz-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.snoz-section-title {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.snoz-subtitle {
+  text-align: center;
+  margin: 3rem 0 1rem;
+}
+
+/* Clarity contract text */
+.clarity-note {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Why buy grid margin */
+.why-buy-grid-spaced {
+  margin-top: 1.5rem;
+}
+
+/* Tier color classes */
+.tier-bronze {
+  color: #CD7F32;
+}
+
+.tier-silver {
+  color: #C0C0C0;
+}
+
+.tier-gold {
+  color: #FFD700;
+}
+
+.tier-platinum {
+  color: #E5E4E2;
+}
+
+.tier-diamond {
+  color: #B9F2FF;
+}
+
+/* SVG icon with margin */
+.icon-margin-right {
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .snoz-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Text utilities */
+.text-muted {
+  color: var(--muted);
+}
+
+.margin-0 {
+  margin: 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.font-size-1 {
+  font-size: 1rem;
+}
+
+/* Legal page utilities */
+.legal-list-indent {
+  margin: 0.5rem 0 0 1.5rem;
 }

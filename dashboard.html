@@ -32,7 +32,9 @@
         <a href="/">Home</a>
         <a href="/creators.html">Creators</a>
         <a href="/dashboard.html" class="active">Dashboard</a>
+        <a href="/swap.html">Swap</a>
         <a href="/stats.html">Stats</a>
+        <a href="/api.html">API</a>
       </div>
       <div class="nav-actions">
         <button id="dashboard-connect-btn" class="btn btn-primary wallet-connect-trigger">
@@ -91,7 +93,7 @@
       </div>
 
       <!-- Connected State - Dashboard Content -->
-      <div id="dashboard-connected" class="dashboard-state" style="display: none;">
+      <div id="dashboard-connected" class="dashboard-state hidden-default">
         
         <!-- User Overview Card -->
         <div class="dashboard-user-card">
@@ -209,7 +211,7 @@
               </svg>
               <p>No content yet</p>
               <span>Create your first piece of content to start earning.</span>
-              <a href="/creator.html" class="btn btn-primary btn-sm" style="margin-top: 1rem;">Get Started</a>
+              <a href="/creator.html" class="btn btn-primary btn-sm margin-top-1">Get Started</a>
             </div>
           </div>
         </div>
@@ -271,13 +273,13 @@
               </div>
               <div class="analytics-chart-mini" id="audience-chart">
                 <div class="mini-chart-placeholder">
-                  <div class="mini-bar" style="height: 40%"></div>
-                  <div class="mini-bar" style="height: 65%"></div>
-                  <div class="mini-bar" style="height: 45%"></div>
-                  <div class="mini-bar" style="height: 80%"></div>
-                  <div class="mini-bar" style="height: 60%"></div>
-                  <div class="mini-bar" style="height: 90%"></div>
-                  <div class="mini-bar" style="height: 70%"></div>
+                  <div class="mini-bar h-40"></div>
+                  <div class="mini-bar h-65"></div>
+                  <div class="mini-bar h-45"></div>
+                  <div class="mini-bar h-80"></div>
+                  <div class="mini-bar h-60"></div>
+                  <div class="mini-bar h-90"></div>
+                  <div class="mini-bar h-70"></div>
                 </div>
               </div>
             </div>
@@ -340,17 +342,17 @@
                 </div>
                 <div class="breakdown-legend">
                   <div class="legend-item">
-                    <span class="legend-dot" style="background: var(--gold-1)"></span>
+                    <span class="legend-dot dot-primary"></span>
                     <span class="legend-label">Tips</span>
                     <span class="legend-value">30 STX (60%)</span>
                   </div>
                   <div class="legend-item">
-                    <span class="legend-dot" style="background: #22c55e"></span>
+                    <span class="legend-dot dot-success"></span>
                     <span class="legend-label">Content Sales</span>
                     <span class="legend-value">15 STX (30%)</span>
                   </div>
                   <div class="legend-item">
-                    <span class="legend-dot" style="background: #60a5fa"></span>
+                    <span class="legend-dot dot-info"></span>
                     <span class="legend-label">Rewards</span>
                     <span class="legend-value">5 STX (10%)</span>
                   </div>

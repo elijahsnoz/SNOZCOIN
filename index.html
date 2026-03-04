@@ -34,7 +34,7 @@
 </head>
 <body>
   <!-- Connection Status Indicator (hidden by default) -->
-  <div id="connection-status" class="connection-status" style="display: none;">
+  <div id="connection-status" class="connection-status hidden-default">
     <span class="status-dot"></span>
     <span class="status-text">Connecting...</span>
   </div>
@@ -60,9 +60,9 @@
         <a href="#swap">Swap</a>
         <a href="#creators">Creators</a>
         <a href="#snoz-token">SNOZ Token</a>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="stats.html">Stats</a>
-        <a href="api.html">API</a>
+        <a href="/dashboard.html">Dashboard</a>
+        <a href="/stats.html">Stats</a>
+        <a href="/api.html">API</a>
         <a href="#roadmap">Roadmap</a>
         <a href="#faq">FAQ</a>
         
@@ -112,7 +112,7 @@
               </div>
             </div>
             <div class="notification-footer">
-              <a href="dashboard.html#notifications">View all notifications</a>
+              <a href="/dashboard.html#notifications">View all notifications</a>
             </div>
           </div>
         </div>
@@ -130,7 +130,7 @@
           <p class="lead">Empower creators with direct STX payments. Unlock exclusive content. Earn community rewards. All transactions transparent and on-chain.</p>
           <div class="hero-ctas">
             <a class="btn btn-primary" href="#creators">Explore Creators</a>
-            <a class="btn btn-swap" href="swap.html">🔄 Swap Stablecoins</a>
+            <a class="btn btn-swap" href="/swap.html">🔄 Swap Stablecoins</a>
             <a class="btn btn-ghost" id="openWhitepaper" href="/assets/whitepaper.html" target="_blank" rel="noopener">Whitepaper</a>
           </div>
           <p class="small-text">SNOZCOIN is a scalable creator monetization platform built on Stacks with Bitcoin security.</p>
@@ -350,7 +350,7 @@
         </div>
 
         <p class="swap-cta">
-          Need more options? <a href="swap.html">Open Full Swap Interface →</a>
+          Need more options? <a href="/swap.html">Open Full Swap Interface →</a>
         </p>
       </div>
     </section>
@@ -460,7 +460,7 @@
               <p>You're ready! Explore creators to tip, or register as a creator to start earning.</p>
               <div class="action-buttons">
                 <a href="#creators" class="btn btn-secondary">Browse Creators</a>
-                <a href="creator.html" class="btn btn-outline">Become a Creator</a>
+                <a href="/creator.html" class="btn btn-outline">Become a Creator</a>
               </div>
             </div>
           </div>
@@ -517,7 +517,7 @@
           </div>
         </div>
 
-        <div class="why-buy-grid" style="margin-top: 1.5rem;">
+        <div class="why-buy-grid why-buy-grid-spaced">
           <div class="why-buy-card">
             <div class="why-buy-icon">🏆</div>
             <h3>Loyalty Rewards</h3>
@@ -566,7 +566,7 @@
 
         <!-- Smart Contracts Grid -->
         <h3 class="section-subtitle">Smart Contracts</h3>
-        <p class="small-text" style="text-align: center; margin-bottom: 1.5rem;">All contracts written in Clarity — a decidable, non-Turing complete language designed for predictable execution.</p>
+        <p class="small-text clarity-note">All contracts written in Clarity — a decidable, non-Turing complete language designed for predictable execution.</p>
         
         <div class="contracts-grid">
           <div class="contract-card">
@@ -767,30 +767,30 @@
         <p class="lead">Earn non-speculative rewards for platform activity. <strong>STX is the only monetary currency</strong> — SNOZ is for reputation, governance, and access.</p>
         
         <!-- Wallet Connection -->
-        <div style="text-align: center; margin: 2rem 0;">
+        <div class="text-center margin-y-2">
           <button id="snoz-connect-btn" class="wallet-connect-btn">
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
               <path d="M0 3a2 2 0 0 1 2-2h13.5a.5.5 0 0 1 0 1H15v2a1 1 0 0 1 1 1v8.5a1.5 1.5 0 0 1-1.5 1.5h-12A2.5 2.5 0 0 1 0 12.5V3zm1 1.732V12.5A1.5 1.5 0 0 0 2.5 14h12a.5.5 0 0 0 .5-.5V5H2a1.99 1.99 0 0 1-1-.268zM1 3a1 1 0 0 0 1 1h12V2H2a1 1 0 0 0-1 1z"/>
             </svg>
             <span id="wallet-btn-text">Connect Wallet</span>
           </button>
-          <button id="snoz-disconnect-btn" class="wallet-disconnect-btn" style="display: none;">
+          <button id="snoz-disconnect-btn" class="wallet-disconnect-btn hidden-default">
             Disconnect
           </button>
         </div>
         
         <!-- Balance & Tier Display -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+        <div class="snoz-stats-grid">
           <div class="snoz-balance-card">
-            <h3 style="margin: 0 0 1rem; color: var(--muted); font-size: 0.9rem;">Your SNOZ Balance</h3>
+            <h3 class="snoz-section-title">Your SNOZ Balance</h3>
             <div id="snoz-balance">
               <span class="snoz-label">Connect wallet to view</span>
             </div>
           </div>
           <div class="snoz-balance-card">
-            <h3 style="margin: 0 0 1rem; color: var(--muted); font-size: 0.9rem;">Your Tier</h3>
+            <h3 class="snoz-section-title">Your Tier</h3>
             <div id="snoz-tier">
-              <div class="tier-badge" style="color: #CD7F32">
+              <div class="tier-badge tier-bronze">
                 <span class="tier-icon">🥉</span>
                 <span class="tier-name">Bronze</span>
               </div>
@@ -799,7 +799,7 @@
         </div>
         
         <!-- Transaction History Panel -->
-        <div id="tx-history-panel" class="tx-history-panel" style="display: none;">
+        <div id="tx-history-panel" class="tx-history-panel hidden-default">
           <div class="tx-history-header">
             <h3>Recent Transactions</h3>
             <button id="tx-history-close" class="tx-history-close" aria-label="Close transaction history">&times;</button>
@@ -816,9 +816,9 @@
         </div>
         
         <!-- Transaction History Toggle Button -->
-        <div style="text-align: center; margin-bottom: 2rem;">
-          <button id="tx-history-toggle" class="btn btn-ghost" style="display: none;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="margin-right: 0.5rem;">
+        <div class="text-center margin-bottom-2">
+          <button id="tx-history-toggle" class="btn btn-ghost hidden-default">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" class="icon-margin-right">
               <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
             View Transaction History
@@ -826,7 +826,7 @@
         </div>
         
         <!-- SNOZ Utility Purposes -->
-        <h3 style="text-align: center; margin: 3rem 0 1rem;">What is SNOZ For?</h3>
+        <h3 class="snoz-subtitle">What is SNOZ For?</h3>
         <div class="snoz-utility-grid">
           <div class="snoz-utility-card">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -865,31 +865,31 @@
         </div>
         
         <!-- Tier Levels -->
-        <h3 style="text-align: center; margin: 3rem 0 1rem;">SNOZ Tier Levels</h3>
+        <h3 class="snoz-subtitle">SNOZ Tier Levels</h3>
         <div class="snoz-tiers-grid">
           <div class="snoz-tier-card bronze">
             <div class="tier-icon">🥉</div>
-            <div class="tier-name" style="color: #CD7F32;">Bronze</div>
+            <div class="tier-name tier-bronze">Bronze</div>
             <div class="tier-threshold">0 SNOZ</div>
           </div>
           <div class="snoz-tier-card silver">
             <div class="tier-icon">🥈</div>
-            <div class="tier-name" style="color: #C0C0C0;">Silver</div>
+            <div class="tier-name tier-silver">Silver</div>
             <div class="tier-threshold">1,000 SNOZ</div>
           </div>
           <div class="snoz-tier-card gold">
             <div class="tier-icon">🥇</div>
-            <div class="tier-name" style="color: #FFD700;">Gold</div>
+            <div class="tier-name tier-gold">Gold</div>
             <div class="tier-threshold">10,000 SNOZ</div>
           </div>
           <div class="snoz-tier-card platinum">
             <div class="tier-icon">💎</div>
-            <div class="tier-name" style="color: #E5E4E2;">Platinum</div>
+            <div class="tier-name tier-platinum">Platinum</div>
             <div class="tier-threshold">100,000 SNOZ</div>
           </div>
           <div class="snoz-tier-card diamond">
             <div class="tier-icon">💠</div>
-            <div class="tier-name" style="color: #B9F2FF;">Diamond</div>
+            <div class="tier-name tier-diamond">Diamond</div>
             <div class="tier-threshold">1,000,000 SNOZ</div>
           </div>
         </div>
@@ -897,7 +897,7 @@
         <!-- Rewards Preview Calculator -->
         <div class="snoz-rewards-preview">
           <h3>Rewards Calculator</h3>
-          <p class="muted" style="margin-top: 0;">See how much SNOZ you'd earn for platform activities.</p>
+          <p class="muted margin-top-0">See how much SNOZ you'd earn for platform activities.</p>
           
           <div class="rewards-calculator">
             <div class="reward-row">
@@ -909,7 +909,7 @@
               <div class="reward-result">
                 = <span id="preview-tip-reward">20.00 SNOZ</span>
               </div>
-              <small style="color: var(--muted);">Rate: 2 SNOZ per STX tipped</small>
+              <small class="text-muted">Rate: 2 SNOZ per STX tipped</small>
             </div>
             <div class="reward-row">
               <label>Purchase Content</label>
@@ -920,14 +920,14 @@
               <div class="reward-result">
                 = <span id="preview-content-reward">15.00 SNOZ</span>
               </div>
-              <small style="color: var(--muted);">Rate: 3 SNOZ per STX spent</small>
+              <small class="text-muted">Rate: 3 SNOZ per STX spent</small>
             </div>
           </div>
         </div>
         
         <!-- Important Notice -->
         <div class="snoz-notice">
-          <p style="margin: 0;"><strong>Important:</strong> SNOZ is a non-speculative utility token with no monetary value. It cannot be traded or sold. STX (Stacks) remains the only currency for tipping, content purchases, and creator payouts. SNOZ exists solely to reward engagement and enable governance.</p>
+          <p class="margin-0"><strong>Important:</strong> SNOZ is a non-speculative utility token with no monetary value. It cannot be traded or sold. STX (Stacks) remains the only currency for tipping, content purchases, and creator payouts. SNOZ exists solely to reward engagement and enable governance.</p>
         </div>
       </div>
     </section>
@@ -1156,7 +1156,7 @@
   <script src="js/snoz-stacks.js"></script>
   
   <!-- Loading Overlay (for async operations) -->
-  <div id="loading-overlay" class="loading-overlay" style="display: none;">
+  <div id="loading-overlay" class="loading-overlay hidden-default">
     <div class="loading-content">
       <div class="spinner spinner-lg"></div>
       <p id="loading-message">Processing...</p>

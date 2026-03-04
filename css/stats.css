@@ -712,3 +712,15 @@
     padding: 0.75rem 1rem;
   }
 }
+
+/* ========================================
+   Tier Segment Widths
+======================================== */
+.tier-segment.w-45 { width: 45%; }
+.tier-segment.w-28 { width: 28%; }
+.tier-segment.w-15 { width: 15%; }
+.tier-segment.w-9 { width: 9%; }
+.tier-segment.w-3 { width: 3%; }
+
+/* Progress fill widths */
+.progress-fill.w-tiny { width: 0.024%; }
