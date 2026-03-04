@@ -4406,8 +4406,8 @@ a.trust-badge:hover {
 }
 
 .wallet-modal {
-  background: var(--bg);
-  border: 1px solid var(--border);
+  background: #1a1a1a;
+  border: 1px solid #333;
   border-radius: 16px;
   width: 100%;
   max-width: 420px;
@@ -4433,14 +4433,14 @@ a.trust-badge:hover {
   align-items: center;
   justify-content: space-between;
   padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid #333;
 }
 
 .wallet-modal-header h2 {
   margin: 0;
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--fg);
+  color: #fff;
 }
 
 .wallet-modal-close {
@@ -4453,13 +4453,13 @@ a.trust-badge:hover {
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  color: var(--muted);
+  color: #888;
   transition: all 0.2s ease;
 }
 
 .wallet-modal-close:hover {
-  background: var(--bg-muted);
-  color: var(--fg);
+  background: #333;
+  color: #fff;
 }
 
 .wallet-modal-body {
@@ -4467,7 +4467,7 @@ a.trust-badge:hover {
 }
 
 .wallet-modal-subtitle {
-  color: var(--muted);
+  color: #888;
   font-size: 0.875rem;
   margin: 0 0 1.25rem 0;
   text-align: center;
@@ -4484,8 +4484,8 @@ a.trust-badge:hover {
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  background: var(--bg-muted);
-  border: 1px solid var(--border);
+  background: #222;
+  border: 1px solid #444;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -4494,8 +4494,8 @@ a.trust-badge:hover {
 }
 
 .wallet-option:hover {
-  background: var(--bg);
-  border-color: var(--accent);
+  background: #2a2a2a;
+  border-color: #ff6b35;
   transform: translateY(-2px);
 }
 
@@ -4524,7 +4524,7 @@ a.trust-badge:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg);
+  background: #1a1a1a;
   border-radius: 10px;
   flex-shrink: 0;
 }
@@ -4539,17 +4539,17 @@ a.trust-badge:hover {
 .wallet-option-name {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--fg);
+  color: #fff;
 }
 
 .wallet-option-status {
   font-size: 0.75rem;
-  color: var(--muted);
+  color: #888;
   margin-top: 2px;
 }
 
 .wallet-option.installed .wallet-option-status {
-  color: var(--accent);
+  color: #ff6b35;
 }
 
 .wallet-option-status.wallet-error {
@@ -4559,20 +4559,20 @@ a.trust-badge:hover {
 .wallet-option-arrow,
 .wallet-option-install {
   font-size: 0.875rem;
-  color: var(--muted);
+  color: #888;
   flex-shrink: 0;
 }
 
 .wallet-option-install {
-  color: var(--accent);
+  color: #ff6b35;
   font-weight: 500;
 }
 
 .wallet-option-spinner {
   width: 20px;
   height: 20px;
-  border: 2px solid var(--border);
-  border-top-color: var(--accent);
+  border: 2px solid #444;
+  border-top-color: #ff6b35;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
   flex-shrink: 0;
@@ -4585,19 +4585,19 @@ a.trust-badge:hover {
 .wallet-modal-footer {
   margin-top: 1.25rem;
   padding-top: 1rem;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid #333;
 }
 
 .wallet-modal-note {
   font-size: 0.75rem;
-  color: var(--muted);
+  color: #888;
   text-align: center;
   margin: 0;
   line-height: 1.5;
 }
 
 .wallet-modal-note strong {
-  color: var(--accent);
+  color: #ff6b35;
 }
 
 /* Wallet Modal Mobile Styles */
