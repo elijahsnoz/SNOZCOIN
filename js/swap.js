@@ -120,28 +120,34 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initializeElements() {
-    elements.fromAmount = document.getElementById('fromAmount');
-    elements.toAmount = document.getElementById('toAmount');
-    elements.fromTokenBtn = document.getElementById('fromTokenSelect');
-    elements.toTokenBtn = document.getElementById('toTokenSelect');
-    elements.swapBtn = document.getElementById('swapBtn');
-    elements.swapDirection = document.getElementById('swapDirection');
-    elements.settingsBtn = document.getElementById('settingsBtn');
-    elements.settingsDrawer = document.getElementById('settingsDrawer');
-    elements.closeSettings = document.getElementById('closeSettings');
-    elements.tokenModal = document.getElementById('tokenModal');
-    elements.closeModal = document.getElementById('closeModal');
-    elements.tokenSearch = document.getElementById('tokenSearch');
-    elements.tokenList = document.getElementById('tokenList');
-    elements.fromBalance = document.getElementById('fromBalance');
-    elements.toBalance = document.getElementById('toBalance');
-    elements.rateDisplay = document.getElementById('rateDisplay');
-    elements.priceImpact = document.getElementById('priceImpact');
-    elements.networkFee = document.getElementById('networkFee');
-    elements.routeDisplay = document.getElementById('routeDisplay');
-    elements.transactionList = document.getElementById('transactionList');
-    elements.refreshRate = document.getElementById('refreshRate');
-    elements.connectWalletBtn = document.getElementById('connectWalletBtn');
+    // Map HTML IDs to element references (HTML uses kebab-case, we convert to camelCase)
+    elements.fromAmount = document.getElementById('from-amount');
+    elements.toAmount = document.getElementById('to-amount');
+    elements.fromTokenBtn = document.getElementById('from-token-btn');
+    elements.toTokenBtn = document.getElementById('to-token-btn');
+    elements.fromTokenIcon = document.getElementById('from-token-icon');
+    elements.toTokenIcon = document.getElementById('to-token-icon');
+    elements.fromTokenSymbol = document.getElementById('from-token-symbol');
+    elements.toTokenSymbol = document.getElementById('to-token-symbol');
+    elements.swapBtn = document.getElementById('swap-btn');
+    elements.swapDirection = document.getElementById('swap-direction-btn');
+    elements.settingsBtn = document.getElementById('settings-btn');
+    elements.settingsPanel = document.getElementById('settings-panel');
+    elements.tokenModal = document.getElementById('token-modal');
+    elements.closeModal = document.getElementById('token-modal-close');
+    elements.tokenSearch = document.getElementById('token-search');
+    elements.tokenList = document.getElementById('token-list');
+    elements.fromBalance = document.getElementById('from-balance');
+    elements.toBalance = document.getElementById('to-balance');
+    elements.rateDisplay = document.getElementById('swap-rate');
+    elements.priceImpact = document.getElementById('price-impact');
+    elements.networkFee = document.getElementById('network-fee');
+    elements.minReceived = document.getElementById('min-received');
+    elements.routeDisplay = document.getElementById('swap-route');
+    elements.transactionList = document.getElementById('recent-txs');
+    elements.connectWalletBtn = document.getElementById('swap-connect-btn');
+    elements.fromUsd = document.getElementById('from-usd');
+    elements.toUsd = document.getElementById('to-usd');
 }
 
 function bindEvents() {
@@ -185,25 +191,29 @@ function bindEvents() {
     }
 
     // Slippage buttons
-    document.querySelectorAll('.slippage-option').forEach(btn => {
+    document.querySelectorAll('.slippage-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             setSlippage(parseFloat(e.target.dataset.value));
+            // Update active state
+            document.querySelectorAll('.slippage-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
         });
     });
 
     // Custom slippage
-    const customSlippage = document.getElementById('customSlippage');
+    const customSlippage = document.getElementById('custom-slippage');
     if (customSlippage) {
         customSlippage.addEventListener('input', (e) => {
             const value = parseFloat(e.target.value);
             if (!isNaN(value) && value > 0 && value <= 50) {
                 setSlippage(value);
+                document.querySelectorAll('.slippage-btn').forEach(b => b.classList.remove('active'));
             }
         });
     }
 
     // Deadline
-    const deadlineInput = document.getElementById('deadlineInput');
+    const deadlineInput = document.getElementById('tx-deadline');
     if (deadlineInput) {
         deadlineInput.addEventListener('input', (e) => {
             const value = parseInt(e.target.value);
@@ -213,13 +223,13 @@ function bindEvents() {
         });
     }
 
-    // MEV Protection
-    const mevToggle = document.getElementById('mevToggle');
-    if (mevToggle) {
-        mevToggle.addEventListener('change', (e) => {
-            state.mevProtection = e.target.checked;
+    // Quick amount buttons (25%, 50%, 75%, MAX)
+    document.querySelectorAll('.quick-amount-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const percent = parseInt(e.target.dataset.percent);
+            handleQuickAmount(percent);
         });
-    }
+    });
 
     // Token modal
     if (elements.closeModal) {
@@ -439,24 +449,28 @@ function updateTokenButtons() {
     const fromToken = TOKENS[state.fromToken];
     const toToken = TOKENS[state.toToken];
 
-    if (elements.fromTokenBtn) {
-        elements.fromTokenBtn.innerHTML = `
-            <img src="${fromToken.logo}" alt="${fromToken.symbol}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23a855f7%22/><text x=%2250%22 y=%2260%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2230%22>${fromToken.symbol[0]}</text></svg>'">
-            <span>${fromToken.symbol}</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 9l6 6 6-6"/>
-            </svg>
-        `;
+    // Update from token icon and symbol (using separate elements)
+    if (elements.fromTokenIcon) {
+        elements.fromTokenIcon.src = fromToken.logo;
+        elements.fromTokenIcon.alt = fromToken.symbol;
+        elements.fromTokenIcon.onerror = function() {
+            this.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23a855f7"/><text x="50" y="60" text-anchor="middle" fill="white" font-size="30">${fromToken.symbol[0]}</text></svg>`;
+        };
+    }
+    if (elements.fromTokenSymbol) {
+        elements.fromTokenSymbol.textContent = fromToken.symbol;
     }
 
-    if (elements.toTokenBtn) {
-        elements.toTokenBtn.innerHTML = `
-            <img src="${toToken.logo}" alt="${toToken.symbol}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23a855f7%22/><text x=%2250%22 y=%2260%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2230%22>${toToken.symbol[0]}</text></svg>'">
-            <span>${toToken.symbol}</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 9l6 6 6-6"/>
-            </svg>
-        `;
+    // Update to token icon and symbol
+    if (elements.toTokenIcon) {
+        elements.toTokenIcon.src = toToken.logo;
+        elements.toTokenIcon.alt = toToken.symbol;
+        elements.toTokenIcon.onerror = function() {
+            this.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23a855f7"/><text x="50" y="60" text-anchor="middle" fill="white" font-size="30">${toToken.symbol[0]}</text></svg>`;
+        };
+    }
+    if (elements.toTokenSymbol) {
+        elements.toTokenSymbol.textContent = toToken.symbol;
     }
 }
 
@@ -549,33 +563,56 @@ function updateRouteDisplay() {
 
 function updateSwapButton() {
     if (!elements.swapBtn) return;
+    
+    const btnText = elements.swapBtn.querySelector('.swap-btn-text') || elements.swapBtn;
 
     if (!state.walletConnected) {
-        elements.swapBtn.textContent = 'Connect Wallet';
+        if (btnText.classList) {
+            btnText.textContent = 'Connect Wallet';
+        } else {
+            elements.swapBtn.innerHTML = '<span class="swap-btn-text">Connect Wallet</span>';
+        }
         elements.swapBtn.disabled = false;
         return;
     }
 
     if (!state.fromAmount || parseFloat(state.fromAmount) === 0) {
-        elements.swapBtn.textContent = 'Enter Amount';
+        if (btnText.classList) {
+            btnText.textContent = 'Enter Amount';
+        } else {
+            elements.swapBtn.innerHTML = '<span class="swap-btn-text">Enter Amount</span>';
+        }
         elements.swapBtn.disabled = true;
         return;
     }
 
-    const balance = state.balances[state.fromToken] || 0;
+    const balance = state.balances[state.fromToken] || 1000; // Demo balance
     if (parseFloat(state.fromAmount) > balance) {
-        elements.swapBtn.textContent = `Insufficient ${state.fromToken} Balance`;
+        if (btnText.classList) {
+            btnText.textContent = `Insufficient ${state.fromToken}`;
+        } else {
+            elements.swapBtn.innerHTML = `<span class="swap-btn-text">Insufficient ${state.fromToken}</span>`;
+        }
         elements.swapBtn.disabled = true;
         return;
     }
 
     if (state.priceImpact > 15) {
-        elements.swapBtn.textContent = 'Price Impact Too High';
+        if (btnText.classList) {
+            btnText.textContent = 'Price Impact Too High';
+        } else {
+            elements.swapBtn.innerHTML = '<span class="swap-btn-text">Price Impact Too High</span>';
+        }
         elements.swapBtn.disabled = true;
         return;
     }
 
-    elements.swapBtn.textContent = 'Swap';
+    // Ready to swap
+    if (btnText.classList) {
+        btnText.textContent = 'Swap';
+    } else {
+        elements.swapBtn.innerHTML = '<span class="swap-btn-text">Swap</span>';
+    }
     elements.swapBtn.disabled = false;
 }
 
@@ -696,16 +733,18 @@ function swapTokens() {
 function toggleSettings() {
     state.settingsOpen = !state.settingsOpen;
     
-    if (elements.settingsDrawer) {
-        elements.settingsDrawer.classList.toggle('active', state.settingsOpen);
+    if (elements.settingsPanel) {
+        elements.settingsPanel.classList.toggle('active', state.settingsOpen);
+        elements.settingsPanel.style.display = state.settingsOpen ? 'block' : 'none';
     }
 }
 
 function closeSettings() {
     state.settingsOpen = false;
     
-    if (elements.settingsDrawer) {
-        elements.settingsDrawer.classList.remove('active');
+    if (elements.settingsPanel) {
+        elements.settingsPanel.classList.remove('active');
+        elements.settingsPanel.style.display = 'none';
     }
 }
 
@@ -713,42 +752,35 @@ function setSlippage(value) {
     state.slippage = value;
 
     // Update UI
-    document.querySelectorAll('.slippage-option').forEach(btn => {
+    document.querySelectorAll('.slippage-btn').forEach(btn => {
         btn.classList.toggle('active', parseFloat(btn.dataset.value) === value);
     });
 
-    const customSlippage = document.getElementById('customSlippage');
-    if (customSlippage && ![0.5, 1, 2].includes(value)) {
+    const customSlippage = document.getElementById('custom-slippage');
+    if (customSlippage && ![0.1, 0.5, 1].includes(value)) {
         customSlippage.value = value;
     }
 }
 
+// Quick Amount Buttons (25%, 50%, 75%, MAX)
+function handleQuickAmount(percent) {
+    const balance = state.balances[state.fromToken] || 1000; // Demo balance fallback
+    const amount = (balance * percent / 100).toFixed(6);
+    state.fromAmount = amount;
+    updateFromAmount();
+    calculateSwap();
+}
+
 // Max/Half Buttons
 function handleMaxClick(e) {
-    const panel = e.target.closest('.token-input-panel');
-    const isFrom = panel.querySelector('#fromAmount');
-    
-    if (isFrom) {
-        const balance = state.balances[state.fromToken] || 0;
-        state.fromAmount = balance.toString();
-        updateFromAmount();
-        calculateSwap();
-    }
+    handleQuickAmount(100);
 }
 
 function handleHalfClick(e) {
-    const panel = e.target.closest('.token-input-panel');
-    const isFrom = panel.querySelector('#fromAmount');
-    
-    if (isFrom) {
-        const balance = state.balances[state.fromToken] || 0;
-        state.fromAmount = (balance / 2).toString();
-        updateFromAmount();
-        calculateSwap();
-    }
+    handleQuickAmount(50);
 }
 
-// Wallet Connection
+// Wallet Connection - Using Stacks Connect library
 async function connectWallet() {
     if (state.walletConnected) {
         handleSwap();
@@ -756,33 +788,108 @@ async function connectWallet() {
     }
 
     try {
-        // Check for Hiro Wallet
-        if (typeof window.StacksProvider !== 'undefined') {
-            const response = await window.StacksProvider.authenticationRequest({
+        // Check if Stacks Connect library is loaded
+        if (typeof window.StacksConnect !== 'undefined') {
+            // Use Stacks Connect library
+            const { showConnect } = window.StacksConnect;
+            
+            showConnect({
                 appDetails: {
-                    name: 'SNOZCOIN',
-                    icon: window.location.origin + '/assets/logo.png'
-                }
+                    name: 'SNOZCOIN Swap',
+                    icon: window.location.origin + '/assets/SNOZCOIN-512.png'
+                },
+                onFinish: async (data) => {
+                    state.walletConnected = true;
+                    state.walletAddress = data.userSession.loadUserData().profile.stxAddress.mainnet;
+                    
+                    // Update UI
+                    updateConnectButton();
+                    await fetchBalances();
+                    updateSwapButton();
+                    showNotification('Wallet connected successfully!', 'success');
+                },
+                onCancel: () => {
+                    showNotification('Wallet connection cancelled', 'info');
+                },
+                userSession: new window.StacksConnect.UserSession()
             });
-
-            if (response) {
+        } 
+        // Fallback to direct Hiro Wallet provider
+        else if (typeof window.StacksProvider !== 'undefined') {
+            const response = await window.StacksProvider.request('stx_requestAccounts');
+            
+            if (response && response.result && response.result.length > 0) {
                 state.walletConnected = true;
-                state.walletAddress = response.address;
+                state.walletAddress = response.result[0].address;
                 
                 // Fetch balances
                 await fetchBalances();
-                
+                updateConnectButton();
                 updateSwapButton();
                 showNotification('Wallet connected successfully!', 'success');
             }
         } else {
-            // Show wallet install modal or redirect
-            showNotification('Please install Hiro Wallet to continue', 'warning');
-            window.open('https://wallet.hiro.so/', '_blank');
+            // No wallet found - show install options
+            showWalletInstallModal();
         }
     } catch (error) {
         console.error('Wallet connection error:', error);
-        showNotification('Failed to connect wallet', 'error');
+        showNotification('Failed to connect wallet. Please try again.', 'error');
+    }
+}
+
+// Show wallet installation options
+function showWalletInstallModal() {
+    const modal = document.createElement('div');
+    modal.className = 'wallet-install-modal';
+    modal.innerHTML = `
+        <div class="wallet-install-content">
+            <h3>Install a Stacks Wallet</h3>
+            <p>You need a Stacks wallet to swap tokens. Choose one below:</p>
+            <div class="wallet-options">
+                <a href="https://wallet.hiro.so/" target="_blank" rel="noopener" class="wallet-option">
+                    <img src="https://wallet.hiro.so/favicon.ico" alt="Hiro">
+                    <span>Hiro Wallet</span>
+                    <span class="wallet-badge">Recommended</span>
+                </a>
+                <a href="https://www.xverse.app/" target="_blank" rel="noopener" class="wallet-option">
+                    <img src="https://www.xverse.app/favicon.ico" alt="Xverse">
+                    <span>Xverse Wallet</span>
+                </a>
+                <a href="https://leather.io/" target="_blank" rel="noopener" class="wallet-option">
+                    <img src="https://leather.io/favicon.ico" alt="Leather">
+                    <span>Leather Wallet</span>
+                </a>
+            </div>
+            <button class="wallet-modal-close" onclick="this.closest('.wallet-install-modal').remove()">Close</button>
+        </div>
+    `;
+    document.body.appendChild(modal);
+}
+
+// Update connect button state
+function updateConnectButton() {
+    if (elements.connectWalletBtn) {
+        if (state.walletConnected && state.walletAddress) {
+            const shortAddr = state.walletAddress.slice(0, 6) + '...' + state.walletAddress.slice(-4);
+            elements.connectWalletBtn.innerHTML = `
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                ${shortAddr}
+            `;
+            elements.connectWalletBtn.classList.add('connected');
+        } else {
+            elements.connectWalletBtn.innerHTML = `
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                    <rect x="2" y="6" width="20" height="12" rx="2"/>
+                    <path d="M22 10H18a2 2 0 00-2 2v0a2 2 0 002 2h4"/>
+                </svg>
+                Connect Wallet
+            `;
+            elements.connectWalletBtn.classList.remove('connected');
+        }
     }
 }
 

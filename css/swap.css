@@ -1279,3 +1279,130 @@
     display: none;
   }
 }
+
+/* Wallet Install Modal */
+.wallet-install-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.wallet-install-content {
+  background: rgba(20, 20, 30, 0.98);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 20px;
+  padding: 32px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+
+.wallet-install-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+.wallet-install-content p {
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 24px;
+  font-size: 0.9rem;
+}
+
+.wallet-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.wallet-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  border-radius: 12px;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.wallet-option:hover {
+  background: rgba(168, 85, 247, 0.2);
+  border-color: rgba(168, 85, 247, 0.4);
+  transform: translateY(-2px);
+}
+
+.wallet-option img {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+
+.wallet-option span {
+  font-weight: 500;
+}
+
+.wallet-badge {
+  margin-left: auto;
+  padding: 4px 8px;
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.wallet-modal-close {
+  width: 100%;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.wallet-modal-close:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Connected state for wallet button */
+.btn.connected {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.btn.connected:hover {
+  background: rgba(16, 185, 129, 0.3);
+}
+
+/* Settings panel improvements */
+.swap-settings-panel {
+  display: none;
+  padding: 16px;
+  margin-bottom: 16px;
+  background: rgba(30, 30, 45, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+.swap-settings-panel.active {
+  display: block;
+}
+
+/* Slippage button active state */
+.slippage-btn.active {
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
+  border-color: transparent;
+  color: #fff;
+}
