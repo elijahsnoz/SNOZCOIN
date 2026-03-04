@@ -152,10 +152,12 @@ const DynamicHeader = (function() {
    * Initialize the header and attach event listeners
    */
   function init(containerId = 'header-container') {
+    console.log('DynamicHeader.init called with container:', containerId);
     const container = document.getElementById(containerId);
     
     // If no container, try to replace existing header
     if (!container) {
+      console.log('Container not found, looking for existing header...');
       const existingHeader = document.querySelector('.site-header, header.navbar');
       if (existingHeader) {
         const wrapper = document.createElement('div');
@@ -168,17 +170,21 @@ const DynamicHeader = (function() {
       return;
     }
 
+    console.log('Container found, getting wallet state...');
     // Get initial state
     const state = WalletAuth.getState();
+    console.log('Wallet state:', state);
     
     // Render header
     container.innerHTML = render(state.isConnected, state.address);
+    console.log('Header rendered');
     
     // Attach event listeners
     attachEventListeners();
     
     // Subscribe to wallet state changes
     WalletAuth.on('stateChange', (newState) => {
+      console.log('Wallet state changed:', newState);
       container.innerHTML = render(newState.isConnected, newState.address);
       attachEventListeners();
     });
@@ -188,6 +194,8 @@ const DynamicHeader = (function() {
    * Attach all event listeners
    */
   function attachEventListeners() {
+    console.log('attachEventListeners called');
+    
     // Mobile nav toggle
     const navToggle = document.getElementById('navToggle');
     const nav = document.getElementById('nav');
@@ -209,8 +217,12 @@ const DynamicHeader = (function() {
 
     // Connect wallet button
     const connectBtn = document.getElementById('headerConnectBtn');
+    console.log('Connect button found:', connectBtn);
     if (connectBtn) {
       connectBtn.addEventListener('click', handleConnect);
+      console.log('Connect button listener attached');
+    } else {
+      console.warn('Connect button NOT found - user may already be connected');
     }
 
     // Wallet dropdown toggle
@@ -244,12 +256,18 @@ const DynamicHeader = (function() {
    * Handle wallet connection
    */
   async function handleConnect() {
+    console.log('handleConnect called');
     const btn = document.getElementById('headerConnectBtn');
-    if (!btn) return;
+    if (!btn) {
+      console.error('Connect button not found');
+      return;
+    }
 
     try {
+      console.log('Showing wallet modal...');
       // Show wallet selection modal
       const result = await WalletAuth.showWalletModal();
+      console.log('Wallet connected:', result);
       
       // Redirect to dashboard after successful connection
       WalletAuth.handleRedirectAfterAuth();
@@ -295,10 +313,15 @@ const DynamicHeader = (function() {
 
 // Auto-initialize when DOM is ready
 if (typeof document !== 'undefined') {
+  console.log('DynamicHeader: Setting up auto-initialization');
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => DynamicHeader.init());
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('DOMContentLoaded - initializing DynamicHeader');
+      DynamicHeader.init();
+    });
   } else {
     // Small delay to ensure WalletAuth is initialized first
+    console.log('Document already loaded - initializing DynamicHeader with delay');
     setTimeout(() => DynamicHeader.init(), 10);
   }
 }

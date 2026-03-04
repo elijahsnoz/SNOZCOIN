@@ -153,11 +153,13 @@ const WalletAuth = (function() {
    * Show wallet selection modal
    */
   function showWalletModal() {
+    console.log('showWalletModal called');
     return new Promise((resolve, reject) => {
       // Remove existing modal if any
       hideWalletModal();
 
       const wallets = getAllWallets();
+      console.log('Available wallets:', wallets);
       
       const modalHTML = `
         <div class="wallet-modal-overlay" id="walletModalOverlay">
@@ -196,11 +198,13 @@ const WalletAuth = (function() {
         </div>
       `;
 
+      console.log('Creating modal element...');
       // Add modal to DOM
       const modalContainer = document.createElement('div');
       modalContainer.innerHTML = modalHTML;
       _modalElement = modalContainer.firstElementChild;
       document.body.appendChild(_modalElement);
+      console.log('Modal added to DOM:', _modalElement);
 
       // Prevent body scroll
       document.body.style.overflow = 'hidden';
@@ -208,6 +212,7 @@ const WalletAuth = (function() {
       // Attach event listeners
       const closeBtn = document.getElementById('walletModalClose');
       const overlay = document.getElementById('walletModalOverlay');
+      console.log('Modal elements:', { closeBtn, overlay });
       
       const handleClose = () => {
         hideWalletModal();
