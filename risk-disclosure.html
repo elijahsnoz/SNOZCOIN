@@ -21,31 +21,11 @@
   <link rel="stylesheet" href="css/legal.css">
 </head>
 <body>
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="container nav-container">
-      <a href="/" class="logo">
-        <img src="assets/SNOZCOIN-512.webp" alt="SNOZCOIN" width="40" height="40">
-        <span>SNOZCOIN</span>
-      </a>
-      <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/creators.html">Creators</a>
-        <a href="/dashboard.html">Dashboard</a>
-        <a href="/swap.html">Swap</a>
-        <a href="/stats.html">Stats</a>
-        <a href="/api.html">API</a>
-      </div>
-      <div class="nav-actions">
-        <button class="btn btn-primary wallet-connect-trigger">Connect Wallet</button>
-      </div>
-      <button class="mobile-menu-btn" aria-label="Menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </nav>
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+  
+  <!-- Dynamic Header (rendered by JS) -->
+  <div id="dynamic-header" data-active-page="legal"></div>
 
   <main class="legal-main">
     <div class="container">
@@ -350,22 +330,14 @@
   </footer>
 
   <script src="js/ui-components.js"></script>
+  
+  <!-- Dynamic Header & Wallet Auth -->
+  <script src="https://unpkg.com/@stacks/connect@7.7.1/dist/umd/index.js"></script>
+  <script src="js/wallet-auth.js"></script>
+  <script src="js/header.js"></script>
   <script>
-    // Mobile menu toggle for navbar pages
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-    if (mobileMenuBtn && navLinks) {
-      mobileMenuBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('show');
-        mobileMenuBtn.classList.toggle('active');
-      });
-      navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          navLinks.classList.remove('show');
-          mobileMenuBtn.classList.remove('active');
-        });
-      });
-    }
+    // Initialize dynamic header
+    DynamicHeader.init();
   </script>
 </body>
 </html>

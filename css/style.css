@@ -4176,6 +4176,213 @@ a.trust-badge:hover {
 }
 
 /* ==============================================
+   DYNAMIC HEADER & WALLET DROPDOWN STYLES
+   ============================================== */
+
+/* Header container for dynamic rendering */
+#header-container {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Nav link active state */
+.nav-link.active {
+  color: #fff;
+  background: rgba(168, 85, 247, 0.15);
+}
+
+/* Nav highlight (for Swap button) */
+.nav-link.nav-highlight {
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
+  color: #fff;
+  font-weight: 600;
+}
+
+.nav-link.nav-highlight:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--accent-glow);
+}
+
+/* Connect wallet button in header */
+.wallet-connect-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.wallet-connect-btn svg {
+  flex-shrink: 0;
+}
+
+.wallet-connect-btn .spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Wallet dropdown wrapper */
+.wallet-dropdown-wrapper {
+  position: relative;
+}
+
+/* Wallet dropdown trigger button */
+.wallet-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.wallet-dropdown-trigger:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(168, 85, 247, 0.3);
+}
+
+.wallet-dropdown-trigger[aria-expanded="true"] {
+  background: rgba(168, 85, 247, 0.1);
+  border-color: rgba(168, 85, 247, 0.3);
+}
+
+.wallet-dropdown-trigger[aria-expanded="true"] .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.wallet-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
+  border-radius: 8px;
+  color: #fff;
+}
+
+.wallet-avatar svg {
+  width: 16px;
+  height: 16px;
+}
+
+.wallet-address-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+}
+
+.dropdown-arrow {
+  transition: transform 0.2s;
+  color: var(--muted);
+}
+
+/* Wallet dropdown menu */
+.wallet-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 220px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+  z-index: 200;
+  overflow: hidden;
+}
+
+.wallet-dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-header {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.dropdown-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dropdown-address {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text);
+  word-break: break-all;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: var(--panel-border);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  color: var(--text);
+  text-decoration: none;
+  transition: background 0.2s;
+  cursor: pointer;
+  border: none;
+  background: none;
+  width: 100%;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dropdown-item-danger {
+  color: #ef4444;
+}
+
+.dropdown-item-danger:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.dropdown-icon {
+  font-size: 1rem;
+  width: 20px;
+  text-align: center;
+}
+
+/* Nav CTA button */
+.nav-cta {
+  margin-left: 0.5rem;
+  text-decoration: none;
+}
+
+/* ==============================================
    COMPREHENSIVE MOBILE OPTIMIZATION
    ============================================== */
 

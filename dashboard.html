@@ -21,37 +21,11 @@
   <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="container nav-container">
-      <a href="/" class="logo">
-        <img src="assets/SNOZCOIN-512.webp" alt="SNOZCOIN" width="40" height="40">
-        <span>SNOZCOIN</span>
-      </a>
-      <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/creators.html">Creators</a>
-        <a href="/dashboard.html" class="active">Dashboard</a>
-        <a href="/swap.html">Swap</a>
-        <a href="/stats.html">Stats</a>
-        <a href="/api.html">API</a>
-      </div>
-      <div class="nav-actions">
-        <button id="dashboard-connect-btn" class="btn btn-primary wallet-connect-trigger">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-            <rect x="2" y="6" width="20" height="12" rx="2"/>
-            <path d="M22 10H18a2 2 0 00-2 2v0a2 2 0 002 2h4"/>
-          </svg>
-          Connect Wallet
-        </button>
-      </div>
-      <button class="mobile-menu-btn" aria-label="Menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </nav>
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+  
+  <!-- Dynamic Header -->
+  <div id="header-container"></div>
 
   <main class="dashboard-main">
     <div class="container">
@@ -458,26 +432,12 @@
     </div>
   </footer>
 
-  <!-- Elijah Snoz Scripts -->
+  <!-- Scripts -->
   <script src="js/ui-components.js"></script>
   <script src="js/snoz-stacks.js"></script>
+  <script src="js/wallet-auth.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/route-guard.js"></script>
   <script src="js/dashboard.js"></script>
-  <script>
-    // Mobile menu toggle for navbar pages
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-    if (mobileMenuBtn && navLinks) {
-      mobileMenuBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('show');
-        mobileMenuBtn.classList.toggle('active');
-      });
-      navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          navLinks.classList.remove('show');
-          mobileMenuBtn.classList.remove('active');
-        });
-      });
-    }
-  </script>
 </body>
 </html>

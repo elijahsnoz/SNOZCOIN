@@ -21,30 +21,11 @@
   <link rel="stylesheet" href="css/api.css">
 </head>
 <body>
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="container nav-container">
-      <a href="/" class="logo">
-        <img src="assets/SNOZCOIN-512.webp" alt="SNOZCOIN" width="40" height="40">
-        <span>SNOZCOIN</span>
-      </a>
-      <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/creators.html">Creators</a>
-        <a href="/dashboard.html">Dashboard</a>
-        <a href="/stats.html">Stats</a>
-        <a href="/api.html" class="active">API</a>
-      </div>
-      <div class="nav-actions">
-        <a href="#api-keys" class="btn btn-primary">Get API Key</a>
-      </div>
-      <button class="mobile-menu-btn" aria-label="Menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </nav>
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+  
+  <!-- Dynamic Header -->
+  <div id="header-container"></div>
 
   <main class="api-main">
     <div class="container">
@@ -517,22 +498,17 @@ X-SNOZ-Version: 2024-03-01</code></pre>
 
   <!-- Scripts -->
   <script src="js/api.js"></script>
+  
+  <!-- Dynamic Header & Wallet Auth -->
+  <script src="https://unpkg.com/@stacks/connect@7.7.1/dist/umd/index.js"></script>
+  <script src="js/wallet-auth.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/route-guard.js"></script>
   <script>
-    // Mobile menu toggle for navbar pages
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-    if (mobileMenuBtn && navLinks) {
-      mobileMenuBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('show');
-        mobileMenuBtn.classList.toggle('active');
-      });
-      navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          navLinks.classList.remove('show');
-          mobileMenuBtn.classList.remove('active');
-        });
-      });
-    }
+    // Initialize dynamic header
+    DynamicHeader.init();
+    // Initialize route guard for protected page
+    RouteGuard.init();
   </script>
 </body>
 </html>

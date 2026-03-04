@@ -42,32 +42,8 @@
   <!-- Toast Container for Notifications -->
   <div id="toast-container" class="toast-container" aria-live="polite"></div>
 
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#">
-        <picture>
-          <source srcset="assets/SNOZCOIN-128.webp" type="image/webp">
-          <img src="assets/SNOZCOIN-128.png" alt="SNOZCOIN logo" class="brand-logo" />
-        </picture>
-        <span class="brand-text">SnozCoin</span>
-      </a>
-      <nav class="nav" id="nav">
-        <a href="#getting-started">Get Started</a>
-        <a href="#why-buy">Why Buy</a>
-        <a href="/swap.html">Swap</a>
-        <a href="/creators.html">Creators</a>
-        <a href="/dashboard.html">Dashboard</a>
-        <a href="/stats.html">Stats</a>
-        <a href="/api.html">API</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#faq">FAQ</a>
-        <a class="cta" href="https://t.me/snozcoin" target="_blank" rel="noopener">Join Telegram</a>
-      </nav>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
+  <!-- Dynamic Header (rendered by JS based on wallet state) -->
+  <div id="header-container"></div>
 
   <main>
     <section class="hero" id="home">
@@ -1101,6 +1077,11 @@
   
   <!-- Stacks Integration -->
   <script src="js/snoz-stacks.js"></script>
+  
+  <!-- Wallet Auth & Dynamic Header -->
+  <script src="js/wallet-auth.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/route-guard.js"></script>
   
   <!-- Loading Overlay (for async operations) -->
   <div id="loading-overlay" class="loading-overlay hidden-default">
