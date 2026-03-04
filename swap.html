@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SNOZCOIN Swap - Exchange stablecoins for STX instantly with low fees">
+  <meta name="theme-color" content="#000000">
+  <title>Swap | SNOZCOIN</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon-32x32.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/SNOZCOIN-512.png">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/swap.css">
+</head>
+<body>
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="logo">
+        <img src="assets/SNOZCOIN-512.webp" alt="SNOZCOIN" width="40" height="40">
+        <span>SNOZCOIN</span>
+      </a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/creators.html">Creators</a>
+        <a href="/dashboard.html">Dashboard</a>
+        <a href="/swap.html" class="active">Swap</a>
+        <a href="/stats.html">Stats</a>
+        <a href="/api.html">API</a>
+      </div>
+      <div class="nav-actions">
+        <button id="swap-connect-btn" class="btn btn-primary wallet-connect-trigger">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+            <rect x="2" y="6" width="20" height="12" rx="2"/>
+            <path d="M22 10H18a2 2 0 00-2 2v0a2 2 0 002 2h4"/>
+          </svg>
+          Connect Wallet
+        </button>
+      </div>
+      <button class="mobile-menu-btn" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="swap-main">
+    <div class="container">
+      
+      <!-- Swap Header -->
+      <div class="swap-header">
+        <h1>Swap</h1>
+        <p>Exchange stablecoins for STX instantly with the best rates</p>
+      </div>
+
+      <!-- Main Swap Interface -->
+      <div class="swap-container">
+        <div class="swap-card">
+          
+          <!-- Swap Settings -->
+          <div class="swap-card-header">
+            <h2>Swap Tokens</h2>
+            <button class="swap-settings-btn" id="settings-btn" title="Swap Settings">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Settings Panel (Hidden by default) -->
+          <div class="swap-settings-panel" id="settings-panel">
+            <div class="setting-row">
+              <label>Slippage Tolerance</label>
+              <div class="slippage-options">
+                <button class="slippage-btn" data-value="0.1">0.1%</button>
+                <button class="slippage-btn active" data-value="0.5">0.5%</button>
+                <button class="slippage-btn" data-value="1">1%</button>
+                <div class="slippage-custom">
+                  <input type="number" id="custom-slippage" placeholder="Custom" min="0.1" max="50" step="0.1">
+                  <span>%</span>
+                </div>
+              </div>
+            </div>
+            <div class="setting-row">
+              <label>Transaction Deadline</label>
+              <div class="deadline-input">
+                <input type="number" id="tx-deadline" value="20" min="1" max="60">
+                <span>minutes</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- From Token -->
+          <div class="swap-input-group">
+            <div class="input-header">
+              <span class="input-label">From</span>
+              <span class="input-balance">Balance: <span id="from-balance">0.00</span></span>
+            </div>
+            <div class="swap-input-row">
+              <input type="number" class="swap-amount-input" id="from-amount" placeholder="0.00" min="0" step="any">
+              <button class="token-select-btn" id="from-token-btn">
+                <img src="" alt="" class="token-icon" id="from-token-icon">
+                <span class="token-symbol" id="from-token-symbol">USDT</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+            </div>
+            <div class="input-footer">
+              <span class="usd-value" id="from-usd">≈ $0.00</span>
+              <div class="quick-amounts">
+                <button class="quick-amount-btn" data-percent="25">25%</button>
+                <button class="quick-amount-btn" data-percent="50">50%</button>
+                <button class="quick-amount-btn" data-percent="75">75%</button>
+                <button class="quick-amount-btn" data-percent="100">MAX</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Swap Direction Button -->
+          <div class="swap-direction-wrapper">
+            <button class="swap-direction-btn" id="swap-direction-btn" title="Switch tokens">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                <path d="M7 16V4M7 4L3 8M7 4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- To Token -->
+          <div class="swap-input-group">
+            <div class="input-header">
+              <span class="input-label">To</span>
+              <span class="input-balance">Balance: <span id="to-balance">0.00</span></span>
+            </div>
+            <div class="swap-input-row">
+              <input type="number" class="swap-amount-input" id="to-amount" placeholder="0.00" min="0" step="any" readonly>
+              <button class="token-select-btn" id="to-token-btn">
+                <img src="" alt="" class="token-icon" id="to-token-icon">
+                <span class="token-symbol" id="to-token-symbol">STX</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+            </div>
+            <div class="input-footer">
+              <span class="usd-value" id="to-usd">≈ $0.00</span>
+            </div>
+          </div>
+
+          <!-- Price Info -->
+          <div class="swap-price-info" id="price-info">
+            <div class="price-row">
+              <span>Rate</span>
+              <span id="swap-rate">1 USDT = 0.00 STX</span>
+            </div>
+            <div class="price-row">
+              <span>Price Impact</span>
+              <span id="price-impact" class="impact-low">&lt;0.01%</span>
+            </div>
+            <div class="price-row">
+              <span>Network Fee</span>
+              <span id="network-fee">~0.001 STX</span>
+            </div>
+            <div class="price-row">
+              <span>Minimum Received</span>
+              <span id="min-received">0.00 STX</span>
+            </div>
+          </div>
+
+          <!-- Swap Button -->
+          <button class="swap-execute-btn" id="swap-btn" disabled>
+            <span class="swap-btn-text">Connect Wallet</span>
+            <span class="swap-btn-loading" style="display: none;">
+              <svg class="spinner" viewBox="0 0 24 24" width="20" height="20">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="31.4 31.4" transform="rotate(-90 12 12)"/>
+              </svg>
+              Processing...
+            </span>
+          </button>
+
+          <!-- Route Info -->
+          <div class="swap-route" id="swap-route">
+            <div class="route-header">
+              <span>Route</span>
+              <button class="route-toggle" id="route-toggle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+            </div>
+            <div class="route-path" id="route-path">
+              <div class="route-step">
+                <span class="route-token">USDT</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+                <span class="route-token">STX</span>
+              </div>
+              <span class="route-provider">via ALEX DEX</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sidebar Info -->
+        <div class="swap-sidebar">
+          
+          <!-- Supported Tokens -->
+          <div class="sidebar-card">
+            <h3>Supported Stablecoins</h3>
+            <div class="token-list">
+              <div class="token-list-item" data-token="USDT">
+                <div class="token-info">
+                  <div class="token-icon-wrapper usdt">
+                    <span>₮</span>
+                  </div>
+                  <div>
+                    <span class="token-name">Tether USD</span>
+                    <span class="token-ticker">USDT</span>
+                  </div>
+                </div>
+                <span class="token-price">$1.00</span>
+              </div>
+              <div class="token-list-item" data-token="USDC">
+                <div class="token-info">
+                  <div class="token-icon-wrapper usdc">
+                    <span>$</span>
+                  </div>
+                  <div>
+                    <span class="token-name">USD Coin</span>
+                    <span class="token-ticker">USDC</span>
+                  </div>
+                </div>
+                <span class="token-price">$1.00</span>
+              </div>
+              <div class="token-list-item" data-token="DAI">
+                <div class="token-info">
+                  <div class="token-icon-wrapper dai">
+                    <span>◈</span>
+                  </div>
+                  <div>
+                    <span class="token-name">Dai Stablecoin</span>
+                    <span class="token-ticker">DAI</span>
+                  </div>
+                </div>
+                <span class="token-price">$1.00</span>
+              </div>
+              <div class="token-list-item" data-token="BUSD">
+                <div class="token-info">
+                  <div class="token-icon-wrapper busd">
+                    <span>B</span>
+                  </div>
+                  <div>
+                    <span class="token-name">Binance USD</span>
+                    <span class="token-ticker">BUSD</span>
+                  </div>
+                </div>
+                <span class="token-price">$1.00</span>
+              </div>
+              <div class="token-list-item" data-token="FRAX">
+                <div class="token-info">
+                  <div class="token-icon-wrapper frax">
+                    <span>F</span>
+                  </div>
+                  <div>
+                    <span class="token-name">Frax</span>
+                    <span class="token-ticker">FRAX</span>
+                  </div>
+                </div>
+                <span class="token-price">$1.00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- STX Price -->
+          <div class="sidebar-card stx-card">
+            <div class="stx-header">
+              <div class="stx-icon">
+                <svg viewBox="0 0 24 24" width="32" height="32">
+                  <circle cx="12" cy="12" r="11" fill="url(#stx-gradient)"/>
+                  <path d="M8 8l8 8M16 8l-8 8" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                  <defs>
+                    <linearGradient id="stx-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#5546FF"/>
+                      <stop offset="100%" stop-color="#7B61FF"/>
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+              <div>
+                <span class="stx-name">Stacks</span>
+                <span class="stx-ticker">STX</span>
+              </div>
+            </div>
+            <div class="stx-price-info">
+              <span class="stx-price" id="stx-live-price">$0.00</span>
+              <span class="stx-change positive" id="stx-change">+0.00%</span>
+            </div>
+            <div class="stx-stats">
+              <div class="stx-stat">
+                <span class="stat-label">24h Volume</span>
+                <span class="stat-value" id="stx-volume">$0</span>
+              </div>
+              <div class="stx-stat">
+                <span class="stat-label">Market Cap</span>
+                <span class="stat-value" id="stx-mcap">$0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coming Soon -->
+          <div class="sidebar-card coming-soon-card">
+            <div class="coming-soon-badge">Coming Soon</div>
+            <h3>Meme Coins</h3>
+            <p>Trade popular meme coins on Stacks. More pairs coming soon!</p>
+            <div class="meme-coins-preview">
+              <span class="meme-coin">🐕</span>
+              <span class="meme-coin">🐸</span>
+              <span class="meme-coin">🚀</span>
+              <span class="meme-coin">🌙</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Recent Transactions -->
+      <div class="recent-swaps">
+        <h3>Recent Swaps</h3>
+        <div class="swaps-table-wrapper">
+          <table class="swaps-table" id="recent-swaps-table">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Rate</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="recent-swaps-body">
+              <tr class="empty-row">
+                <td colspan="5">
+                  <div class="empty-state">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40">
+                      <path d="M7 16V4M7 4L3 8M7 4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/>
+                    </svg>
+                    <p>No recent swaps</p>
+                    <span>Your swap history will appear here</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Info Banner -->
+      <div class="swap-info-banner">
+        <div class="info-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <div>
+            <strong>Secure & Non-Custodial</strong>
+            <p>Your funds never leave your wallet until swap execution</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+          <div>
+            <strong>Instant Settlement</strong>
+            <p>Swaps settle on-chain in ~10 seconds</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+          </svg>
+          <div>
+            <strong>Best Rates</strong>
+            <p>Aggregated from multiple DEXs for optimal pricing</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Token Selection Modal -->
+  <div class="modal-overlay" id="token-modal">
+    <div class="modal-content token-modal">
+      <div class="modal-header">
+        <h3>Select Token</h3>
+        <button class="modal-close" id="token-modal-close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="M21 21l-4.35-4.35"/>
+        </svg>
+        <input type="text" id="token-search" placeholder="Search by name or paste address">
+      </div>
+      <div class="token-categories">
+        <button class="category-btn active" data-category="stablecoins">Stablecoins</button>
+        <button class="category-btn" data-category="native">Native</button>
+        <button class="category-btn" data-category="popular">Popular</button>
+      </div>
+      <div class="modal-token-list" id="modal-token-list">
+        <!-- Tokens will be populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/SNOZCOIN-512.webp" alt="SNOZCOIN" width="48" height="48">
+          <p>Empowering creators with transparent, on-chain monetization.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Platform</h4>
+          <a href="/">Home</a>
+          <a href="/creators.html">Creators</a>
+          <a href="/dashboard.html">Dashboard</a>
+          <a href="/swap.html">Swap</a>
+        </div>
+        <div class="footer-links">
+          <h4>Resources</h4>
+          <a href="/assets/whitepaper.html">Whitepaper</a>
+          <a href="https://github.com/elijahsnoz/SNOZCOIN" target="_blank" rel="noopener">GitHub</a>
+          <a href="/api.html">API Docs</a>
+        </div>
+        <div class="footer-links">
+          <h4>Legal</h4>
+          <a href="/terms.html">Terms of Service</a>
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/risk-disclosure.html">Risk Disclosure</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 SNOZCOIN. Built on Stacks.</p>
+        <p class="footer-disclaimer">Trading involves risk. Please read our <a href="/risk-disclosure.html">Risk Disclosure</a>.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/swap.js"></script>
+</body>
+</html>
