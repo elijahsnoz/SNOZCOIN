@@ -85,6 +85,40 @@ const DEX_ROUTES = {
     }
 };
 
+// Wallet configurations with icons
+const WALLETS = {
+    hiro: {
+        name: 'Hiro Wallet',
+        icon: 'https://wallet.hiro.so/favicon.ico',
+        iconSvg: `<svg viewBox="0 0 24 24" fill="#FF5500" width="24" height="24"><rect width="24" height="24" rx="6" fill="#FF5500"/><path d="M7 7h10v2H7zM7 11h10v2H7zM7 15h10v2H7z" fill="white"/></svg>`,
+        type: 'stacks'
+    },
+    phantom: {
+        name: 'Phantom',
+        icon: 'https://phantom.app/favicon.ico',
+        iconSvg: `<svg viewBox="0 0 128 128" fill="none" width="24" height="24"><rect width="128" height="128" rx="26" fill="url(#phantom-gradient)"/><defs><linearGradient id="phantom-gradient" x1="0" y1="0" x2="128" y2="128"><stop stop-color="#534BB1"/><stop offset="1" stop-color="#551BF9"/></linearGradient></defs><path d="M110.5 64.3c0-3.5-.4-6.9-1-10.2-2.4-12.3-9.6-23-19.8-30.2C80.3 17.1 68.3 14 56 16c-20.5 3.3-36.2 20.3-38 41-.1.8-.1 1.6-.2 2.3-.3 6.2.5 12.5 2.5 18.4 4.4 13.3 14.6 24.1 27.5 29.4 5.4 2.2 11.1 3.4 17 3.6h.5c2.8.1 5.6-.1 8.3-.5 9.4-1.3 18.1-5.3 25.1-11.4 9.5-8.2 15.1-19.8 15.7-32.2.1-.7.1-1.5.1-2.3z" fill="#fff"/><path d="M86.7 58.7c-2.8 0-5-.9-5-5.3 0-4.4 2.2-8 5-8s5 3.6 5 8-2.2 5.3-5 5.3zM51.7 58.7c-2.8 0-5-.9-5-5.3 0-4.4 2.2-8 5-8s5 3.6 5 8-2.2 5.3-5 5.3z" fill="#534BB1"/></svg>`,
+        type: 'solana'
+    },
+    metamask: {
+        name: 'MetaMask',
+        icon: 'https://metamask.io/favicon.ico',
+        iconSvg: `<svg viewBox="0 0 24 24" width="24" height="24"><path fill="#E2761B" d="M21.8 2L13.4 8.2l1.6-3.7z"/><path fill="#E4761B" d="M2.2 2l8.3 6.3-1.5-3.8zm16.3 14.4l-2.2 3.4 4.8 1.3 1.4-4.6zm-17.2.1l1.4 4.6 4.8-1.3-2.2-3.4z"/><path fill="#E4761B" d="M7.3 10.5l-1.4 2 4.8.2-.2-5.1zm9.4 0l-3.3-3-.1 5.2 4.8-.2zm-9.2 8.3l2.9-1.4-2.5-1.9zm5.2-1.4l2.9 1.4-.4-3.3z"/><path fill="#D7C1B3" d="M15.5 18.8l-2.9-1.4.2 1.8v.8zm-7.9 0l2.7 1.2v-.8l.2-1.8z"/><path fill="#233447" d="M10.2 14.5l-2.4-.7 1.7-.8zm3.6 0l.7-1.5 1.7.8z"/><path fill="#CD6116" d="M7.6 18.8l.4-3.4-2.6.1zm8.4-3.4l.4 3.4 2.2-3.3zm2-5.4l-4.8.2.4 2.3.7-1.5 1.7.8zm-10.2 1.8l1.7-.8.7 1.5.4-2.3-4.8-.2z"/><path fill="#E4751F" d="M5.9 12l2 3.9-.1-1.9zm10.2 2l-.1 1.9 2-3.9zm-6.3-1.8l-.4 2.3.5 2.7.1-3.6zm4.4 0l-.2 1.4.1 3.6.5-2.7z"/><path fill="#F6851B" d="M14.2 14.5l-.5 2.7.4.2 2.4-1.9.1-1.9zm-6.4-.7l.1 1.9 2.4 1.9.4-.2-.5-2.7z"/><path fill="#C0AD9E" d="M14.3 20l-.1-.8-.2-.2h-4l-.2.2-.1.8-2.7-1.2 1 .8 1.9 1.3h4.2l1.9-1.3 1-.8z"/><path fill="#161616" d="M12.6 17.4l-.4-.2h-2.4l-.4.2-.2 1.8.2-.2h4l.2.2z"/><path fill="#763D16" d="M22 8.5l.7-3.5L21.8 2l-9.2 6.8 3.5 3 5 1.4 1.1-1.3-.5-.3.8-.7-.6-.5.8-.6zm-20.7-3.5l.7 3.5-.5.3.8.6-.6.5.8.7-.5.4 1.1 1.3 5-1.5 3.5-3L2.2 2z"/><path fill="#F6851B" d="M21.1 13.2l-5-1.5 1.5 2.3-2.2 4.3 2.9-.1h4.4zm-14.2-1.5l-5 1.5-1.7 5h4.4l2.9.1-2.2-4.3zm6.3 1.8l.3-5.5 1.5-4H9l1.5 4 .3 5.5.1 1.5v3.5h2.4V15z"/></svg>`,
+        type: 'evm'
+    },
+    xverse: {
+        name: 'Xverse',
+        icon: 'https://www.xverse.app/favicon.ico',
+        iconSvg: `<svg viewBox="0 0 24 24" fill="#EE7A30" width="24" height="24"><rect width="24" height="24" rx="6" fill="#12141E"/><path d="M6 8l6 8 6-8" stroke="#EE7A30" stroke-width="2" fill="none"/></svg>`,
+        type: 'stacks'
+    },
+    leather: {
+        name: 'Leather',
+        icon: 'https://leather.io/favicon.ico',
+        iconSvg: `<svg viewBox="0 0 24 24" width="24" height="24"><rect width="24" height="24" rx="6" fill="#121212"/><path d="M7 7h10v10H7z" fill="#F5F5F5"/></svg>`,
+        type: 'stacks'
+    }
+};
+
 // State
 let state = {
     fromToken: 'USDC',
@@ -96,6 +130,8 @@ let state = {
     mevProtection: true,
     walletConnected: false,
     walletAddress: null,
+    walletType: null, // 'hiro', 'phantom', 'metamask', etc.
+    walletName: null,
     balances: {},
     isLoading: false,
     settingsOpen: false,
@@ -443,6 +479,7 @@ function updateUI() {
     updateBalances();
     updateRateDisplay();
     updateSwapButton();
+    updateWalletUI();
 }
 
 function updateTokenButtons() {
@@ -780,118 +817,191 @@ function handleHalfClick(e) {
     handleQuickAmount(50);
 }
 
-// Wallet Connection - Using Stacks Connect library
+// Wallet Connection - Show wallet selection modal
 async function connectWallet() {
     if (state.walletConnected) {
         handleSwap();
         return;
     }
-
-    try {
-        // Check if Stacks Connect library is loaded
-        if (typeof window.StacksConnect !== 'undefined') {
-            // Use Stacks Connect library
-            const { showConnect } = window.StacksConnect;
-            
-            showConnect({
-                appDetails: {
-                    name: 'SNOZCOIN Swap',
-                    icon: window.location.origin + '/assets/SNOZCOIN-512.png'
-                },
-                onFinish: async (data) => {
-                    state.walletConnected = true;
-                    state.walletAddress = data.userSession.loadUserData().profile.stxAddress.mainnet;
-                    
-                    // Update UI
-                    updateConnectButton();
-                    await fetchBalances();
-                    updateSwapButton();
-                    showNotification('Wallet connected successfully!', 'success');
-                },
-                onCancel: () => {
-                    showNotification('Wallet connection cancelled', 'info');
-                },
-                userSession: new window.StacksConnect.UserSession()
-            });
-        } 
-        // Fallback to direct Hiro Wallet provider
-        else if (typeof window.StacksProvider !== 'undefined') {
-            const response = await window.StacksProvider.request('stx_requestAccounts');
-            
-            if (response && response.result && response.result.length > 0) {
-                state.walletConnected = true;
-                state.walletAddress = response.result[0].address;
-                
-                // Fetch balances
-                await fetchBalances();
-                updateConnectButton();
-                updateSwapButton();
-                showNotification('Wallet connected successfully!', 'success');
-            }
-        } else {
-            // No wallet found - show install options
-            showWalletInstallModal();
-        }
-    } catch (error) {
-        console.error('Wallet connection error:', error);
-        showNotification('Failed to connect wallet. Please try again.', 'error');
-    }
+    
+    // Show wallet selection modal
+    showWalletSelectionModal();
 }
 
-// Show wallet installation options
-function showWalletInstallModal() {
+// Show wallet selection modal with all supported wallets
+function showWalletSelectionModal() {
+    // Remove existing modal if any
+    const existingModal = document.querySelector('.wallet-selection-modal');
+    if (existingModal) existingModal.remove();
+    
     const modal = document.createElement('div');
-    modal.className = 'wallet-install-modal';
+    modal.className = 'wallet-selection-modal';
+    
+    // Build wallet options HTML
+    let walletsHTML = '';
+    Object.entries(WALLET_PROVIDERS).forEach(([key, wallet]) => {
+        const isDetected = wallet.detect();
+        walletsHTML += `
+            <button class="wallet-select-btn ${isDetected ? 'detected' : ''}" data-wallet="${key}">
+                <span class="wallet-icon">${wallet.icon}</span>
+                <span class="wallet-name">${wallet.name}</span>
+                ${isDetected ? '<span class="wallet-status">Detected</span>' : '<span class="wallet-status install">Install</span>'}
+            </button>
+        `;
+    });
+    
     modal.innerHTML = `
-        <div class="wallet-install-content">
-            <h3>Install a Stacks Wallet</h3>
-            <p>You need a Stacks wallet to swap tokens. Choose one below:</p>
-            <div class="wallet-options">
-                <a href="https://wallet.hiro.so/" target="_blank" rel="noopener" class="wallet-option">
-                    <img src="https://wallet.hiro.so/favicon.ico" alt="Hiro">
-                    <span>Hiro Wallet</span>
-                    <span class="wallet-badge">Recommended</span>
-                </a>
-                <a href="https://www.xverse.app/" target="_blank" rel="noopener" class="wallet-option">
-                    <img src="https://www.xverse.app/favicon.ico" alt="Xverse">
-                    <span>Xverse Wallet</span>
-                </a>
-                <a href="https://leather.io/" target="_blank" rel="noopener" class="wallet-option">
-                    <img src="https://leather.io/favicon.ico" alt="Leather">
-                    <span>Leather Wallet</span>
-                </a>
+        <div class="wallet-selection-content">
+            <div class="wallet-modal-header">
+                <h3>Connect Wallet</h3>
+                <button class="wallet-modal-close-btn" aria-label="Close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
             </div>
-            <button class="wallet-modal-close" onclick="this.closest('.wallet-install-modal').remove()">Close</button>
+            <p class="wallet-modal-subtitle">Choose your preferred wallet to connect</p>
+            <div class="wallet-options-grid">
+                ${walletsHTML}
+            </div>
+            <p class="wallet-modal-note">By connecting, you agree to the Terms of Service</p>
         </div>
     `;
+    
     document.body.appendChild(modal);
+    
+    // Add event listeners
+    modal.querySelector('.wallet-modal-close-btn').addEventListener('click', () => modal.remove());
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.remove();
+    });
+    
+    // Add click handlers for wallet buttons
+    modal.querySelectorAll('.wallet-select-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const walletKey = btn.dataset.wallet;
+            const wallet = WALLET_PROVIDERS[walletKey];
+            
+            if (!wallet.detect()) {
+                // Redirect to install page
+                const installUrls = {
+                    hiro: 'https://wallet.hiro.so/',
+                    xverse: 'https://www.xverse.app/',
+                    leather: 'https://leather.io/',
+                    phantom: 'https://phantom.app/',
+                    metamask: 'https://metamask.io/'
+                };
+                window.open(installUrls[walletKey], '_blank');
+                return;
+            }
+            
+            // Show connecting state
+            btn.classList.add('connecting');
+            btn.innerHTML = `
+                <span class="wallet-icon">${wallet.icon}</span>
+                <span class="wallet-name">Connecting...</span>
+                <span class="wallet-spinner"></span>
+            `;
+            
+            try {
+                await connectToWallet(walletKey);
+                modal.remove();
+            } catch (error) {
+                console.error('Connection error:', error);
+                btn.classList.remove('connecting');
+                btn.innerHTML = `
+                    <span class="wallet-icon">${wallet.icon}</span>
+                    <span class="wallet-name">${wallet.name}</span>
+                    <span class="wallet-status error">Failed</span>
+                `;
+                showNotification('Failed to connect. Please try again.', 'error');
+            }
+        });
+    });
 }
 
-// Update connect button state
-function updateConnectButton() {
-    if (elements.connectWalletBtn) {
-        if (state.walletConnected && state.walletAddress) {
-            const shortAddr = state.walletAddress.slice(0, 6) + '...' + state.walletAddress.slice(-4);
-            elements.connectWalletBtn.innerHTML = `
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
-                    <polyline points="22 4 12 14.01 9 11.01"/>
-                </svg>
-                ${shortAddr}
-            `;
-            elements.connectWalletBtn.classList.add('connected');
-        } else {
-            elements.connectWalletBtn.innerHTML = `
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-                    <rect x="2" y="6" width="20" height="12" rx="2"/>
-                    <path d="M22 10H18a2 2 0 00-2 2v0a2 2 0 002 2h4"/>
-                </svg>
-                Connect Wallet
-            `;
-            elements.connectWalletBtn.classList.remove('connected');
+// Connect to specific wallet
+async function connectToWallet(walletKey) {
+    const wallet = WALLET_PROVIDERS[walletKey];
+    
+    if (!wallet) {
+        throw new Error('Unknown wallet provider');
+    }
+    
+    try {
+        await wallet.connect();
+        const address = await wallet.getAddress();
+        
+        if (address) {
+            state.walletConnected = true;
+            state.walletAddress = address;
+            state.walletProvider = walletKey;
+            
+            // Update UI
+            updateWalletUI();
+            await fetchBalances();
+            updateSwapButton();
+            showNotification(`${wallet.name} connected successfully!`, 'success');
         }
+    } catch (error) {
+        throw error;
     }
 }
+
+// Update wallet UI to show connected state
+function updateWalletUI() {
+    const connectBtn = elements.connectWalletBtn;
+    const connectedState = document.getElementById('wallet-connected-state');
+    const walletAvatar = document.getElementById('wallet-avatar');
+    const walletAddressDisplay = document.getElementById('wallet-address-display');
+    const logoutBtn = document.getElementById('wallet-logout-btn');
+    
+    if (state.walletConnected && state.walletAddress) {
+        // Hide connect button, show connected state
+        if (connectBtn) connectBtn.style.display = 'none';
+        if (connectedState) connectedState.style.display = 'flex';
+        
+        // Set avatar based on wallet provider
+        const provider = WALLET_PROVIDERS[state.walletProvider];
+        if (walletAvatar && provider) {
+            walletAvatar.innerHTML = provider.icon;
+            walletAvatar.className = 'wallet-avatar ' + state.walletProvider;
+        }
+        
+        // Set truncated address
+        if (walletAddressDisplay) {
+            const addr = state.walletAddress;
+            walletAddressDisplay.textContent = addr.slice(0, 6) + '...' + addr.slice(-4);
+        }
+        
+        // Add logout handler
+        if (logoutBtn) {
+            logoutBtn.onclick = disconnectWallet;
+        }
+    } else {
+        // Show connect button, hide connected state
+        if (connectBtn) connectBtn.style.display = 'flex';
+        if (connectedState) connectedState.style.display = 'none';
+    }
+}
+
+// Disconnect wallet
+function disconnectWallet() {
+    state.walletConnected = false;
+    state.walletAddress = null;
+    state.walletProvider = null;
+    state.balances = {};
+    
+    // Update UI
+    updateWalletUI();
+    updateSwapButton();
+    updateBalanceDisplay('from');
+    updateBalanceDisplay('to');
+    
+    showNotification('Wallet disconnected', 'info');
+}
+
 
 async function fetchBalances() {
     if (!state.walletAddress) return;
