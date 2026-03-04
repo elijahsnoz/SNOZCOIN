@@ -57,6 +57,7 @@
       <nav class="nav" id="nav">
         <a href="#getting-started">Get Started</a>
         <a href="#why-buy">Why Buy</a>
+        <a href="#swap">Swap</a>
         <a href="#creators">Creators</a>
         <a href="#snoz-token">SNOZ Token</a>
         <a href="dashboard.html">Dashboard</a>
@@ -64,7 +65,6 @@
         <a href="api.html">API</a>
         <a href="#roadmap">Roadmap</a>
         <a href="#faq">FAQ</a>
-        <a href="swap.html" class="swap-link">🔄 Swap</a>
         
         <!-- Notification Bell -->
         <div class="notification-wrapper" id="notification-wrapper">
@@ -215,6 +215,142 @@
             <path d="M12 16v-4M12 8h.01"/>
           </svg>
           Demo data shown. Live metrics will be available after mainnet launch.
+        </p>
+      </div>
+    </section>
+
+    <!-- QUICK SWAP SECTION -->
+    <section class="panel swap-section" id="swap">
+      <div class="container">
+        <div class="swap-section-header">
+          <h2>Quick Swap</h2>
+          <p class="muted">Swap stablecoins to STX instantly without leaving this page</p>
+        </div>
+        
+        <div class="swap-widget-container">
+          <div class="swap-widget" id="swapWidget">
+            <!-- From Token -->
+            <div class="widget-input-group">
+              <div class="widget-input-header">
+                <span class="widget-label">From</span>
+                <span class="widget-balance">Balance: <span id="widgetFromBalance">0.00</span></span>
+              </div>
+              <div class="widget-input-row">
+                <input type="text" id="widgetFromAmount" class="widget-amount" placeholder="0.00" inputmode="decimal">
+                <button class="widget-token-btn" id="widgetFromToken">
+                  <img src="https://assets.coingecko.com/coins/images/6319/small/USD_Coin_icon.png" alt="USDC" id="widgetFromLogo">
+                  <span id="widgetFromSymbol">USDC</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="widget-quick-btns">
+                <button class="widget-quick-btn" data-percent="25">25%</button>
+                <button class="widget-quick-btn" data-percent="50">50%</button>
+                <button class="widget-quick-btn" data-percent="75">75%</button>
+                <button class="widget-quick-btn" data-percent="100">MAX</button>
+              </div>
+            </div>
+
+            <!-- Swap Direction Button -->
+            <button class="widget-swap-direction" id="widgetSwapDirection" aria-label="Switch tokens">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                <path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/>
+              </svg>
+            </button>
+
+            <!-- To Token -->
+            <div class="widget-input-group">
+              <div class="widget-input-header">
+                <span class="widget-label">To</span>
+                <span class="widget-balance">Balance: <span id="widgetToBalance">0.00</span></span>
+              </div>
+              <div class="widget-input-row">
+                <input type="text" id="widgetToAmount" class="widget-amount" placeholder="0.00" readonly>
+                <button class="widget-token-btn widget-token-fixed">
+                  <img src="https://assets.coingecko.com/coins/images/2069/small/Stacks_logo_full.png" alt="STX">
+                  <span>STX</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Rate Info -->
+            <div class="widget-rate-info" id="widgetRateInfo">
+              <span class="widget-rate">1 USDC = <span id="widgetRate">0.00</span> STX</span>
+              <span class="widget-via">via <span id="widgetDex">ALEX</span></span>
+            </div>
+
+            <!-- Swap Button -->
+            <button class="widget-swap-btn" id="widgetSwapBtn">
+              <span>Connect Wallet to Swap</span>
+            </button>
+
+            <!-- Powered By -->
+            <div class="widget-powered">
+              <span>Powered by</span>
+              <div class="widget-dex-logos">
+                <span class="dex-badge">ALEX</span>
+                <span class="dex-badge">Velar</span>
+                <span class="dex-badge">StacksSwap</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Swap Benefits -->
+          <div class="swap-benefits">
+            <div class="benefit-card">
+              <div class="benefit-icon">⚡</div>
+              <h4>Instant Swaps</h4>
+              <p>Execute swaps in seconds with optimized routing across multiple DEXs</p>
+            </div>
+            <div class="benefit-card">
+              <div class="benefit-icon">💰</div>
+              <h4>Best Rates</h4>
+              <p>Smart routing finds the best prices across ALEX, Velar, and StacksSwap</p>
+            </div>
+            <div class="benefit-card">
+              <div class="benefit-icon">🔒</div>
+              <h4>Secure</h4>
+              <p>Non-custodial swaps directly from your wallet with MEV protection</p>
+            </div>
+            <div class="benefit-card">
+              <div class="benefit-icon">📊</div>
+              <h4>Low Fees</h4>
+              <p>Minimal network fees on Stacks with transparent pricing</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Supported Tokens -->
+        <div class="supported-tokens">
+          <span class="supported-label">Supported Stablecoins:</span>
+          <div class="token-badges">
+            <span class="token-badge" data-token="USDC">
+              <img src="https://assets.coingecko.com/coins/images/6319/small/USD_Coin_icon.png" alt="USDC">
+              USDC
+            </span>
+            <span class="token-badge" data-token="USDT">
+              <img src="https://assets.coingecko.com/coins/images/325/small/Tether.png" alt="USDT">
+              USDT
+            </span>
+            <span class="token-badge" data-token="DAI">
+              <img src="https://assets.coingecko.com/coins/images/9956/small/4943.png" alt="DAI">
+              DAI
+            </span>
+            <span class="token-badge" data-token="BUSD">
+              <img src="https://assets.coingecko.com/coins/images/9576/small/BUSD.png" alt="BUSD">
+              BUSD
+            </span>
+            <span class="token-badge" data-token="FRAX">
+              <img src="https://assets.coingecko.com/coins/images/13422/small/FRAX_icon.png" alt="FRAX">
+              FRAX
+            </span>
+          </div>
+        </div>
+
+        <p class="swap-cta">
+          Need more options? <a href="swap.html">Open Full Swap Interface →</a>
         </p>
       </div>
     </section>

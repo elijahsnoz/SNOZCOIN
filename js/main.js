@@ -479,3 +479,361 @@ function showToast(message, type = 'info', duration = 4000) {
     setTimeout(() => toast.remove(), 300);
   }, duration);
 }
+// ============================================
+// SWAP WIDGET FUNCTIONALITY
+// ============================================
+
+/**
+ * Homepage Swap Widget
+ * Embedded swap interface for quick stablecoin to STX swaps
+ */
+const SwapWidget = {
+  // Token data
+  tokens: {
+    USDC: { symbol: 'USDC', name: 'USD Coin', logo: 'https://assets.coingecko.com/coins/images/6319/small/USD_Coin_icon.png', price: 1.00 },
+    USDT: { symbol: 'USDT', name: 'Tether USD', logo: 'https://assets.coingecko.com/coins/images/325/small/Tether.png', price: 1.00 },
+    DAI: { symbol: 'DAI', name: 'Dai', logo: 'https://assets.coingecko.com/coins/images/9956/small/4943.png', price: 1.00 },
+    BUSD: { symbol: 'BUSD', name: 'Binance USD', logo: 'https://assets.coingecko.com/coins/images/9576/small/BUSD.png', price: 1.00 },
+    FRAX: { symbol: 'FRAX', name: 'Frax', logo: 'https://assets.coingecko.com/coins/images/13422/small/FRAX_icon.png', price: 1.00 },
+    STX: { symbol: 'STX', name: 'Stacks', logo: 'https://assets.coingecko.com/coins/images/2069/small/Stacks_logo_full.png', price: 0.50 }
+  },
+
+  // State
+  state: {
+    fromToken: 'USDC',
+    fromAmount: '',
+    toAmount: '',
+    stxPrice: 0.50,
+    walletConnected: false,
+    selectedDex: 'ALEX'
+  },
+
+  // Initialize
+  init() {
+    const widget = document.getElementById('swapWidget');
+    if (!widget) return;
+
+    this.bindEvents();
+    this.fetchSTXPrice();
+    
+    // Refresh price every 30 seconds
+    setInterval(() => this.fetchSTXPrice(), 30000);
+  },
+
+  // Bind events
+  bindEvents() {
+    // Amount input
+    const fromInput = document.getElementById('widgetFromAmount');
+    if (fromInput) {
+      fromInput.addEventListener('input', (e) => this.handleAmountChange(e));
+    }
+
+    // Token selector
+    const tokenBtn = document.getElementById('widgetFromToken');
+    if (tokenBtn) {
+      tokenBtn.addEventListener('click', () => this.showTokenSelector());
+    }
+
+    // Quick amount buttons
+    document.querySelectorAll('.widget-quick-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => this.handleQuickAmount(e));
+    });
+
+    // Swap direction
+    const swapDir = document.getElementById('widgetSwapDirection');
+    if (swapDir) {
+      swapDir.addEventListener('click', () => this.redirectToFullSwap());
+    }
+
+    // Swap button
+    const swapBtn = document.getElementById('widgetSwapBtn');
+    if (swapBtn) {
+      swapBtn.addEventListener('click', () => this.handleSwap());
+    }
+
+    // Token badges
+    document.querySelectorAll('.token-badge').forEach(badge => {
+      badge.addEventListener('click', (e) => {
+        const token = e.currentTarget.dataset.token;
+        if (token && this.tokens[token]) {
+          this.selectToken(token);
+        }
+      });
+    });
+  },
+
+  // Fetch STX price
+  async fetchSTXPrice() {
+    try {
+      const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=blockstack&vs_currencies=usd');
+      const data = await response.json();
+      
+      if (data.blockstack && data.blockstack.usd) {
+        this.state.stxPrice = data.blockstack.usd;
+        this.tokens.STX.price = data.blockstack.usd;
+        this.updateRate();
+        this.calculateSwap();
+      }
+    } catch (error) {
+      console.log('Using fallback STX price');
+    }
+  },
+
+  // Handle amount change
+  handleAmountChange(e) {
+    let value = e.target.value.replace(/[^0-9.]/g, '');
+    const parts = value.split('.');
+    if (parts.length > 2) {
+      value = parts[0] + '.' + parts.slice(1).join('');
+    }
+    
+    this.state.fromAmount = value;
+    e.target.value = value;
+    this.calculateSwap();
+  },
+
+  // Calculate swap output
+  calculateSwap() {
+    const fromAmount = parseFloat(this.state.fromAmount) || 0;
+    if (fromAmount === 0) {
+      this.state.toAmount = '';
+      this.updateToAmount();
+      return;
+    }
+
+    const fromToken = this.tokens[this.state.fromToken];
+    const valueInUsd = fromAmount * fromToken.price;
+    let outputAmount = valueInUsd / this.state.stxPrice;
+    
+    // Apply 0.3% fee
+    outputAmount = outputAmount * 0.997;
+    
+    this.state.toAmount = outputAmount.toFixed(6);
+    this.updateToAmount();
+    this.updateSwapButton();
+  },
+
+  // Update UI
+  updateToAmount() {
+    const toInput = document.getElementById('widgetToAmount');
+    if (toInput) {
+      toInput.value = this.state.toAmount;
+    }
+  },
+
+  updateRate() {
+    const rateEl = document.getElementById('widgetRate');
+    if (rateEl) {
+      const rate = 1 / this.state.stxPrice;
+      rateEl.textContent = rate.toFixed(4);
+    }
+  },
+
+  updateSwapButton() {
+    const btn = document.getElementById('widgetSwapBtn');
+    if (!btn) return;
+
+    if (!this.state.walletConnected) {
+      btn.innerHTML = '<span>Connect Wallet to Swap</span>';
+      btn.disabled = false;
+    } else if (!this.state.fromAmount || parseFloat(this.state.fromAmount) === 0) {
+      btn.innerHTML = '<span>Enter Amount</span>';
+      btn.disabled = true;
+    } else {
+      btn.innerHTML = '<span>Swap Now</span>';
+      btn.disabled = false;
+    }
+  },
+
+  // Quick amount buttons
+  handleQuickAmount(e) {
+    const percent = parseInt(e.target.dataset.percent);
+    // For demo, set example amounts
+    const demoBalance = 1000;
+    const amount = (demoBalance * percent / 100).toFixed(2);
+    
+    const fromInput = document.getElementById('widgetFromAmount');
+    if (fromInput) {
+      fromInput.value = amount;
+      this.state.fromAmount = amount;
+      this.calculateSwap();
+    }
+  },
+
+  // Show token selector dropdown
+  showTokenSelector() {
+    const existingDropdown = document.querySelector('.widget-token-dropdown');
+    if (existingDropdown) {
+      existingDropdown.remove();
+      return;
+    }
+
+    const tokenBtn = document.getElementById('widgetFromToken');
+    if (!tokenBtn) return;
+
+    const dropdown = document.createElement('div');
+    dropdown.className = 'widget-token-dropdown';
+    dropdown.innerHTML = Object.entries(this.tokens)
+      .filter(([symbol]) => symbol !== 'STX')
+      .map(([symbol, token]) => `
+        <button class="widget-token-option ${symbol === this.state.fromToken ? 'selected' : ''}" data-token="${symbol}">
+          <img src="${token.logo}" alt="${symbol}" onerror="this.style.display='none'">
+          <span>${symbol}</span>
+        </button>
+      `).join('');
+
+    tokenBtn.parentElement.appendChild(dropdown);
+
+    // Bind click events
+    dropdown.querySelectorAll('.widget-token-option').forEach(opt => {
+      opt.addEventListener('click', (e) => {
+        this.selectToken(e.currentTarget.dataset.token);
+        dropdown.remove();
+      });
+    });
+
+    // Close on outside click
+    setTimeout(() => {
+      document.addEventListener('click', function closeDropdown(e) {
+        if (!dropdown.contains(e.target) && e.target !== tokenBtn) {
+          dropdown.remove();
+          document.removeEventListener('click', closeDropdown);
+        }
+      });
+    }, 10);
+  },
+
+  // Select token
+  selectToken(symbol) {
+    if (!this.tokens[symbol] || symbol === 'STX') return;
+
+    this.state.fromToken = symbol;
+    const token = this.tokens[symbol];
+
+    // Update button
+    const logoEl = document.getElementById('widgetFromLogo');
+    const symbolEl = document.getElementById('widgetFromSymbol');
+    
+    if (logoEl) logoEl.src = token.logo;
+    if (symbolEl) symbolEl.textContent = symbol;
+
+    // Update rate display
+    const rateInfo = document.querySelector('.widget-rate');
+    if (rateInfo) {
+      const rate = 1 / this.state.stxPrice;
+      rateInfo.textContent = `1 ${symbol} = ${rate.toFixed(4)} STX`;
+    }
+
+    this.calculateSwap();
+  },
+
+  // Redirect to full swap
+  redirectToFullSwap() {
+    window.location.href = 'swap.html';
+  },
+
+  // Handle swap
+  async handleSwap() {
+    if (!this.state.walletConnected) {
+      // Try to connect wallet
+      await this.connectWallet();
+      return;
+    }
+
+    if (!this.state.fromAmount || parseFloat(this.state.fromAmount) === 0) {
+      showToast('Please enter an amount', 'warning');
+      return;
+    }
+
+    // For full functionality, redirect to swap page
+    const params = new URLSearchParams({
+      from: this.state.fromToken,
+      amount: this.state.fromAmount
+    });
+    window.location.href = `swap.html?${params.toString()}`;
+  },
+
+  // Connect wallet
+  async connectWallet() {
+    try {
+      if (typeof window.StacksProvider !== 'undefined') {
+        const response = await window.StacksProvider.authenticationRequest({
+          appDetails: {
+            name: 'SNOZCOIN',
+            icon: window.location.origin + '/assets/logo.png'
+          }
+        });
+
+        if (response) {
+          this.state.walletConnected = true;
+          this.updateSwapButton();
+          showToast('Wallet connected!', 'success');
+        }
+      } else {
+        showToast('Please install Hiro Wallet to swap', 'warning');
+        window.open('https://wallet.hiro.so/', '_blank');
+      }
+    } catch (error) {
+      console.error('Wallet connection error:', error);
+      showToast('Failed to connect wallet', 'error');
+    }
+  }
+};
+
+// Initialize swap widget when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  SwapWidget.init();
+});
+
+// Add dropdown styles
+const widgetDropdownStyles = document.createElement('style');
+widgetDropdownStyles.textContent = `
+  .widget-token-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    background: rgba(30, 30, 45, 0.98);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 12px;
+    padding: 8px;
+    min-width: 140px;
+    z-index: 100;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .widget-token-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 12px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .widget-token-option:hover {
+    background: rgba(168, 85, 247, 0.2);
+  }
+
+  .widget-token-option.selected {
+    background: rgba(168, 85, 247, 0.15);
+  }
+
+  .widget-token-option img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+  }
+
+  .widget-input-row {
+    position: relative;
+  }
+`;
+document.head.appendChild(widgetDropdownStyles);
