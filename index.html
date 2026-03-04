@@ -61,9 +61,62 @@
         <a href="#snoz-token">SNOZ Token</a>
         <a href="dashboard.html">Dashboard</a>
         <a href="stats.html">Stats</a>
+        <a href="api.html">API</a>
         <a href="#roadmap">Roadmap</a>
         <a href="#faq">FAQ</a>
         <a href="https://jup.ag/swap/USDT-SOL" class="swap-link" target="_blank" rel="noopener">🔄 Swap</a>
+        
+        <!-- Notification Bell -->
+        <div class="notification-wrapper" id="notification-wrapper">
+          <button class="notification-bell" id="notification-bell" aria-label="Notifications" title="Notifications">
+            <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+            </svg>
+            <span class="notification-badge" id="notification-badge">3</span>
+          </button>
+          
+          <!-- Notification Dropdown -->
+          <div class="notification-dropdown" id="notification-dropdown">
+            <div class="notification-header">
+              <h4>Notifications</h4>
+              <button class="notification-mark-read" id="mark-all-read">Mark all read</button>
+            </div>
+            <div class="notification-list" id="notification-list">
+              <div class="notification-item unread" data-id="1">
+                <div class="notification-icon tip">💰</div>
+                <div class="notification-content">
+                  <p class="notification-text"><strong>New tip received!</strong> You received 5 STX from @supporter123</p>
+                  <span class="notification-time">2 minutes ago</span>
+                </div>
+              </div>
+              <div class="notification-item unread" data-id="2">
+                <div class="notification-icon unlock">🔓</div>
+                <div class="notification-content">
+                  <p class="notification-text"><strong>Content unlocked!</strong> Someone purchased your exclusive content</p>
+                  <span class="notification-time">15 minutes ago</span>
+                </div>
+              </div>
+              <div class="notification-item unread" data-id="3">
+                <div class="notification-icon reward">🏆</div>
+                <div class="notification-content">
+                  <p class="notification-text"><strong>SNOZ reward!</strong> You earned 50 SNOZ for reaching Bronze tier</p>
+                  <span class="notification-time">1 hour ago</span>
+                </div>
+              </div>
+              <div class="notification-item" data-id="4">
+                <div class="notification-icon follow">👤</div>
+                <div class="notification-content">
+                  <p class="notification-text"><strong>New follower!</strong> @cryptofan42 started following you</p>
+                  <span class="notification-time">3 hours ago</span>
+                </div>
+              </div>
+            </div>
+            <div class="notification-footer">
+              <a href="dashboard.html#notifications">View all notifications</a>
+            </div>
+          </div>
+        </div>
+        
         <a class="cta" href="https://t.me/snozcoin" target="_blank" rel="noopener">Join Telegram</a>
       </nav>
     </div>
@@ -212,13 +265,54 @@
             <div class="step-number">3</div>
             <div class="step-content">
               <h3>Connect to SNOZCOIN</h3>
-              <p>Click the wallet button below to connect your Stacks wallet to the platform.</p>
-              <button id="getting-started-connect-btn" class="btn btn-primary connect-step-btn">
-                <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                  <path d="M0 3a2 2 0 0 1 2-2h13.5a.5.5 0 0 1 0 1H15v2a1 1 0 0 1 1 1v8.5a1.5 1.5 0 0 1-1.5 1.5h-12A2.5 2.5 0 0 1 0 12.5V3zm1 1.732V12.5A1.5 1.5 0 0 0 2.5 14h12a.5.5 0 0 0 .5-.5V5H2a1.99 1.99 0 0 1-1-.268zM1 3a1 1 0 0 0 1 1h12V2H2a1 1 0 0 0-1 1z"/>
-                </svg>
-                Connect Wallet
-              </button>
+              <p>Connect your Stacks wallet or sign in with your social account to get started.</p>
+              
+              <div class="connect-options">
+                <div class="connect-option-group">
+                  <span class="connect-group-label">Recommended</span>
+                  <button id="getting-started-connect-btn" class="btn btn-primary connect-step-btn">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M0 3a2 2 0 0 1 2-2h13.5a.5.5 0 0 1 0 1H15v2a1 1 0 0 1 1 1v8.5a1.5 1.5 0 0 1-1.5 1.5h-12A2.5 2.5 0 0 1 0 12.5V3zm1 1.732V12.5A1.5 1.5 0 0 0 2.5 14h12a.5.5 0 0 0 .5-.5V5H2a1.99 1.99 0 0 1-1-.268zM1 3a1 1 0 0 0 1 1h12V2H2a1 1 0 0 0-1 1z"/>
+                    </svg>
+                    Connect Stacks Wallet
+                  </button>
+                </div>
+                
+                <div class="connect-divider">
+                  <span>or continue with</span>
+                </div>
+                
+                <div class="social-login-options">
+                  <button class="social-login-btn social-twitter" id="social-login-twitter" title="Sign in with X (Twitter)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                    <span>X / Twitter</span>
+                  </button>
+                  <button class="social-login-btn social-discord" id="social-login-discord" title="Sign in with Discord">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                    </svg>
+                    <span>Discord</span>
+                  </button>
+                  <button class="social-login-btn social-google" id="social-login-google" title="Sign in with Google">
+                    <svg width="20" height="20" viewBox="0 0 24 24">
+                      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    <span>Google</span>
+                  </button>
+                </div>
+                
+                <p class="social-login-note">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                  </svg>
+                  Social login creates a custodial wallet. For full control, connect a Stacks wallet.
+                </p>
+              </div>
             </div>
           </div>
 

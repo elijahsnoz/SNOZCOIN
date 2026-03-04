@@ -102,6 +102,193 @@ body::before{
 .nav-toggle{display:none;background:none;border:0;color:inherit;cursor:pointer}
 .nav-toggle span{display:block;width:22px;height:2px;background:var(--muted);margin:5px 0;border-radius:2px;transition:all 0.3s}
 
+/* Notification Bell */
+.notification-wrapper {
+  position: relative;
+}
+
+.notification-bell {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.2s;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-bell:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.05);
+}
+
+.notification-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: var(--gold-1);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+.notification-badge:empty,
+.notification-badge.hidden {
+  display: none;
+}
+
+.notification-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 340px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+  z-index: 200;
+}
+
+.notification-dropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.notification-header h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.notification-mark-read {
+  background: none;
+  border: none;
+  color: var(--gold-1);
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.notification-mark-read:hover {
+  background: rgba(168,85,247,0.1);
+}
+
+.notification-list {
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.notification-item {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--panel-border);
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+.notification-item:hover {
+  background: rgba(255,255,255,0.02);
+}
+
+.notification-item.unread {
+  background: rgba(168,85,247,0.05);
+}
+
+.notification-item.unread::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--gold-1);
+}
+
+.notification-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.notification-icon.tip { background: rgba(34,197,94,0.15); }
+.notification-icon.unlock { background: rgba(168,85,247,0.15); }
+.notification-icon.reward { background: rgba(255,215,0,0.15); }
+.notification-icon.follow { background: rgba(96,165,250,0.15); }
+
+.notification-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.notification-text {
+  margin: 0 0 0.25rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.notification-text strong {
+  color: #fff;
+}
+
+.notification-time {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.notification-footer {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--panel-border);
+  text-align: center;
+}
+
+.notification-footer a {
+  color: var(--gold-1);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.notification-footer a:hover {
+  text-decoration: underline;
+}
+
 /* Hero Section - ZeroLeaks Style */
 .hero{
   padding:6rem 0 4rem;
@@ -2258,6 +2445,111 @@ a.trust-badge:hover {
   gap: 0.5rem;
   width: 100%;
   justify-content: center;
+}
+
+/* Social Login Options */
+.connect-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.connect-option-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.connect-group-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+.connect-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.connect-divider::before,
+.connect-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--panel-border);
+}
+
+.social-login-options {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.social-login-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+  min-width: 100px;
+  justify-content: center;
+}
+
+.social-login-btn:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+}
+
+.social-login-btn svg {
+  flex-shrink: 0;
+}
+
+.social-login-btn.social-twitter:hover {
+  background: rgba(0,0,0,0.8);
+  border-color: #fff;
+}
+
+.social-login-btn.social-discord:hover {
+  background: rgba(88,101,242,0.15);
+  border-color: #5865F2;
+  color: #5865F2;
+}
+
+.social-login-btn.social-google:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.social-login-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin: 0;
+  padding: 0.75rem;
+  background: rgba(255,255,255,0.02);
+  border-radius: 6px;
+  line-height: 1.5;
+}
+
+.social-login-note svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  opacity: 0.7;
 }
 
 /* Action Buttons */

@@ -271,6 +271,12 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize live data fetching with auto-refresh
   initAutoRefresh();
   
+  // Initialize notification system
+  initNotifications();
+  
+  // Initialize social login buttons
+  initSocialLogin();
+  
   // Getting Started connect button - trigger same wallet flow
   const gettingStartedConnectBtn = document.getElementById('getting-started-connect-btn');
   if (gettingStartedConnectBtn) {
@@ -295,3 +301,181 @@ document.addEventListener('DOMContentLoaded', function() {
     } catch (e) { /* noop */ }
   }
 });
+
+// ============================================
+// NOTIFICATION SYSTEM
+// ============================================
+
+/**
+ * Initialize notification bell dropdown
+ */
+function initNotifications() {
+  const bell = document.getElementById('notification-bell');
+  const dropdown = document.getElementById('notification-dropdown');
+  const markAllRead = document.getElementById('mark-all-read');
+  const badge = document.getElementById('notification-badge');
+  
+  if (!bell || !dropdown) return;
+  
+  // Toggle dropdown on bell click
+  bell.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle('show');
+  });
+  
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!dropdown.contains(e.target) && !bell.contains(e.target)) {
+      dropdown.classList.remove('show');
+    }
+  });
+  
+  // Mark all as read
+  if (markAllRead) {
+    markAllRead.addEventListener('click', () => {
+      const unreadItems = document.querySelectorAll('.notification-item.unread');
+      unreadItems.forEach(item => item.classList.remove('unread'));
+      updateNotificationBadge();
+      showToast('All notifications marked as read', 'success');
+    });
+  }
+  
+  // Mark individual notification as read on click
+  const notificationItems = document.querySelectorAll('.notification-item');
+  notificationItems.forEach(item => {
+    item.addEventListener('click', () => {
+      item.classList.remove('unread');
+      updateNotificationBadge();
+    });
+  });
+}
+
+/**
+ * Update notification badge count
+ */
+function updateNotificationBadge() {
+  const badge = document.getElementById('notification-badge');
+  const unreadCount = document.querySelectorAll('.notification-item.unread').length;
+  
+  if (badge) {
+    if (unreadCount > 0) {
+      badge.textContent = unreadCount > 9 ? '9+' : unreadCount;
+      badge.classList.remove('hidden');
+    } else {
+      badge.classList.add('hidden');
+    }
+  }
+}
+
+/**
+ * Add a new notification dynamically
+ */
+function addNotification(type, title, message) {
+  const list = document.getElementById('notification-list');
+  if (!list) return;
+  
+  const icons = {
+    tip: '💰',
+    unlock: '🔓',
+    reward: '🏆',
+    follow: '👤',
+    info: 'ℹ️'
+  };
+  
+  const notification = document.createElement('div');
+  notification.className = 'notification-item unread';
+  notification.innerHTML = `
+    <div class="notification-icon ${type}">${icons[type] || icons.info}</div>
+    <div class="notification-content">
+      <p class="notification-text"><strong>${title}</strong> ${message}</p>
+      <span class="notification-time">Just now</span>
+    </div>
+  `;
+  
+  // Insert at the beginning
+  list.insertBefore(notification, list.firstChild);
+  
+  // Update badge
+  updateNotificationBadge();
+  
+  // Show toast
+  showToast(`${title} ${message}`, 'info');
+}
+
+// ============================================
+// SOCIAL LOGIN
+// ============================================
+
+/**
+ * Initialize social login buttons
+ */
+function initSocialLogin() {
+  const twitterBtn = document.getElementById('social-login-twitter');
+  const discordBtn = document.getElementById('social-login-discord');
+  const googleBtn = document.getElementById('social-login-google');
+  
+  // Twitter/X OAuth (placeholder - implement with actual OAuth flow)
+  if (twitterBtn) {
+    twitterBtn.addEventListener('click', () => {
+      showToast('X/Twitter login coming soon! For now, please connect a Stacks wallet.', 'info');
+      // TODO: Implement OAuth flow
+      // window.location.href = '/api/auth/twitter';
+    });
+  }
+  
+  // Discord OAuth
+  if (discordBtn) {
+    discordBtn.addEventListener('click', () => {
+      showToast('Discord login coming soon! For now, please connect a Stacks wallet.', 'info');
+      // TODO: Implement OAuth flow
+      // window.location.href = '/api/auth/discord';
+    });
+  }
+  
+  // Google OAuth
+  if (googleBtn) {
+    googleBtn.addEventListener('click', () => {
+      showToast('Google login coming soon! For now, please connect a Stacks wallet.', 'info');
+      // TODO: Implement OAuth flow
+      // window.location.href = '/api/auth/google';
+    });
+  }
+}
+
+// ============================================
+// TOAST NOTIFICATIONS
+// ============================================
+
+/**
+ * Show a toast notification
+ */
+function showToast(message, type = 'info', duration = 4000) {
+  const container = document.getElementById('toast-container');
+  if (!container) return;
+  
+  const icons = {
+    success: '✓',
+    error: '✕',
+    warning: '⚠',
+    info: 'ℹ'
+  };
+  
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.innerHTML = `
+    <span class="toast-icon">${icons[type] || icons.info}</span>
+    <span class="toast-message">${message}</span>
+    <button class="toast-close" onclick="this.parentElement.remove()">×</button>
+  `;
+  
+  container.appendChild(toast);
+  
+  // Trigger animation
+  setTimeout(() => toast.classList.add('show'), 10);
+  
+  // Auto remove
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
