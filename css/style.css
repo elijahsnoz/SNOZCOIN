@@ -673,6 +673,29 @@ body::before{
 .footer-right{text-align:right}
 .footer-right p{margin:0.25rem 0}
 
+.footer-legal-links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer-legal-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.2s;
+}
+
+.footer-legal-links a:hover {
+  color: var(--primary);
+}
+
+.footer-legal-links .separator {
+  color: var(--border);
+}
+
 /* Responsive Updates */
 @media (max-width:900px){
   .live-stats{grid-template-columns:repeat(2,1fr)}
