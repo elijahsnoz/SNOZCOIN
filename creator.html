@@ -6,6 +6,7 @@
   <title>Creator Profile — SnozCoin</title>
   <link rel="stylesheet" href="css/style.css">
   <meta name="description" content="Creator profile on SnozCoin — tipping, unlockables and community support." />
+  <link rel="icon" href="assets/favicon-32x32.png" type="image/png">
 </head>
 <body>
   <header class="site-header">
@@ -14,10 +15,17 @@
         <img src="assets/SNOZCOIN-128.png" alt="SnozCoin" class="brand-logo">
         <span class="brand-text">SnozCoin</span>
       </a>
-      <nav class="nav">
+      <nav class="nav" id="nav">
         <a href="/">Home</a>
         <a href="/creators.html">Creators</a>
+        <a href="/dashboard.html">Dashboard</a>
+        <a href="/swap.html">Swap</a>
+        <a href="/stats.html">Stats</a>
+        <a href="/api.html">API</a>
       </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
@@ -52,11 +60,22 @@
         <button data-amount="5" class="btn">5 SNZ</button>
         <button data-amount="10" class="btn">10 SNZ</button>
       </div>
-      <div style="margin-top:1rem;"><button id="connectWallet" class="btn btn-primary">Connect Wallet</button></div>
-      <div style="margin-top:0.75rem;"><button id="closeTipModal" class="btn btn-ghost">Close</button></div>
+      <div class="margin-top-1"><button id="connectWallet" class="btn btn-primary">Connect Wallet</button></div>
+      <div class="margin-top-075"><button id="closeTipModal" class="btn btn-ghost">Close</button></div>
     </div>
   </template>
 
   <script src="js/creator.js"></script>
+  <script>
+    // Mobile menu toggle
+    const navToggle = document.getElementById('navToggle');
+    const nav = document.getElementById('nav');
+    if (navToggle && nav) {
+      navToggle.addEventListener('click', () => {
+        nav.classList.toggle('show');
+        navToggle.classList.toggle('active');
+      });
+    }
+  </script>
 </body>
 </html>

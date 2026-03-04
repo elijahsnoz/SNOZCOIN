@@ -462,5 +462,22 @@
   <script src="js/ui-components.js"></script>
   <script src="js/snoz-stacks.js"></script>
   <script src="js/dashboard.js"></script>
+  <script>
+    // Mobile menu toggle for navbar pages
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    if (mobileMenuBtn && navLinks) {
+      mobileMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+        mobileMenuBtn.classList.toggle('active');
+      });
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('show');
+          mobileMenuBtn.classList.remove('active');
+        });
+      });
+    }
+  </script>
 </body>
 </html>
