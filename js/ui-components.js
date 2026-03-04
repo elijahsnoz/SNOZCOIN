@@ -1382,7 +1382,145 @@ document.addEventListener('DOMContentLoaded', () => {
   // Show welcome banner for first-time users
   const welcomeBanner = new WelcomeBanner();
   welcomeBanner.show();
+
+  // Initialize platform metrics
+  const platformMetrics = new PlatformMetrics();
+  platformMetrics.init();
 });
+
+// ============================================
+// PLATFORM METRICS SYSTEM
+// ============================================
+
+class PlatformMetrics {
+  constructor() {
+    this.isDemo = true; // Set to false when contracts are deployed
+    this.refreshInterval = null;
+    this.animationDuration = 1500;
+    this.hasAnimated = false;
+    
+    // Demo data - will be replaced with live on-chain data
+    this.demoData = {
+      'metric-total-tips': { value: 12847, format: 'number' },
+      'metric-creators': { value: 156, format: 'number' },
+      'metric-content': { value: 1234, format: 'number' },
+      'metric-snoz-distributed': { value: 2.4, format: 'millions' }
+    };
+  }
+
+  init() {
+    // Animate metrics on scroll into view
+    this.setupIntersectionObserver();
+    
+    // If not demo mode, start fetching live data
+    if (!this.isDemo) {
+      this.startLiveUpdates();
+    }
+  }
+
+  setupIntersectionObserver() {
+    const metricsSection = document.getElementById('metrics');
+    if (!metricsSection) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !this.hasAnimated) {
+          this.animateMetrics();
+          this.hasAnimated = true;
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    observer.observe(metricsSection);
+  }
+
+  animateMetrics() {
+    const metricElements = [
+      'metric-total-tips',
+      'metric-creators', 
+      'metric-content',
+      'metric-snoz-distributed'
+    ];
+    
+    metricElements.forEach((id, index) => {
+      const element = document.getElementById(id);
+      if (!element) return;
+      
+      const data = this.demoData[id];
+      if (!data) return;
+      
+      // Stagger animation
+      setTimeout(() => {
+        element.setAttribute('data-animated', 'true');
+        this.animateNumber(element, data.value, data.format);
+      }, index * 150);
+    });
+  }
+
+  animateNumber(element, targetValue, format) {
+    const startValue = 0;
+    const duration = this.animationDuration;
+    const startTime = performance.now();
+
+    const animate = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Easing function (ease-out cubic)
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      
+      const currentValue = startValue + (targetValue - startValue) * easeOut;
+      
+      let displayValue;
+      if (format === 'millions') {
+        displayValue = currentValue.toFixed(1) + 'M';
+      } else {
+        displayValue = Math.round(currentValue).toLocaleString('en-US');
+      }
+
+      element.textContent = displayValue;
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }
+
+  async startLiveUpdates() {
+    // Fetch initial data
+    await this.fetchLiveData();
+    
+    // Refresh every 30 seconds
+    this.refreshInterval = setInterval(() => {
+      this.fetchLiveData();
+    }, 30000);
+  }
+
+  async fetchLiveData() {
+    try {
+      // TODO: Replace with actual Stacks API calls when contracts are deployed
+      // This would call the read-only functions from our contracts
+      
+      // Example: Fetch from snoz-rewards-engine
+      // const response = await fetch('https://stacks-node-api.mainnet.stacks.co/v2/contracts/call-read/...');
+      // const totalTips = await callReadOnlyFunction('snoz-rewards-engine', 'get-total-tips-volume');
+      
+      console.log('[PlatformMetrics] Live data fetch would happen here');
+    } catch (error) {
+      console.error('[PlatformMetrics] Failed to fetch live data:', error);
+    }
+  }
+
+  stopLiveUpdates() {
+    if (this.refreshInterval) {
+      clearInterval(this.refreshInterval);
+      this.refreshInterval = null;
+    }
+  }
+}
 
 // Export for use in other scripts
 window.toast = toast;
@@ -1397,3 +1535,4 @@ window.openWalletModal = openWalletModal;
 window.OnboardingTour = OnboardingTour;
 window.startOnboardingTour = startOnboardingTour;
 window.resetOnboarding = resetOnboarding;
+window.PlatformMetrics = PlatformMetrics;
