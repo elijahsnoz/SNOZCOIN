@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SNOZCOIN Platform Statistics - Real-time metrics and analytics for the creator economy">
+  <meta name="theme-color" content="#000000">
+  <title>Platform Statistics | SNOZCOIN</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon-32x32.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/SNOZCOIN-512.png">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/stats.css">
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="logo">
+        <img src="assets/SNOZCOIN-512.webp" alt="SNOZCOIN" width="40" height="40">
+        <span>SNOZCOIN</span>
+      </a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/creators.html">Creators</a>
+        <a href="/dashboard.html">Dashboard</a>
+        <a href="/stats.html" class="active">Stats</a>
+      </div>
+      <div class="nav-actions">
+        <button id="stats-connect-btn" class="btn btn-primary wallet-connect-trigger">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+            <rect x="2" y="6" width="20" height="12" rx="2"/>
+            <path d="M22 10H18a2 2 0 00-2 2v0a2 2 0 002 2h4"/>
+          </svg>
+          Connect Wallet
+        </button>
+      </div>
+      <button class="mobile-menu-btn" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="stats-main">
+    <div class="container">
+      
+      <!-- Stats Header -->
+      <div class="stats-header">
+        <div class="stats-title">
+          <h1>Platform Statistics</h1>
+          <span class="stats-badge">
+            <span class="status-dot"></span>
+            Demo Data
+          </span>
+        </div>
+        <p class="stats-subtitle">Real-time metrics and analytics for the SNOZCOIN creator economy. All data is on-chain and verifiable.</p>
+        <div class="last-updated">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+          Last updated: <span id="last-update-time">Just now</span>
+        </div>
+      </div>
+
+      <!-- Key Metrics Grid -->
+      <section class="stats-section">
+        <h2 class="section-title">Key Metrics</h2>
+        <div class="key-metrics-grid">
+          <div class="key-metric-card">
+            <div class="metric-visual">
+              <div class="metric-ring" data-percent="78">
+                <svg viewBox="0 0 36 36">
+                  <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="ring-progress" stroke-dasharray="78, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                </svg>
+                <span class="ring-value">78%</span>
+              </div>
+            </div>
+            <div class="metric-info">
+              <span class="metric-label">Network Activity</span>
+              <span class="metric-desc">Based on daily active users</span>
+            </div>
+          </div>
+
+          <div class="key-metric-card highlight">
+            <div class="metric-icon-lg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+              </svg>
+            </div>
+            <div class="metric-info">
+              <span class="metric-value-lg">$127,450</span>
+              <span class="metric-label">Total Value Transferred</span>
+              <span class="metric-change positive">+34.2% this month</span>
+            </div>
+          </div>
+
+          <div class="key-metric-card">
+            <div class="metric-icon-lg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32">
+                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+              </svg>
+            </div>
+            <div class="metric-info">
+              <span class="metric-value-lg">2,847</span>
+              <span class="metric-label">Total Users</span>
+              <span class="metric-change positive">+156 this week</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Platform Overview -->
+      <section class="stats-section">
+        <h2 class="section-title">Platform Overview</h2>
+        <div class="overview-grid">
+          <div class="overview-card">
+            <div class="overview-icon tips">💸</div>
+            <div class="overview-content">
+              <span class="overview-value">12,847</span>
+              <span class="overview-label">Total Tips (STX)</span>
+            </div>
+            <div class="overview-trend positive">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <path d="M18 15l-6-6-6 6"/>
+              </svg>
+              +24.5%
+            </div>
+          </div>
+
+          <div class="overview-card">
+            <div class="overview-icon creators">👥</div>
+            <div class="overview-content">
+              <span class="overview-value">156</span>
+              <span class="overview-label">Active Creators</span>
+            </div>
+            <div class="overview-trend positive">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <path d="M18 15l-6-6-6 6"/>
+              </svg>
+              +12
+            </div>
+          </div>
+
+          <div class="overview-card">
+            <div class="overview-icon content">🎁</div>
+            <div class="overview-content">
+              <span class="overview-value">1,234</span>
+              <span class="overview-label">Content Pieces</span>
+            </div>
+            <div class="overview-trend positive">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <path d="M18 15l-6-6-6 6"/>
+              </svg>
+              +89
+            </div>
+          </div>
+
+          <div class="overview-card">
+            <div class="overview-icon rewards">🏆</div>
+            <div class="overview-content">
+              <span class="overview-value">2.4M</span>
+              <span class="overview-label">SNOZ Distributed</span>
+            </div>
+            <div class="overview-trend neutral">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <path d="M5 12h14"/>
+              </svg>
+              Growing
+            </div>
+          </div>
+
+          <div class="overview-card">
+            <div class="overview-icon transactions">⛓️</div>
+            <div class="overview-content">
+              <span class="overview-value">8,921</span>
+              <span class="overview-label">Total Transactions</span>
+            </div>
+            <div class="overview-trend positive">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <path d="M18 15l-6-6-6 6"/>
+              </svg>
+              +342
+            </div>
+          </div>
+
+          <div class="overview-card">
+            <div class="overview-icon avg">📊</div>
+            <div class="overview-content">
+              <span class="overview-value">2.5 STX</span>
+              <span class="overview-label">Average Tip</span>
+            </div>
+            <div class="overview-trend positive">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <path d="M18 15l-6-6-6 6"/>
+              </svg>
+              +0.3
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SNOZ Token Stats -->
+      <section class="stats-section">
+        <h2 class="section-title">SNOZ Token Statistics</h2>
+        <div class="token-stats-grid">
+          <div class="token-stat-card">
+            <div class="token-stat-header">
+              <span class="token-stat-label">Total Supply</span>
+              <span class="token-stat-badge">Fixed</span>
+            </div>
+            <div class="token-stat-value">10,000,000,000</div>
+            <div class="token-stat-desc">10 billion SNOZ tokens (max supply)</div>
+          </div>
+
+          <div class="token-stat-card">
+            <div class="token-stat-header">
+              <span class="token-stat-label">Circulating Supply</span>
+            </div>
+            <div class="token-stat-value">2,400,000</div>
+            <div class="token-stat-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 0.024%"></div>
+              </div>
+              <span class="progress-label">0.024% of total supply</span>
+            </div>
+          </div>
+
+          <div class="token-stat-card">
+            <div class="token-stat-header">
+              <span class="token-stat-label">Holders</span>
+            </div>
+            <div class="token-stat-value">847</div>
+            <div class="token-stat-desc">Unique wallet addresses holding SNOZ</div>
+          </div>
+
+          <div class="token-stat-card">
+            <div class="token-stat-header">
+              <span class="token-stat-label">Rewards Pool</span>
+              <span class="token-stat-badge">Active</span>
+            </div>
+            <div class="token-stat-value">7,600,000,000</div>
+            <div class="token-stat-desc">SNOZ reserved for creator rewards</div>
+          </div>
+        </div>
+
+        <div class="token-notice">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 16v-4M12 8h.01"/>
+          </svg>
+          <div>
+            <strong>SNOZ is a utility token only.</strong> It has no monetary value and cannot be traded or sold. SNOZ represents platform reputation and unlocks community features.
+          </div>
+        </div>
+      </section>
+
+      <!-- Tier Distribution -->
+      <section class="stats-section">
+        <h2 class="section-title">User Tier Distribution</h2>
+        <div class="tier-distribution">
+          <div class="tier-bar-container">
+            <div class="tier-bar">
+              <div class="tier-segment bronze" style="width: 45%">
+                <span class="tier-percent">45%</span>
+              </div>
+              <div class="tier-segment silver" style="width: 28%">
+                <span class="tier-percent">28%</span>
+              </div>
+              <div class="tier-segment gold" style="width: 15%">
+                <span class="tier-percent">15%</span>
+              </div>
+              <div class="tier-segment platinum" style="width: 9%">
+                <span class="tier-percent">9%</span>
+              </div>
+              <div class="tier-segment diamond" style="width: 3%">
+                <span class="tier-percent">3%</span>
+              </div>
+            </div>
+          </div>
+          <div class="tier-legend">
+            <div class="legend-item">
+              <span class="legend-color bronze"></span>
+              <span class="legend-label">Bronze</span>
+              <span class="legend-count">381</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color silver"></span>
+              <span class="legend-label">Silver</span>
+              <span class="legend-count">237</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color gold"></span>
+              <span class="legend-label">Gold</span>
+              <span class="legend-count">127</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color platinum"></span>
+              <span class="legend-label">Platinum</span>
+              <span class="legend-count">76</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color diamond"></span>
+              <span class="legend-label">Diamond</span>
+              <span class="legend-count">26</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Top Creators Leaderboard -->
+      <section class="stats-section">
+        <h2 class="section-title">Top Creators</h2>
+        <div class="leaderboard">
+          <div class="leaderboard-header">
+            <span class="lb-rank">Rank</span>
+            <span class="lb-creator">Creator</span>
+            <span class="lb-tips">Tips Received</span>
+            <span class="lb-content">Content</span>
+            <span class="lb-tier">Tier</span>
+          </div>
+          <div class="leaderboard-list" id="leaderboard-list">
+            <div class="leaderboard-item rank-1">
+              <span class="lb-rank">🥇 1</span>
+              <span class="lb-creator">
+                <span class="creator-avatar">A</span>
+                <span class="creator-name">AliceCreator</span>
+              </span>
+              <span class="lb-tips">847 STX</span>
+              <span class="lb-content">45</span>
+              <span class="lb-tier diamond">Diamond</span>
+            </div>
+            <div class="leaderboard-item rank-2">
+              <span class="lb-rank">🥈 2</span>
+              <span class="lb-creator">
+                <span class="creator-avatar">B</span>
+                <span class="creator-name">BobBuilder</span>
+              </span>
+              <span class="lb-tips">623 STX</span>
+              <span class="lb-content">38</span>
+              <span class="lb-tier platinum">Platinum</span>
+            </div>
+            <div class="leaderboard-item rank-3">
+              <span class="lb-rank">🥉 3</span>
+              <span class="lb-creator">
+                <span class="creator-avatar">C</span>
+                <span class="creator-name">CryptoCarol</span>
+              </span>
+              <span class="lb-tips">512 STX</span>
+              <span class="lb-content">32</span>
+              <span class="lb-tier platinum">Platinum</span>
+            </div>
+            <div class="leaderboard-item">
+              <span class="lb-rank">4</span>
+              <span class="lb-creator">
+                <span class="creator-avatar">D</span>
+                <span class="creator-name">DaveDigital</span>
+              </span>
+              <span class="lb-tips">389 STX</span>
+              <span class="lb-content">27</span>
+              <span class="lb-tier gold">Gold</span>
+            </div>
+            <div class="leaderboard-item">
+              <span class="lb-rank">5</span>
+              <span class="lb-creator">
+                <span class="creator-avatar">E</span>
+                <span class="creator-name">EveExplorer</span>
+              </span>
+              <span class="lb-tips">278 STX</span>
+              <span class="lb-content">21</span>
+              <span class="lb-tier gold">Gold</span>
+            </div>
+          </div>
+          <div class="leaderboard-footer">
+            <a href="/creators.html" class="btn btn-ghost btn-sm">View All Creators →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- On-Chain Verification -->
+      <section class="stats-section">
+        <h2 class="section-title">On-Chain Verification</h2>
+        <div class="verification-card">
+          <div class="verification-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <div class="verification-content">
+            <h3>All Data is Verifiable On-Chain</h3>
+            <p>Every statistic shown on this page can be independently verified through the Stacks blockchain. Our smart contracts are open source and deployed to mainnet.</p>
+            <div class="verification-links">
+              <a href="https://explorer.stacks.co/address/SP1PTBC7PP2X11N7M3K2BTF5HWRDK4J8QMGNFTEY5?chain=mainnet" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+                View on Stacks Explorer
+              </a>
+              <a href="https://github.com/elijahsnoz/SNOZCOIN" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+                View Source Code
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Demo Mode Banner -->
+      <div class="demo-banner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 16v-4M12 8h.01"/>
+        </svg>
+        <span><strong>Demo Mode:</strong> This page shows sample data for demonstration. Live statistics will be available after mainnet deployment.</span>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/SNOZCOIN-512.webp" alt="SNOZCOIN" width="48" height="48">
+          <p>Empowering creators with transparent, on-chain monetization.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Platform</h4>
+          <a href="/">Home</a>
+          <a href="/creators.html">Creators</a>
+          <a href="/dashboard.html">Dashboard</a>
+          <a href="/stats.html">Statistics</a>
+        </div>
+        <div class="footer-links">
+          <h4>Resources</h4>
+          <a href="/assets/whitepaper.html">Whitepaper</a>
+          <a href="https://github.com/elijahsnoz/SNOZCOIN" target="_blank" rel="noopener">GitHub</a>
+          <a href="/docs/Security_Checklist.md">Security</a>
+          <a href="/PROTOCOL_SPEC.md">Protocol Spec</a>
+        </div>
+        <div class="footer-links">
+          <h4>Connect</h4>
+          <a href="https://x.com/SNOZCOIN" target="_blank" rel="noopener">X (Twitter)</a>
+          <a href="mailto:support@snozcoin.xyz">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 SNOZCOIN. Built on Stacks.</p>
+        <p class="footer-disclaimer">SNOZ is a utility token with no monetary value.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/ui-components.js"></script>
+  <script src="js/snoz-stacks.js"></script>
+  <script src="js/stats.js"></script>
+</body>
+</html>
