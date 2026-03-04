@@ -4383,6 +4383,266 @@ a.trust-badge:hover {
 }
 
 /* ==============================================
+   WALLET SELECTION MODAL
+   ============================================== */
+
+.wallet-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.wallet-modal {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.wallet-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.wallet-modal-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.wallet-modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--muted);
+  transition: all 0.2s ease;
+}
+
+.wallet-modal-close:hover {
+  background: var(--bg-muted);
+  color: var(--fg);
+}
+
+.wallet-modal-body {
+  padding: 1.5rem;
+}
+
+.wallet-modal-subtitle {
+  color: var(--muted);
+  font-size: 0.875rem;
+  margin: 0 0 1.25rem 0;
+  text-align: center;
+}
+
+.wallet-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.wallet-option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  width: 100%;
+}
+
+.wallet-option:hover {
+  background: var(--bg);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.wallet-option.installed:hover {
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.15);
+}
+
+.wallet-option.not-installed {
+  opacity: 0.7;
+}
+
+.wallet-option.not-installed:hover {
+  opacity: 1;
+  border-color: var(--muted);
+}
+
+.wallet-option.loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.wallet-option-icon {
+  font-size: 1.75rem;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.wallet-option-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.wallet-option-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.wallet-option-status {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.wallet-option.installed .wallet-option-status {
+  color: var(--accent);
+}
+
+.wallet-option-status.wallet-error {
+  color: #ef4444;
+}
+
+.wallet-option-arrow,
+.wallet-option-install {
+  font-size: 0.875rem;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.wallet-option-install {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.wallet-option-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.wallet-modal-footer {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.wallet-modal-note {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-align: center;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.wallet-modal-note strong {
+  color: var(--accent);
+}
+
+/* Wallet Modal Mobile Styles */
+@media (max-width: 480px) {
+  .wallet-modal-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .wallet-modal {
+    max-width: 100%;
+    border-radius: 20px 20px 0 0;
+    max-height: 85vh;
+    animation: slideUpMobile 0.3s ease;
+  }
+
+  @keyframes slideUpMobile {
+    from { 
+      transform: translateY(100%);
+    }
+    to { 
+      transform: translateY(0);
+    }
+  }
+
+  .wallet-modal-header {
+    padding: 1rem 1.25rem;
+  }
+
+  .wallet-modal-body {
+    padding: 1.25rem;
+  }
+
+  .wallet-option {
+    padding: 0.875rem;
+  }
+
+  .wallet-option-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+}
+
+/* ==============================================
    COMPREHENSIVE MOBILE OPTIMIZATION
    ============================================== */
 

@@ -247,38 +247,22 @@ const DynamicHeader = (function() {
     const btn = document.getElementById('headerConnectBtn');
     if (!btn) return;
 
-    const originalContent = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = `
-      <span class="spinner"></span>
-      <span>Connecting...</span>
-    `;
-
     try {
-      // Show wallet selection modal if available
-      if (typeof showWalletSelectionModal === 'function') {
-        showWalletSelectionModal();
-        btn.disabled = false;
-        btn.innerHTML = originalContent;
-        return;
-      }
-
-      // Default to Leather wallet
-      await WalletAuth.connect('leather');
+      // Show wallet selection modal
+      const result = await WalletAuth.showWalletModal();
       
       // Redirect to dashboard after successful connection
       WalletAuth.handleRedirectAfterAuth();
       
     } catch (error) {
       console.error('Connection failed:', error);
-      btn.disabled = false;
-      btn.innerHTML = originalContent;
       
-      // Show error toast if available
-      if (typeof showToast === 'function') {
-        showToast(error.message || 'Failed to connect wallet', 'error');
-      } else {
-        alert(error.message || 'Failed to connect wallet');
+      // Only show error if it's not just closing the modal
+      if (error.message !== 'User closed wallet modal') {
+        // Show error toast if available
+        if (typeof showToast === 'function') {
+          showToast(error.message || 'Failed to connect wallet', 'error');
+        }
       }
     }
   }

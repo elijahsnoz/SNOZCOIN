@@ -1,6 +1,7 @@
 /**
  * SNOZCOIN Wallet Authentication Service
- * Handles Stacks wallet connection, state persistence, and auth events
+ * Handles multi-wallet connection, state persistence, and auth events
+ * Supports: Xverse, Leather, Phantom, MetaMask, Trust Wallet
  */
 
 const WalletAuth = (function() {
@@ -15,11 +16,57 @@ const WalletAuth = (function() {
     network: 'mainnet' // 'mainnet' or 'testnet'
   };
 
+  // Supported wallets configuration
+  const WALLETS = {
+    xverse: {
+      name: 'Xverse',
+      icon: '🟠',
+      iconUrl: 'https://www.xverse.app/favicon.ico',
+      type: 'stacks',
+      installUrl: 'https://www.xverse.app/',
+      detect: () => typeof window.XverseProviders !== 'undefined' || typeof window.BitcoinProvider !== 'undefined'
+    },
+    leather: {
+      name: 'Leather',
+      icon: '🟤',
+      iconUrl: 'https://leather.io/favicon.ico',
+      type: 'stacks',
+      installUrl: 'https://leather.io/install-extension',
+      detect: () => typeof window.LeatherProvider !== 'undefined' || typeof window.HiroWalletProvider !== 'undefined'
+    },
+    phantom: {
+      name: 'Phantom',
+      icon: '👻',
+      iconUrl: 'https://phantom.app/favicon.ico',
+      type: 'solana',
+      installUrl: 'https://phantom.app/',
+      detect: () => typeof window.phantom?.solana !== 'undefined'
+    },
+    metamask: {
+      name: 'MetaMask',
+      icon: '🦊',
+      iconUrl: 'https://metamask.io/favicon.ico',
+      type: 'evm',
+      installUrl: 'https://metamask.io/download/',
+      detect: () => typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask
+    },
+    trustwallet: {
+      name: 'Trust Wallet',
+      icon: '🛡️',
+      iconUrl: 'https://trustwallet.com/favicon.ico',
+      type: 'evm',
+      installUrl: 'https://trustwallet.com/',
+      detect: () => typeof window.trustwallet !== 'undefined' || (typeof window.ethereum !== 'undefined' && window.ethereum.isTrust)
+    }
+  };
+
   // Private state
   let _state = {
     isConnected: false,
     address: null,
-    walletType: null, // 'leather', 'xverse', 'okx'
+    walletType: null,
+    walletName: null,
+    chainType: null, // 'stacks', 'evm', 'solana'
     userData: null
   };
 
@@ -29,6 +76,9 @@ const WalletAuth = (function() {
     disconnect: [],
     stateChange: []
   };
+
+  // Modal element reference
+  let _modalElement = null;
 
   /**
    * Initialize wallet state from localStorage
@@ -67,7 +117,7 @@ const WalletAuth = (function() {
   }
 
   /**
-   * Format wallet address for display (SP1X...ABCD)
+   * Format wallet address for display
    */
   function formatAddress(address) {
     if (!address) return '';
@@ -76,116 +126,238 @@ const WalletAuth = (function() {
   }
 
   /**
-   * Connect wallet using Stacks Connect
+   * Get detected wallets
    */
-  async function connect(walletType = 'leather') {
-    // Check if Stacks Connect is available
-    if (typeof window.StacksProvider === 'undefined' && 
-        typeof window.LeatherProvider === 'undefined' &&
-        typeof window.XverseProviders === 'undefined') {
-      
-      // Open wallet install page
-      const walletUrls = {
-        leather: 'https://leather.io/install-extension',
-        xverse: 'https://www.xverse.app/',
-        okx: 'https://www.okx.com/web3'
-      };
-      
-      const installUrl = walletUrls[walletType] || walletUrls.leather;
-      window.open(installUrl, '_blank');
-      throw new Error('Please install a Stacks wallet to continue');
-    }
-
-    try {
-      // Use @stacks/connect if available (loaded via CDN)
-      if (window.StacksConnect) {
-        return await _connectWithStacksConnect(walletType);
+  function getDetectedWallets() {
+    const detected = [];
+    for (const [key, wallet] of Object.entries(WALLETS)) {
+      if (wallet.detect()) {
+        detected.push({ id: key, ...wallet });
       }
-      
-      // Fallback to direct provider access
-      return await _connectDirect(walletType);
-    } catch (error) {
-      console.error('Wallet connection failed:', error);
-      throw error;
     }
+    return detected;
   }
 
   /**
-   * Connect using @stacks/connect library
+   * Get all supported wallets
    */
-  async function _connectWithStacksConnect(walletType) {
-    const { showConnect, AppConfig, UserSession } = window.StacksConnect || {};
-    
-    if (!showConnect) {
-      return _connectDirect(walletType);
-    }
+  function getAllWallets() {
+    return Object.entries(WALLETS).map(([id, wallet]) => ({
+      id,
+      ...wallet,
+      installed: wallet.detect()
+    }));
+  }
 
+  /**
+   * Show wallet selection modal
+   */
+  function showWalletModal() {
     return new Promise((resolve, reject) => {
-      const appConfig = new AppConfig(['store_write', 'publish_data']);
-      const userSession = new UserSession({ appConfig });
+      // Remove existing modal if any
+      hideWalletModal();
 
-      showConnect({
-        appDetails: {
-          name: CONFIG.appName,
-          icon: CONFIG.appIconUrl
-        },
-        redirectTo: CONFIG.redirectTo,
-        onFinish: () => {
-          const userData = userSession.loadUserData();
-          const address = userData.profile.stxAddress[CONFIG.network];
+      const wallets = getAllWallets();
+      
+      const modalHTML = `
+        <div class="wallet-modal-overlay" id="walletModalOverlay">
+          <div class="wallet-modal" role="dialog" aria-labelledby="walletModalTitle">
+            <div class="wallet-modal-header">
+              <h2 id="walletModalTitle">Connect Wallet</h2>
+              <button class="wallet-modal-close" id="walletModalClose" aria-label="Close">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div class="wallet-modal-body">
+              <p class="wallet-modal-subtitle">Choose your preferred wallet to connect to SNOZCOIN</p>
+              <div class="wallet-list">
+                ${wallets.map(wallet => `
+                  <button class="wallet-option ${wallet.installed ? 'installed' : 'not-installed'}" 
+                          data-wallet-id="${wallet.id}"
+                          data-wallet-type="${wallet.type}">
+                    <span class="wallet-option-icon">${wallet.icon}</span>
+                    <span class="wallet-option-info">
+                      <span class="wallet-option-name">${wallet.name}</span>
+                      <span class="wallet-option-status">${wallet.installed ? 'Detected' : 'Not installed'}</span>
+                    </span>
+                    ${!wallet.installed ? '<span class="wallet-option-install">Install →</span>' : '<span class="wallet-option-arrow">→</span>'}
+                  </button>
+                `).join('')}
+              </div>
+              <div class="wallet-modal-footer">
+                <p class="wallet-modal-note">
+                  <strong>Recommended:</strong> Xverse or Leather for Stacks blockchain
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Add modal to DOM
+      const modalContainer = document.createElement('div');
+      modalContainer.innerHTML = modalHTML;
+      _modalElement = modalContainer.firstElementChild;
+      document.body.appendChild(_modalElement);
+
+      // Prevent body scroll
+      document.body.style.overflow = 'hidden';
+
+      // Attach event listeners
+      const closeBtn = document.getElementById('walletModalClose');
+      const overlay = document.getElementById('walletModalOverlay');
+      
+      const handleClose = () => {
+        hideWalletModal();
+        reject(new Error('User closed wallet modal'));
+      };
+
+      closeBtn.addEventListener('click', handleClose);
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) handleClose();
+      });
+
+      // Handle escape key
+      const handleEscape = (e) => {
+        if (e.key === 'Escape') {
+          handleClose();
+          document.removeEventListener('keydown', handleEscape);
+        }
+      };
+      document.addEventListener('keydown', handleEscape);
+
+      // Handle wallet selection
+      const walletButtons = _modalElement.querySelectorAll('.wallet-option');
+      walletButtons.forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const walletId = btn.dataset.walletId;
+          const wallet = WALLETS[walletId];
           
-          _state = {
-            isConnected: true,
-            address: address,
-            walletType: walletType,
-            userData: userData
-          };
-          
-          _saveState();
-          _emit('connect', _state);
-          _emit('stateChange', _state);
-          
-          resolve(_state);
-        },
-        onCancel: () => {
-          reject(new Error('User cancelled connection'));
-        },
-        userSession: userSession
+          if (!wallet.detect()) {
+            // Wallet not installed, open install page
+            window.open(wallet.installUrl, '_blank');
+            return;
+          }
+
+          // Show loading state
+          btn.classList.add('loading');
+          btn.innerHTML = `
+            <span class="wallet-option-icon">${wallet.icon}</span>
+            <span class="wallet-option-info">
+              <span class="wallet-option-name">${wallet.name}</span>
+              <span class="wallet-option-status">Connecting...</span>
+            </span>
+            <span class="wallet-option-spinner"></span>
+          `;
+
+          try {
+            const result = await connect(walletId);
+            hideWalletModal();
+            resolve(result);
+          } catch (error) {
+            btn.classList.remove('loading');
+            btn.innerHTML = `
+              <span class="wallet-option-icon">${wallet.icon}</span>
+              <span class="wallet-option-info">
+                <span class="wallet-option-name">${wallet.name}</span>
+                <span class="wallet-option-status wallet-error">Connection failed</span>
+              </span>
+              <span class="wallet-option-arrow">→</span>
+            `;
+          }
+        });
       });
     });
   }
 
   /**
-   * Direct provider connection (fallback)
+   * Hide wallet selection modal
    */
-  async function _connectDirect(walletType) {
-    let provider = null;
+  function hideWalletModal() {
+    if (_modalElement) {
+      _modalElement.remove();
+      _modalElement = null;
+      document.body.style.overflow = '';
+    }
+  }
+
+  /**
+   * Connect wallet by type
+   */
+  async function connect(walletId = 'xverse') {
+    const wallet = WALLETS[walletId];
     
-    // Detect available provider
-    if (walletType === 'leather' && window.LeatherProvider) {
-      provider = window.LeatherProvider;
-    } else if (walletType === 'xverse' && window.XverseProviders?.StacksProvider) {
-      provider = window.XverseProviders.StacksProvider;
-    } else if (window.StacksProvider) {
+    if (!wallet) {
+      throw new Error(`Unknown wallet: ${walletId}`);
+    }
+
+    if (!wallet.detect()) {
+      throw new Error(`${wallet.name} wallet not detected`);
+    }
+
+    try {
+      let result;
+      
+      switch (wallet.type) {
+        case 'stacks':
+          result = await _connectStacksWallet(walletId);
+          break;
+        case 'evm':
+          result = await _connectEVMWallet(walletId);
+          break;
+        case 'solana':
+          result = await _connectSolanaWallet(walletId);
+          break;
+        default:
+          throw new Error(`Unsupported wallet type: ${wallet.type}`);
+      }
+
+      return result;
+    } catch (error) {
+      console.error(`${wallet.name} connection failed:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Connect Stacks wallet (Xverse, Leather)
+   */
+  async function _connectStacksWallet(walletId) {
+    let provider = null;
+
+    // Get the appropriate provider
+    if (walletId === 'leather') {
+      provider = window.LeatherProvider || window.HiroWalletProvider;
+    } else if (walletId === 'xverse') {
+      provider = window.XverseProviders?.StacksProvider || window.BitcoinProvider;
+    }
+
+    // Fallback to generic StacksProvider
+    if (!provider && window.StacksProvider) {
       provider = window.StacksProvider;
     }
 
     if (!provider) {
-      throw new Error(`${walletType} wallet not found`);
+      throw new Error(`${WALLETS[walletId].name} provider not found`);
     }
 
+    // Try modern RPC method first
     try {
       const response = await provider.request({ method: 'stx_requestAccounts' });
       
-      if (response && response.result && response.result.addresses) {
+      if (response?.result?.addresses) {
         const addresses = response.result.addresses;
-        const stxAddress = addresses.find(a => a.symbol === 'STX');
+        const stxAddress = addresses.find(a => a.symbol === 'STX' || a.type === 'stacks');
         
         if (stxAddress) {
           _state = {
             isConnected: true,
             address: stxAddress.address,
-            walletType: walletType,
+            walletType: walletId,
+            walletName: WALLETS[walletId].name,
+            chainType: 'stacks',
             userData: { addresses }
           };
           
@@ -196,26 +368,156 @@ const WalletAuth = (function() {
           return _state;
         }
       }
+    } catch (e) {
+      console.log('Modern RPC failed, trying legacy method...');
+    }
+
+    // Try legacy connect method
+    if (typeof provider.connect === 'function') {
+      const result = await provider.connect();
       
-      throw new Error('No STX address found');
-    } catch (error) {
-      // Try legacy method
-      if (provider.connect) {
-        const result = await provider.connect();
-        if (result && result.address) {
-          _state = {
-            isConnected: true,
-            address: result.address,
-            walletType: walletType,
-            userData: result
-          };
-          
-          _saveState();
-          _emit('connect', _state);
-          _emit('stateChange', _state);
-          
-          return _state;
+      if (result?.addresses?.[0]) {
+        const addr = result.addresses[0];
+        _state = {
+          isConnected: true,
+          address: addr.address || addr,
+          walletType: walletId,
+          walletName: WALLETS[walletId].name,
+          chainType: 'stacks',
+          userData: result
+        };
+        
+        _saveState();
+        _emit('connect', _state);
+        _emit('stateChange', _state);
+        
+        return _state;
+      }
+    }
+
+    // Try getAddresses for Xverse
+    if (walletId === 'xverse' && window.BitcoinProvider) {
+      try {
+        const getAddressOptions = {
+          payload: {
+            purposes: ['stacks'],
+            message: 'Connect to SNOZCOIN',
+            network: { type: CONFIG.network === 'mainnet' ? 'Mainnet' : 'Testnet' }
+          },
+          onFinish: (response) => response,
+          onCancel: () => { throw new Error('User cancelled'); }
+        };
+        
+        // This uses Xverse's getAddress API
+        if (window.sats?.getAddress) {
+          const response = await window.sats.getAddress(getAddressOptions);
+          if (response?.addresses) {
+            const stacksAddr = response.addresses.find(a => a.purpose === 'stacks');
+            if (stacksAddr) {
+              _state = {
+                isConnected: true,
+                address: stacksAddr.address,
+                walletType: walletId,
+                walletName: WALLETS[walletId].name,
+                chainType: 'stacks',
+                userData: response
+              };
+              
+              _saveState();
+              _emit('connect', _state);
+              _emit('stateChange', _state);
+              
+              return _state;
+            }
+          }
         }
+      } catch (e) {
+        console.log('Xverse getAddress failed:', e);
+      }
+    }
+
+    throw new Error('Failed to get wallet address');
+  }
+
+  /**
+   * Connect EVM wallet (MetaMask, Trust Wallet)
+   */
+  async function _connectEVMWallet(walletId) {
+    let provider = null;
+
+    if (walletId === 'metamask') {
+      provider = window.ethereum;
+    } else if (walletId === 'trustwallet') {
+      provider = window.trustwallet?.ethereum || window.ethereum;
+    }
+
+    if (!provider) {
+      throw new Error(`${WALLETS[walletId].name} provider not found`);
+    }
+
+    try {
+      const accounts = await provider.request({ method: 'eth_requestAccounts' });
+      
+      if (accounts && accounts.length > 0) {
+        _state = {
+          isConnected: true,
+          address: accounts[0],
+          walletType: walletId,
+          walletName: WALLETS[walletId].name,
+          chainType: 'evm',
+          userData: { accounts }
+        };
+        
+        _saveState();
+        _emit('connect', _state);
+        _emit('stateChange', _state);
+        
+        return _state;
+      }
+      
+      throw new Error('No accounts found');
+    } catch (error) {
+      if (error.code === 4001) {
+        throw new Error('User rejected the connection request');
+      }
+      throw error;
+    }
+  }
+
+  /**
+   * Connect Solana wallet (Phantom)
+   */
+  async function _connectSolanaWallet(walletId) {
+    const provider = window.phantom?.solana;
+
+    if (!provider) {
+      throw new Error('Phantom wallet not found');
+    }
+
+    try {
+      const response = await provider.connect();
+      
+      if (response?.publicKey) {
+        _state = {
+          isConnected: true,
+          address: response.publicKey.toString(),
+          walletType: walletId,
+          walletName: WALLETS[walletId].name,
+          chainType: 'solana',
+          userData: { publicKey: response.publicKey.toString() }
+        };
+        
+        _saveState();
+        _emit('connect', _state);
+        _emit('stateChange', _state);
+        
+        return _state;
+      }
+      
+      throw new Error('Failed to get public key');
+    } catch (error) {
+      if (error.code === 4001) {
+        throw new Error('User rejected the connection request');
       }
       throw error;
     }
@@ -317,6 +619,11 @@ const WalletAuth = (function() {
     off,
     requireAuth,
     handleRedirectAfterAuth,
+    showWalletModal,
+    hideWalletModal,
+    getDetectedWallets,
+    getAllWallets,
+    WALLETS,
     CONFIG
   };
 })();
