@@ -1710,3 +1710,65 @@
   border-color: transparent;
   color: #fff;
 }
+
+/* Wallet Indicator (Connected State) */
+.swap-wallet-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 50px;
+  padding: 0.35rem 0.5rem 0.35rem 0.75rem;
+  margin-left: auto;
+}
+
+.wallet-indicator-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.wallet-indicator-icon {
+  font-size: 1.1rem;
+}
+
+.wallet-indicator-address {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: #10b981;
+  font-weight: 500;
+}
+
+.wallet-indicator-logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(239, 68, 68, 0.1);
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #888;
+}
+
+.wallet-indicator-logout:hover {
+  background: rgba(239, 68, 68, 0.25);
+  color: #ef4444;
+}
+
+.wallet-indicator-logout svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Adjust swap card header for wallet indicator */
+.swap-card-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+

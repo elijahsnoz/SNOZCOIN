@@ -997,38 +997,40 @@ async function connectToWallet(walletKey) {
 
 // Update wallet UI to show connected state
 function updateWalletUI() {
-    const connectBtn = elements.connectWalletBtn;
-    const connectedState = document.getElementById('wallet-connected-state');
-    const walletAvatar = document.getElementById('wallet-avatar');
-    const walletAddressDisplay = document.getElementById('wallet-address-display');
-    const logoutBtn = document.getElementById('wallet-logout-btn');
+    // Remove existing wallet indicator
+    const existingIndicator = document.querySelector('.swap-wallet-indicator');
+    if (existingIndicator) existingIndicator.remove();
     
     if (state.walletConnected && state.walletAddress) {
-        // Hide connect button, show connected state
-        if (connectBtn) connectBtn.style.display = 'none';
-        if (connectedState) connectedState.style.display = 'flex';
-        
-        // Set avatar based on wallet provider
+        // Create wallet indicator with logout button
         const provider = WALLET_PROVIDERS[state.walletProvider];
-        if (walletAvatar && provider) {
-            walletAvatar.innerHTML = provider.icon;
-            walletAvatar.className = 'wallet-avatar ' + state.walletProvider;
-        }
+        const shortAddr = state.walletAddress.slice(0, 6) + '...' + state.walletAddress.slice(-4);
         
-        // Set truncated address
-        if (walletAddressDisplay) {
-            const addr = state.walletAddress;
-            walletAddressDisplay.textContent = addr.slice(0, 6) + '...' + addr.slice(-4);
+        const indicator = document.createElement('div');
+        indicator.className = 'swap-wallet-indicator';
+        indicator.innerHTML = `
+            <div class="wallet-indicator-info">
+                <span class="wallet-indicator-icon">${provider ? provider.icon : '💰'}</span>
+                <span class="wallet-indicator-address">${shortAddr}</span>
+            </div>
+            <button class="wallet-indicator-logout" id="swapLogoutBtn" title="Disconnect wallet">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                    <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/>
+                </svg>
+            </button>
+        `;
+        
+        // Insert after swap card header
+        const swapCardHeader = document.querySelector('.swap-card-header');
+        if (swapCardHeader) {
+            swapCardHeader.appendChild(indicator);
         }
         
         // Add logout handler
+        const logoutBtn = document.getElementById('swapLogoutBtn');
         if (logoutBtn) {
             logoutBtn.onclick = disconnectWallet;
         }
-    } else {
-        // Show connect button, hide connected state
-        if (connectBtn) connectBtn.style.display = 'flex';
-        if (connectedState) connectedState.style.display = 'none';
     }
 }
 
