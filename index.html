@@ -1185,20 +1185,33 @@
         </div>
         
         <div class="gs-form-group">
-          <label>Choose Avatar</label>
-          <div class="gs-avatar-grid" id="gsAvatarGrid">
-            <span class="gs-avatar" data-avatar="🎵">🎵</span>
-            <span class="gs-avatar" data-avatar="🎤">🎤</span>
-            <span class="gs-avatar" data-avatar="🎸">🎸</span>
-            <span class="gs-avatar" data-avatar="🎹">🎹</span>
-            <span class="gs-avatar" data-avatar="🥁">🥁</span>
-            <span class="gs-avatar" data-avatar="🎧">🎧</span>
-            <span class="gs-avatar" data-avatar="💿">💿</span>
-            <span class="gs-avatar" data-avatar="⭐">⭐</span>
-            <span class="gs-avatar" data-avatar="🚀">🚀</span>
-            <span class="gs-avatar" data-avatar="🔥">🔥</span>
-            <span class="gs-avatar" data-avatar="💎">💎</span>
-            <span class="gs-avatar" data-avatar="🎼">🎼</span>
+          <label>Your Unique Avatar</label>
+          <p class="gs-avatar-subtitle">Generated from your wallet address - click to regenerate with different style</p>
+          <div class="gs-avatar-preview-container">
+            <div class="gs-avatar-main" id="gsAvatarMain">
+              <img id="gsAvatarImage" src="" alt="Your Avatar">
+            </div>
+            <div class="gs-avatar-styles" id="gsAvatarStyles">
+              <div class="gs-style-btn selected" data-style="pixel-art" title="Pixel Art">
+                <img src="https://api.dicebear.com/7.x/pixel-art/svg?seed=demo1&size=40" alt="Pixel">
+              </div>
+              <div class="gs-style-btn" data-style="identicon" title="Identicon">
+                <img src="https://api.dicebear.com/7.x/identicon/svg?seed=demo2&size=40" alt="Identicon">
+              </div>
+              <div class="gs-style-btn" data-style="bottts" title="Robot">
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=demo3&size=40" alt="Robot">
+              </div>
+              <div class="gs-style-btn" data-style="shapes" title="Shapes">
+                <img src="https://api.dicebear.com/7.x/shapes/svg?seed=demo4&size=40" alt="Shapes">
+              </div>
+              <div class="gs-style-btn" data-style="thumbs" title="Thumbs">
+                <img src="https://api.dicebear.com/7.x/thumbs/svg?seed=demo5&size=40" alt="Thumbs">
+              </div>
+              <div class="gs-style-btn" data-style="fun-emoji" title="Fun Emoji">
+                <img src="https://api.dicebear.com/7.x/fun-emoji/svg?seed=demo6&size=40" alt="Emoji">
+              </div>
+            </div>
+            <button class="gs-randomize-btn" id="gsRandomizeAvatar">� Randomize</button>
           </div>
         </div>
         
@@ -1394,29 +1407,71 @@
       background: #1a1a2e;
     }
     
-    /* Avatar Grid */
-    .gs-avatar-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 8px;
+    /* Avatar Preview System */
+    .gs-avatar-subtitle {
+      color: #888;
+      font-size: 0.85rem;
+      margin-bottom: 15px;
     }
-    .gs-avatar {
-      width: 45px;
-      height: 45px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
+    .gs-avatar-preview-container {
+      text-align: center;
+    }
+    .gs-avatar-main {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid #667eea;
       background: rgba(255,255,255,0.05);
-      border: 2px solid rgba(255,255,255,0.1);
+      box-shadow: 0 0 30px rgba(102,126,234,0.3);
+    }
+    .gs-avatar-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .gs-avatar-styles {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+    .gs-style-btn {
+      width: 50px;
+      height: 50px;
       border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.1);
       cursor: pointer;
       transition: all 0.2s;
+      background: rgba(255,255,255,0.05);
     }
-    .gs-avatar:hover { transform: scale(1.1); }
-    .gs-avatar.selected {
+    .gs-style-btn:hover {
+      transform: scale(1.1);
+      border-color: rgba(255,255,255,0.3);
+    }
+    .gs-style-btn.selected {
       border-color: #667eea;
-      background: rgba(102,126,234,0.2);
+      box-shadow: 0 0 15px rgba(102,126,234,0.4);
+    }
+    .gs-style-btn img {
+      width: 100%;
+      height: 100%;
+    }
+    .gs-randomize-btn {
+      padding: 10px 20px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .gs-randomize-btn:hover {
+      background: rgba(255,255,255,0.15);
     }
     
     /* Type Grid */
@@ -1506,6 +1561,8 @@
       username: '',
       country: '',
       avatar: '',
+      avatarStyle: 'pixel-art',
+      avatarSeed: null,
       userType: null
     };
 
@@ -1618,6 +1675,26 @@
       document.getElementById('toStep3').disabled = !valid;
     }
 
+    // Generate avatar URL
+    function generateAvatarUrl(style, seed) {
+      return 'https://api.dicebear.com/7.x/' + style + '/svg?seed=' + encodeURIComponent(seed) + '&size=200';
+    }
+
+    // Update avatar display
+    function updateAvatar() {
+      var seed = state.avatarSeed || state.walletAddress || 'default';
+      var url = generateAvatarUrl(state.avatarStyle, seed);
+      document.getElementById('gsAvatarImage').src = url;
+      state.avatar = url;
+      validateStep2();
+    }
+
+    // Randomize avatar seed
+    function randomizeSeed() {
+      state.avatarSeed = Math.random().toString(36).substring(2, 15);
+      updateAvatar();
+    }
+
     // Save profile
     function saveProfile() {
       var profile = {
@@ -1656,6 +1733,9 @@
       // Step navigation
       document.getElementById('toStep2').addEventListener('click', function() {
         showStep(2);
+        // Generate initial avatar based on wallet address
+        state.avatarSeed = state.walletAddress;
+        updateAvatar();
       });
 
       document.getElementById('backToStep1').addEventListener('click', function() {
@@ -1676,15 +1756,18 @@
       document.getElementById('gsUsername').addEventListener('input', validateStep2);
       document.getElementById('gsCountry').addEventListener('change', validateStep2);
 
-      // Avatar selection
-      document.querySelectorAll('.gs-avatar').forEach(function(el) {
+      // Avatar style selection
+      document.querySelectorAll('.gs-style-btn').forEach(function(el) {
         el.addEventListener('click', function() {
-          document.querySelectorAll('.gs-avatar').forEach(function(a) { a.classList.remove('selected'); });
+          document.querySelectorAll('.gs-style-btn').forEach(function(b) { b.classList.remove('selected'); });
           this.classList.add('selected');
-          state.avatar = this.getAttribute('data-avatar');
-          validateStep2();
+          state.avatarStyle = this.getAttribute('data-style');
+          updateAvatar();
         });
       });
+
+      // Randomize avatar
+      document.getElementById('gsRandomizeAvatar').addEventListener('click', randomizeSeed);
 
       // User type selection
       document.querySelectorAll('.gs-type-option').forEach(function(el) {
