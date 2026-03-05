@@ -461,14 +461,25 @@ function calculateSwap() {
     state.bestRoute = determineBestRoute(fromAmount);
 
     updateToAmount();
+    updateUsdDisplay();
     updateRouteDisplay();
     updateSwapButton();
+    updateMinReceived(minOutput);
+}
+
+// Update minimum received display
+function updateMinReceived(minOutput) {
+    const minReceivedEl = document.getElementById('min-received');
+    if (minReceivedEl && minOutput) {
+        minReceivedEl.textContent = `${formatNumber(minOutput)} ${state.toToken}`;
+    }
 }
 
 function calculateReverseSwap() {
     if (!state.toAmount || isNaN(parseFloat(state.toAmount))) {
         state.fromAmount = '';
         updateFromAmount();
+        updateUsdDisplay();
         return;
     }
 
@@ -486,6 +497,7 @@ function calculateReverseSwap() {
     state.fromAmount = inputAmount.toFixed(6);
 
     updateFromAmount();
+    updateUsdDisplay();
     updateRouteDisplay();
     updateSwapButton();
 }
@@ -1052,26 +1064,89 @@ function disconnectWallet() {
 
 
 async function fetchBalances() {
-    if (!state.walletAddress) return;
+    if (!state.walletAddress || !state.walletProvider) return;
 
     try {
-        // Fetch STX balance
-        const response = await fetch(`https://api.mainnet.hiro.so/extended/v1/address/${state.walletAddress}/balances`);
-        const data = await response.json();
-
-        if (data.stx) {
-            state.balances.STX = parseInt(data.stx.balance) / 1000000;
+        if (state.walletProvider === 'metamask') {
+            // Fetch ETH balance for MetaMask
+            const balanceWei = await window.ethereum.request({
+                method: 'eth_getBalance',
+                params: [state.walletAddress, 'latest']
+            });
+            const balanceEth = parseInt(balanceWei, 16) / 1e18;
+            
+            // For demo, show ETH as available for swap
+            // In production, you'd fetch actual ERC20 token balances
+            state.balances.ETH = balanceEth;
+            
+            // Mock stablecoin balances for demo (in production, fetch from contracts)
+            state.balances.USDC = 1000;
+            state.balances.USDT = 500;
+            state.balances.DAI = 250;
+            state.balances.STX = 0;
+            
+        } else if (state.walletProvider === 'phantom') {
+            // Fetch SOL balance for Phantom
+            const connection = window.phantom?.solana;
+            if (connection && connection.publicKey) {
+                // For Solana, we'd need to use @solana/web3.js
+                // For demo, use mock balances
+                state.balances.SOL = 10;
+                state.balances.USDC = 500;
+                state.balances.USDT = 250;
+                state.balances.STX = 0;
+            }
         }
 
-        // For demo, set some mock balances for stablecoins
-        // In production, you'd fetch actual token balances
+        updateBalances();
+        updateBalanceDisplay('from');
+        updateBalanceDisplay('to');
+        
+    } catch (error) {
+        console.error('Error fetching balances:', error);
+        // Set demo balances on error
         state.balances.USDC = 1000;
         state.balances.USDT = 500;
         state.balances.DAI = 250;
-
+        state.balances.STX = 0;
         updateBalances();
-    } catch (error) {
-        console.error('Error fetching balances:', error);
+    }
+}
+
+// Update balance display for a specific input
+function updateBalanceDisplay(type) {
+    const token = type === 'from' ? state.fromToken : state.toToken;
+    const balance = state.balances[token] || 0;
+    const elementId = type === 'from' ? 'from-balance' : 'to-balance';
+    const element = document.getElementById(elementId);
+    
+    if (element) {
+        if (state.walletConnected) {
+            element.textContent = formatNumber(balance);
+        } else {
+            element.textContent = '0.00';
+        }
+    }
+}
+
+// Update USD value displays
+function updateUsdDisplay() {
+    const fromToken = TOKENS[state.fromToken];
+    const toToken = TOKENS[state.toToken];
+    
+    const fromUsdEl = document.getElementById('from-usd');
+    const toUsdEl = document.getElementById('to-usd');
+    
+    if (fromUsdEl) {
+        const fromAmount = parseFloat(state.fromAmount) || 0;
+        const fromUsd = fromAmount * fromToken.price;
+        fromUsdEl.textContent = `≈ $${formatNumber(fromUsd)}`;
+    }
+    
+    if (toUsdEl) {
+        const toAmount = parseFloat(state.toAmount) || 0;
+        const toUsd = toAmount * toToken.price;
+        toUsdEl.textContent = `≈ $${formatNumber(toUsd)}`;
     }
 }
 
