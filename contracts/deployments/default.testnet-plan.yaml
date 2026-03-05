@@ -10,7 +10,7 @@ plan:
       transactions:
         - contract-publish:
             contract-name: snozcoin-profiles
-            expected-sender: ST10N4Q241TTN6TYC5HNAX2YTGNMWB1K1AZ8YTS6A
+            expected-sender: ST1PTBC7PP2X11N7M3K2BTF5HWRDK4J8QMJXKEVVR
             cost: 1056054
             path: snozcoin-profiles.clar
             anchor-block-only: true

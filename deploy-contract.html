@@ -3,158 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deploy SNOZCOIN Contract</title>
+    <title>Deploy SNOZCOIN Contract - Stacks Testnet</title>
+    <link rel="stylesheet" href="css/style.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            min-height: 100vh;
-            color: #fff;
-            padding: 40px 20px;
+        .deploy-container {
+            max-width: 900px;
+            margin: 100px auto;
+            padding: 40px;
+            background: rgba(30, 30, 50, 0.9);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
         }
-        .container { max-width: 800px; margin: 0 auto; }
-        h1 {
-            font-size: 2rem;
+        .deploy-container h1 {
+            color: #ffd700;
             margin-bottom: 10px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
-        .subtitle { color: #888; margin-bottom: 30px; }
-        .card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 20px;
-        }
-        .card h2 { font-size: 1.2rem; margin-bottom: 15px; color: #e0e0e0; }
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .info-row:last-child { border-bottom: none; }
-        .info-label { color: #888; }
-        .info-value { font-family: monospace; color: #4ade80; word-break: break-all; }
-        .btn {
-            display: inline-block;
-            padding: 15px 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            border-radius: 10px;
+        .deploy-container h2 {
             color: #fff;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.2s;
-            text-decoration: none;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.8;
         }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(102,126,234,0.4); }
-        .status {
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-        .status.success { background: rgba(74,222,128,0.2); border: 1px solid rgba(74,222,128,0.3); }
-        .status.info { background: rgba(102,126,234,0.2); border: 1px solid rgba(102,126,234,0.3); }
-        pre {
-            background: rgba(0,0,0,0.3);
-            padding: 15px;
-            border-radius: 8px;
-            overflow-x: auto;
-            font-size: 0.75rem;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        a { color: #667eea; }
-        .method-card {
-            background: rgba(102,126,234,0.1);
-            border: 1px solid rgba(102,126,234,0.3);
+        .info-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
             border-radius: 10px;
             padding: 20px;
-            margin-bottom: 15px;
+            margin-bottom: 30px;
         }
-        .method-card h3 { color: #667eea; margin-bottom: 10px; }
-        .method-card ol { margin-left: 20px; line-height: 1.8; }
-        .copy-btn {
-            padding: 8px 15px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 5px;
+        .info-box p {
+            margin: 8px 0;
             color: #fff;
-            cursor: pointer;
-            font-size: 0.9rem;
-            margin-top: 10px;
         }
-        .copy-btn:hover { background: rgba(255,255,255,0.2); }
+        .info-box strong {
+            color: #ffd700;
+        }
+        .info-box code {
+            background: rgba(0,0,0,0.3);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #00ff88;
+            word-break: break-all;
+        }
+        .contract-code {
+            background: #1a1a2e;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            color: #00ff88;
+            overflow-x: auto;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre;
+            margin-bottom: 20px;
+        }
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        .btn {
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #ffd700, #ffaa00);
+            color: #000;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .steps {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        .steps h3 {
+            color: #00ff88;
+            margin-bottom: 20px;
+        }
+        .steps ol {
+            color: #fff;
+            padding-left: 20px;
+        }
+        .steps li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        .steps li strong {
+            color: #ffd700;
+        }
+        .copied-toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #00ff88;
+            color: #000;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🚀 Deploy SNOZCOIN Contract</h1>
-        <p class="subtitle">Deploy the user profile smart contract to Stacks Testnet</p>
+    <div class="deploy-container">
+        <h1>🚀 Deploy SNOZCOIN Profiles Contract</h1>
+        <h2>Stacks Testnet Deployment</h2>
 
-        <div class="card">
-            <h2>📋 Contract Details</h2>
-            <div class="info-row">
-                <span class="info-label">Contract Name</span>
-                <span class="info-value">snozcoin-profiles</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">Network</span>
-                <span class="info-value">Stacks Testnet</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">Your Address</span>
-                <span class="info-value">ST10N4Q241TTN6TYC5HNAX2YTGNMWB1K1AZ8YTS6A</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">Contract Address (after deploy)</span>
-                <span class="info-value">ST10N4Q241TTN6TYC5HNAX2YTGNMWB1K1AZ8YTS6A.snozcoin-profiles</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">Estimated Cost</span>
-                <span class="info-value">~1 STX</span>
-            </div>
+        <div class="info-box">
+            <p><strong>Network:</strong> Stacks Testnet</p>
+            <p><strong>Deployer Address:</strong> <code>ST1PTBC7PP2X11N7M3K2BTF5HWRDK4J8QMJXKEVVR</code></p>
+            <p><strong>Contract Name:</strong> <code>snozcoin-profiles</code></p>
+            <p><strong>Full Contract ID:</strong> <code>ST1PTBC7PP2X11N7M3K2BTF5HWRDK4J8QMJXKEVVR.snozcoin-profiles</code></p>
         </div>
 
-        <div class="card">
-            <h2>🛠️ Deploy Using Hiro Sandbox (Recommended)</h2>
-            
-            <div class="method-card">
-                <h3>Step-by-Step Instructions</h3>
-                <ol>
-                    <li>Click the button below to open <strong>Hiro Sandbox</strong></li>
-                    <li>Click <strong>"Connect Wallet"</strong> in the top right</li>
-                    <li>Connect your <strong>Leather Wallet</strong></li>
-                    <li>Make sure you're on <strong>Testnet</strong> (check top right)</li>
-                    <li>In the contract name field, enter: <code>snozcoin-profiles</code></li>
-                    <li>Copy the contract code below and paste it in the editor</li>
-                    <li>Click <strong>"Deploy"</strong></li>
-                    <li>Approve the transaction in Leather Wallet</li>
-                </ol>
-            </div>
-
-            <a href="https://explorer.hiro.so/sandbox/deploy?chain=testnet" target="_blank" class="btn">
-                🚀 Open Hiro Sandbox
-            </a>
-
-            <div class="status info" style="margin-top: 20px;">
-                💡 <strong>Tip:</strong> The Hiro Sandbox is the official tool from Hiro and works reliably with Leather Wallet.
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>📄 Contract Code (Copy This)</h2>
-            <button class="copy-btn" onclick="copyContract()">📋 Copy Contract Code</button>
-            <pre id="contractCode">;; SNOZCOIN User Profiles Contract
+        <h3 style="color: #fff; margin-bottom: 15px;">📜 Contract Code</h3>
+        <div class="contract-code" id="contractCode">;; SNOZCOIN User Profiles Contract
 ;; Stores user profile data on the Stacks blockchain with Bitcoin security
 ;; Version: 1.0.0
+
+;; ============================================
+;; CONSTANTS
+;; ============================================
 
 ;; Error codes
 (define-constant ERR-NOT-AUTHORIZED (err u100))
@@ -173,7 +173,11 @@
 ;; Contract owner (deployer)
 (define-constant CONTRACT-OWNER tx-sender)
 
-;; Main profile storage
+;; ============================================
+;; DATA STORAGE
+;; ============================================
+
+;; Main profile storage - maps wallet address to profile data
 (define-map profiles
     principal
     {
@@ -188,7 +192,7 @@
     }
 )
 
-;; Username to address mapping
+;; Username to address mapping (for username uniqueness)
 (define-map username-to-address
     (string-ascii 20)
     principal
@@ -200,32 +204,41 @@
 ;; Contract pause state
 (define-data-var is-paused bool false)
 
+;; ============================================
 ;; READ-ONLY FUNCTIONS
+;; ============================================
 
+;; Get profile by wallet address
 (define-read-only (get-profile (wallet principal))
     (map-get? profiles wallet)
 )
 
+;; Get address by username
 (define-read-only (get-address-by-username (username (string-ascii 20)))
     (map-get? username-to-address username)
 )
 
+;; Check if username is available
 (define-read-only (is-username-available (username (string-ascii 20)))
     (is-none (map-get? username-to-address username))
 )
 
+;; Check if wallet has a profile
 (define-read-only (has-profile (wallet principal))
     (is-some (map-get? profiles wallet))
 )
 
+;; Get total registered users
 (define-read-only (get-total-users)
     (var-get total-users)
 )
 
+;; Check if contract is paused
 (define-read-only (get-is-paused)
     (var-get is-paused)
 )
 
+;; Validate user type
 (define-read-only (is-valid-user-type (user-type uint))
     (or 
         (is-eq user-type USER-TYPE-CREATOR)
@@ -239,8 +252,28 @@
     )
 )
 
-;; PUBLIC FUNCTIONS
+;; Get user type name
+(define-read-only (get-user-type-name (user-type uint))
+    (if (is-eq user-type USER-TYPE-CREATOR)
+        "creator"
+        (if (is-eq user-type USER-TYPE-SUPPORTER)
+            "supporter"
+            (if (is-eq user-type USER-TYPE-CORPORATE)
+                "corporate"
+                (if (is-eq user-type USER-TYPE-INVESTOR)
+                    "investor"
+                    "unknown"
+                )
+            )
+        )
+    )
+)
 
+;; ============================================
+;; PUBLIC FUNCTIONS
+;; ============================================
+
+;; Register a new profile
 (define-public (register-profile 
     (username (string-ascii 20))
     (country (string-ascii 3))
@@ -252,12 +285,22 @@
             (caller tx-sender)
             (current-block block-height)
         )
+        ;; Check contract not paused
         (asserts! (not (var-get is-paused)) ERR-NOT-AUTHORIZED)
+        
+        ;; Check profile doesn't already exist
         (asserts! (not (has-profile caller)) ERR-PROFILE-EXISTS)
+        
+        ;; Check username length (min 3 chars)
         (asserts! (>= (len username) u3) ERR-INVALID-USERNAME)
+        
+        ;; Check username is available
         (asserts! (is-username-available username) ERR-USERNAME-TAKEN)
+        
+        ;; Check valid user type
         (asserts! (is-valid-user-type user-type) ERR-INVALID-USER-TYPE)
         
+        ;; Store the profile
         (map-set profiles caller {
             username: username,
             country: country,
@@ -269,9 +312,13 @@
             is-verified: false
         })
         
+        ;; Store username mapping
         (map-set username-to-address username caller)
+        
+        ;; Increment user count
         (var-set total-users (+ (var-get total-users) u1))
         
+        ;; Return success with profile data
         (ok {
             wallet: caller,
             username: username,
@@ -281,6 +328,7 @@
     )
 )
 
+;; Update profile (only owner can update their own)
 (define-public (update-profile
     (country (string-ascii 3))
     (user-type uint)
@@ -291,9 +339,13 @@
             (caller tx-sender)
             (existing-profile (unwrap! (get-profile caller) ERR-PROFILE-NOT-FOUND))
         )
+        ;; Check contract not paused
         (asserts! (not (var-get is-paused)) ERR-NOT-AUTHORIZED)
+        
+        ;; Check valid user type
         (asserts! (is-valid-user-type user-type) ERR-INVALID-USER-TYPE)
         
+        ;; Update profile (keep username, created-at, is-verified)
         (map-set profiles caller (merge existing-profile {
             country: country,
             user-type: user-type,
@@ -305,14 +357,17 @@
     )
 )
 
+;; Update IPFS hash (for extended profile data)
 (define-public (update-ipfs-hash (ipfs-hash (string-ascii 64)))
     (let
         (
             (caller tx-sender)
             (existing-profile (unwrap! (get-profile caller) ERR-PROFILE-NOT-FOUND))
         )
+        ;; Check contract not paused
         (asserts! (not (var-get is-paused)) ERR-NOT-AUTHORIZED)
         
+        ;; Update IPFS hash
         (map-set profiles caller (merge existing-profile {
             ipfs-hash: (some ipfs-hash),
             updated-at: block-height
@@ -322,15 +377,20 @@
     )
 )
 
-;; ADMIN FUNCTIONS
+;; ============================================
+;; ADMIN FUNCTIONS (Owner only)
+;; ============================================
 
+;; Verify a user (admin only)
 (define-public (verify-user (wallet principal))
     (let
         (
             (existing-profile (unwrap! (get-profile wallet) ERR-PROFILE-NOT-FOUND))
         )
+        ;; Check caller is contract owner
         (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
         
+        ;; Update verification status
         (map-set profiles wallet (merge existing-profile {
             is-verified: true,
             updated-at: block-height
@@ -340,6 +400,26 @@
     )
 )
 
+;; Unverify a user (admin only)
+(define-public (unverify-user (wallet principal))
+    (let
+        (
+            (existing-profile (unwrap! (get-profile wallet) ERR-PROFILE-NOT-FOUND))
+        )
+        ;; Check caller is contract owner
+        (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
+        
+        ;; Update verification status
+        (map-set profiles wallet (merge existing-profile {
+            is-verified: false,
+            updated-at: block-height
+        }))
+        
+        (ok true)
+    )
+)
+
+;; Pause contract (admin only)
 (define-public (pause-contract)
     (begin
         (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
@@ -348,40 +428,65 @@
     )
 )
 
+;; Unpause contract (admin only)
 (define-public (unpause-contract)
     (begin
         (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
         (var-set is-paused false)
         (ok true)
     )
-)</pre>
-            <div class="status success" id="copyStatus" style="display:none;">
-                ✅ Contract code copied to clipboard!
-            </div>
+)</div>
+
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="copyCode()">
+                📋 Copy Contract Code
+            </button>
+            <a href="https://explorer.hiro.so/sandbox/deploy?chain=testnet" target="_blank" class="btn btn-secondary">
+                🌐 Open Hiro Sandbox
+            </a>
         </div>
 
-        <div class="card">
-            <h2>✅ After Deployment</h2>
-            <p>Once deployed, your contract will be available at:</p>
-            <pre>ST10N4Q241TTN6TYC5HNAX2YTGNMWB1K1AZ8YTS6A.snozcoin-profiles</pre>
-            <p style="margin-top: 15px;">View it on the explorer:</p>
-            <a href="https://explorer.hiro.so/address/ST10N4Q241TTN6TYC5HNAX2YTGNMWB1K1AZ8YTS6A.snozcoin-profiles?chain=testnet" target="_blank">
-                View Contract on Explorer →
-            </a>
-            <p style="margin-top: 15px; color: #888;">
-                ⏳ Note: After deployment, wait 10-30 minutes for the transaction to confirm on the Stacks blockchain.
+        <div class="steps">
+            <h3>📋 Deployment Steps (Xverse Wallet)</h3>
+            <ol>
+                <li>Click <strong>"Copy Contract Code"</strong> above</li>
+                <li>Click <strong>"Open Hiro Sandbox"</strong> to go to the deployment page</li>
+                <li>Click <strong>"Connect Wallet"</strong> in the top right → Select <strong>Xverse</strong></li>
+                <li>Make sure you're on <strong>Testnet</strong> (check top of page)</li>
+                <li>Paste the contract code into the editor</li>
+                <li>Set <strong>Contract Name:</strong> <code>snozcoin-profiles</code></li>
+                <li>Click <strong>"Deploy"</strong></li>
+                <li>Sign the transaction in your <strong>Xverse wallet</strong></li>
+                <li>Wait for confirmation (~10-30 seconds)</li>
+            </ol>
+        </div>
+
+        <div class="info-box" style="margin-top: 30px;">
+            <p><strong>After Deployment:</strong></p>
+            <p>Your contract will be live at:</p>
+            <p><code>ST1PTBC7PP2X11N7M3K2BTF5HWRDK4J8QMJXKEVVR.snozcoin-profiles</code></p>
+            <p style="margin-top: 15px;">
+                <a href="https://explorer.hiro.so/address/ST1PTBC7PP2X11N7M3K2BTF5HWRDK4J8QMJXKEVVR.snozcoin-profiles?chain=testnet" 
+                   target="_blank" 
+                   style="color: #00ff88;">
+                    🔍 View Contract on Explorer →
+                </a>
             </p>
         </div>
+
+        <a href="index.html" style="color: #ffd700; display: inline-block; margin-top: 20px;">← Back to Home</a>
     </div>
 
+    <div class="copied-toast" id="copiedToast">✅ Contract code copied to clipboard!</div>
+
     <script>
-        function copyContract() {
-            var code = document.getElementById('contractCode').textContent;
-            navigator.clipboard.writeText(code).then(function() {
-                var status = document.getElementById('copyStatus');
-                status.style.display = 'block';
-                setTimeout(function() {
-                    status.style.display = 'none';
+        function copyCode() {
+            const code = document.getElementById('contractCode').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const toast = document.getElementById('copiedToast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
                 }, 3000);
             });
         }

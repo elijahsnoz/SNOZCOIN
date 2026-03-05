@@ -4,7 +4,7 @@
  */
 
 // Contract constants
-const CONTRACT_ADDRESS = 'ST_YOUR_ADDRESS_HERE'; // Replace after deployment
+const CONTRACT_ADDRESS = 'ST1PTBC7PP2X11N7M3K2BTF5HWRDK4J8QMJXKEVVR'; // Xverse wallet address
 const CONTRACT_NAME = 'snozcoin-profiles';
 const TESTNET_API = 'https://api.testnet.hiro.so';
 const MAINNET_API = 'https://api.hiro.so';

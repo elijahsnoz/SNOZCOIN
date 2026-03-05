@@ -3,5 +3,5 @@ name = "testnet"
 stacks_node_rpc_address = "https://api.testnet.hiro.so"
 
 [accounts.deployer]
-# Your testnet address
-stx_address = "ST10N4Q241TTN6TYC5HNAX2YTGNMWB1K1AZ8YTS6A"
+# Your testnet address (Xverse wallet)
+stx_address = "ST1PTBC7PP2X11N7M3K2BTF5HWRDK4J8QMJXKEVVR"
