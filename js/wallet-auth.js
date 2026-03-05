@@ -1,19 +1,19 @@
 /**
  * SNOZCOIN Wallet Authentication Service
- * Simplified wallet connection for MetaMask, Phantom, and Stacks wallets
+ * Simplified wallet connection for MetaMask and Phantom wallets
+ * With username creation and logout functionality
  */
 
 var WalletAuth = (function() {
   'use strict';
 
-  // Configuration
   var CONFIG = {
     appName: 'SNOZCOIN',
     redirectTo: '/dashboard.html',
-    storageKey: 'snozcoin_wallet'
+    storageKey: 'snozcoin_wallet',
+    userStorageKey: 'snozcoin_user'
   };
 
-  // Supported wallets
   var WALLETS = [
     {
       id: 'metamask',
@@ -34,30 +34,9 @@ var WalletAuth = (function() {
       detect: function() { 
         return window.phantom && window.phantom.solana; 
       }
-    },
-    {
-      id: 'xverse',
-      name: 'Xverse',
-      icon: '🟠',
-      type: 'stacks',
-      installUrl: 'https://www.xverse.app/',
-      detect: function() { 
-        return typeof window.XverseProviders !== 'undefined' || typeof window.BitcoinProvider !== 'undefined'; 
-      }
-    },
-    {
-      id: 'leather',
-      name: 'Leather',
-      icon: '🟤',
-      type: 'stacks',
-      installUrl: 'https://leather.io/install-extension',
-      detect: function() { 
-        return typeof window.LeatherProvider !== 'undefined' || typeof window.HiroWalletProvider !== 'undefined'; 
-      }
     }
   ];
 
-  // State
   var _state = {
     isConnected: false,
     address: null,
@@ -65,17 +44,20 @@ var WalletAuth = (function() {
     walletName: null
   };
 
-  // Event listeners
+  var _user = {
+    username: null,
+    createdAt: null
+  };
+
   var _listeners = {
     connect: [],
     disconnect: [],
-    stateChange: []
+    stateChange: [],
+    userChange: []
   };
 
-  // Modal reference
   var _modal = null;
 
-  // Initialize from localStorage
   function init() {
     try {
       var saved = localStorage.getItem(CONFIG.storageKey);
@@ -86,13 +68,20 @@ var WalletAuth = (function() {
           _emit('stateChange', _state);
         }
       }
+      var userSaved = localStorage.getItem(CONFIG.userStorageKey);
+      if (userSaved) {
+        var userData = JSON.parse(userSaved);
+        if (userData && userData.username) {
+          _user = userData;
+          _emit('userChange', _user);
+        }
+      }
     } catch (e) {
       console.warn('WalletAuth init error:', e);
     }
     return _state;
   }
 
-  // Save state
   function _saveState() {
     try {
       localStorage.setItem(CONFIG.storageKey, JSON.stringify(_state));
@@ -101,21 +90,28 @@ var WalletAuth = (function() {
     }
   }
 
-  // Emit events
-  function _emit(event, data) {
-    if (_listeners[event]) {
-      _listeners[event].forEach(function(fn) { fn(data); });
+  function _saveUser() {
+    try {
+      localStorage.setItem(CONFIG.userStorageKey, JSON.stringify(_user));
+    } catch (e) {
+      console.warn('Failed to save user profile:', e);
     }
   }
 
-  // Format address
+  function _emit(event, data) {
+    if (_listeners[event]) {
+      for (var i = 0; i < _listeners[event].length; i++) {
+        _listeners[event][i](data);
+      }
+    }
+  }
+
   function formatAddress(addr) {
     if (!addr) return '';
     if (addr.length <= 10) return addr;
     return addr.slice(0, 6) + '...' + addr.slice(-4);
   }
 
-  // Get state
   function getState() {
     return {
       isConnected: _state.isConnected,
@@ -125,31 +121,41 @@ var WalletAuth = (function() {
     };
   }
 
-  // Check if connected
+  function getUser() {
+    return {
+      username: _user.username,
+      createdAt: _user.createdAt
+    };
+  }
+
   function isConnected() {
     return _state.isConnected;
   }
 
-  // Get address
+  function hasUsername() {
+    return _user.username !== null && _user.username !== '';
+  }
+
   function getAddress() {
     return _state.address;
   }
 
-  // Subscribe to events
+  function getUsername() {
+    return _user.username;
+  }
+
   function on(event, callback) {
     if (_listeners[event]) {
       _listeners[event].push(callback);
     }
   }
 
-  // Unsubscribe
   function off(event, callback) {
     if (_listeners[event]) {
       _listeners[event] = _listeners[event].filter(function(fn) { return fn !== callback; });
     }
   }
 
-  // Get all wallets with install status
   function getAllWallets() {
     return WALLETS.map(function(w) {
       return {
@@ -163,30 +169,37 @@ var WalletAuth = (function() {
     });
   }
 
-  // Show wallet modal
+  function getCatPawIcon(size) {
+    size = size || 24;
+    return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+      '<ellipse cx="32" cy="44" rx="14" ry="12" fill="currentColor"/>' +
+      '<ellipse cx="18" cy="28" rx="7" ry="8" fill="currentColor"/>' +
+      '<ellipse cx="46" cy="28" rx="7" ry="8" fill="currentColor"/>' +
+      '<ellipse cx="12" cy="42" rx="6" ry="7" fill="currentColor"/>' +
+      '<ellipse cx="52" cy="42" rx="6" ry="7" fill="currentColor"/>' +
+    '</svg>';
+  }
+
   function showWalletModal() {
     return new Promise(function(resolve, reject) {
-      // Remove existing modal
       hideWalletModal();
-
       var wallets = getAllWallets();
       
-      // Create modal HTML
       var html = '<div class="wallet-modal-overlay" id="walletModalOverlay">' +
         '<div class="wallet-modal">' +
           '<div class="wallet-modal-header">' +
-            '<h2>Connect Wallet</h2>' +
+            '<div class="wallet-modal-icon">' + getCatPawIcon(48) + '</div>' +
+            '<h2>Connect Your Wallet</h2>' +
             '<button class="wallet-modal-close" id="walletModalClose">&times;</button>' +
           '</div>' +
           '<div class="wallet-modal-body">' +
-            '<p class="wallet-modal-subtitle">Select a wallet to connect</p>' +
+            '<p class="wallet-modal-subtitle">Choose your preferred wallet to access SNOZCOIN</p>' +
             '<div class="wallet-list">';
       
       for (var i = 0; i < wallets.length; i++) {
         var wallet = wallets[i];
-        var statusText = wallet.installed ? 'Detected' : 'Not installed';
+        var statusText = wallet.installed ? 'Ready to connect' : 'Click to install';
         var statusClass = wallet.installed ? 'detected' : 'not-installed';
-        var actionText = wallet.installed ? '→' : 'Install →';
         
         html += '<button class="wallet-option ' + statusClass + '" data-wallet="' + wallet.id + '">' +
           '<span class="wallet-icon">' + wallet.icon + '</span>' +
@@ -194,27 +207,32 @@ var WalletAuth = (function() {
             '<span class="wallet-name">' + wallet.name + '</span>' +
             '<span class="wallet-status">' + statusText + '</span>' +
           '</span>' +
-          '<span class="wallet-action">' + actionText + '</span>' +
+          '<span class="wallet-arrow">→</span>' +
         '</button>';
       }
       
       html += '</div>' +
-            '<p class="wallet-modal-note"><strong>Recommended:</strong> MetaMask or Phantom</p>' +
+            '<p class="wallet-modal-footer">New to crypto? <a href="https://metamask.io/learn/" target="_blank">Learn more</a></p>' +
           '</div>' +
         '</div>' +
       '</div>';
 
-      // Add to page
       var container = document.createElement('div');
       container.innerHTML = html;
       _modal = container.firstChild;
       document.body.appendChild(_modal);
       document.body.style.overflow = 'hidden';
 
-      // Close handlers
+      setTimeout(function() {
+        _modal.classList.add('show');
+      }, 10);
+
       function closeModal() {
-        hideWalletModal();
-        reject(new Error('User closed wallet modal'));
+        _modal.classList.remove('show');
+        setTimeout(function() {
+          hideWalletModal();
+          reject(new Error('User closed wallet modal'));
+        }, 200);
       }
 
       document.getElementById('walletModalClose').onclick = closeModal;
@@ -222,7 +240,10 @@ var WalletAuth = (function() {
         if (e.target.id === 'walletModalOverlay') closeModal();
       };
 
-      // Wallet click handlers
+      document.onkeydown = function(e) {
+        if (e.key === 'Escape') closeModal();
+      };
+
       var buttons = _modal.querySelectorAll('.wallet-option');
       for (var j = 0; j < buttons.length; j++) {
         (function(btn) {
@@ -241,7 +262,7 @@ var WalletAuth = (function() {
               return;
             }
 
-            // Show connecting state
+            btn.classList.add('connecting');
             btn.innerHTML = '<span class="wallet-icon">' + walletData.icon + '</span>' +
               '<span class="wallet-info">' +
                 '<span class="wallet-name">' + walletData.name + '</span>' +
@@ -251,14 +272,27 @@ var WalletAuth = (function() {
 
             connect(walletId).then(function(result) {
               hideWalletModal();
-              resolve(result);
+              if (!hasUsername()) {
+                showUsernameModal().then(function() {
+                  resolve(result);
+                }).catch(function() {
+                  resolve(result);
+                });
+              } else {
+                resolve(result);
+              }
             }).catch(function(err) {
+              btn.classList.remove('connecting');
+              btn.classList.add('error');
               btn.innerHTML = '<span class="wallet-icon">' + walletData.icon + '</span>' +
                 '<span class="wallet-info">' +
                   '<span class="wallet-name">' + walletData.name + '</span>' +
                   '<span class="wallet-status wallet-error">Failed - Try again</span>' +
                 '</span>' +
-                '<span class="wallet-action">→</span>';
+                '<span class="wallet-arrow">→</span>';
+              setTimeout(function() {
+                btn.classList.remove('error');
+              }, 2000);
             });
           };
         })(buttons[j]);
@@ -266,16 +300,117 @@ var WalletAuth = (function() {
     });
   }
 
-  // Hide modal
+  function showUsernameModal() {
+    return new Promise(function(resolve, reject) {
+      hideWalletModal();
+
+      var html = '<div class="wallet-modal-overlay show" id="usernameModalOverlay">' +
+        '<div class="wallet-modal username-modal">' +
+          '<div class="wallet-modal-header">' +
+            '<div class="wallet-modal-icon">' + getCatPawIcon(48) + '</div>' +
+            '<h2>Create Your Username</h2>' +
+          '</div>' +
+          '<div class="wallet-modal-body">' +
+            '<p class="wallet-modal-subtitle">Choose a unique username for your SNOZCOIN profile</p>' +
+            '<div class="username-input-wrapper">' +
+              '<span class="username-prefix">@</span>' +
+              '<input type="text" id="usernameInput" class="username-input" placeholder="yourname" maxlength="20" autocomplete="off" />' +
+            '</div>' +
+            '<p class="username-rules">3-20 characters, letters, numbers, and underscores only</p>' +
+            '<p class="username-error" id="usernameError"></p>' +
+            '<button class="btn btn-primary btn-full" id="saveUsernameBtn" disabled>Create Username</button>' +
+            '<button class="btn btn-ghost btn-full" id="skipUsernameBtn">Skip for now</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+      var container = document.createElement('div');
+      container.innerHTML = html;
+      _modal = container.firstChild;
+      document.body.appendChild(_modal);
+      document.body.style.overflow = 'hidden';
+
+      var input = document.getElementById('usernameInput');
+      var saveBtn = document.getElementById('saveUsernameBtn');
+      var skipBtn = document.getElementById('skipUsernameBtn');
+      var errorEl = document.getElementById('usernameError');
+
+      function validateUsername(value) {
+        if (!value || value.length < 3) {
+          return { valid: false, error: 'Username must be at least 3 characters' };
+        }
+        if (value.length > 20) {
+          return { valid: false, error: 'Username must be 20 characters or less' };
+        }
+        if (!/^[a-zA-Z0-9_]+$/.test(value)) {
+          return { valid: false, error: 'Only letters, numbers, and underscores allowed' };
+        }
+        if (/^[0-9]/.test(value)) {
+          return { valid: false, error: 'Username cannot start with a number' };
+        }
+        return { valid: true, error: '' };
+      }
+
+      input.oninput = function() {
+        var value = input.value.trim().toLowerCase();
+        input.value = value;
+        var result = validateUsername(value);
+        if (value.length > 0 && !result.valid) {
+          errorEl.textContent = result.error;
+          errorEl.style.display = 'block';
+          saveBtn.disabled = true;
+        } else {
+          errorEl.style.display = 'none';
+          saveBtn.disabled = value.length < 3;
+        }
+      };
+
+      input.onkeydown = function(e) {
+        if (e.key === 'Enter' && !saveBtn.disabled) {
+          saveBtn.click();
+        }
+      };
+
+      saveBtn.onclick = function() {
+        var username = input.value.trim().toLowerCase();
+        var result = validateUsername(username);
+        if (!result.valid) {
+          errorEl.textContent = result.error;
+          errorEl.style.display = 'block';
+          return;
+        }
+
+        _user = {
+          username: username,
+          createdAt: new Date().toISOString()
+        };
+        _saveUser();
+        _emit('userChange', _user);
+
+        hideWalletModal();
+        resolve(username);
+      };
+
+      skipBtn.onclick = function() {
+        hideWalletModal();
+        reject(new Error('User skipped username creation'));
+      };
+
+      setTimeout(function() {
+        input.focus();
+      }, 100);
+    });
+  }
+
   function hideWalletModal() {
     if (_modal && _modal.parentNode) {
       _modal.parentNode.removeChild(_modal);
     }
     _modal = null;
     document.body.style.overflow = '';
+    document.onkeydown = null;
   }
 
-  // Connect to wallet
   function connect(walletId) {
     var wallet = null;
     for (var i = 0; i < WALLETS.length; i++) {
@@ -293,14 +428,11 @@ var WalletAuth = (function() {
       return connectEVM(wallet);
     } else if (wallet.type === 'solana') {
       return connectSolana(wallet);
-    } else if (wallet.type === 'stacks') {
-      return connectStacks(wallet);
     }
     
     return Promise.reject(new Error('Unsupported wallet type'));
   }
 
-  // Connect EVM (MetaMask)
   function connectEVM(wallet) {
     return new Promise(function(resolve, reject) {
       if (!window.ethereum) {
@@ -331,7 +463,6 @@ var WalletAuth = (function() {
     });
   }
 
-  // Connect Solana (Phantom)
   function connectSolana(wallet) {
     return new Promise(function(resolve, reject) {
       if (!window.phantom || !window.phantom.solana) {
@@ -362,103 +493,6 @@ var WalletAuth = (function() {
     });
   }
 
-  // Connect Stacks (Xverse/Leather)
-  function connectStacks(wallet) {
-    return new Promise(function(resolve, reject) {
-      var provider = null;
-      
-      if (wallet.id === 'leather') {
-        provider = window.LeatherProvider || window.HiroWalletProvider;
-      } else if (wallet.id === 'xverse') {
-        provider = window.XverseProviders ? window.XverseProviders.StacksProvider : null;
-        if (!provider) provider = window.BitcoinProvider;
-      }
-      
-      if (!provider && window.StacksProvider) {
-        provider = window.StacksProvider;
-      }
-
-      if (!provider) {
-        reject(new Error(wallet.name + ' not found'));
-        return;
-      }
-
-      // Try modern method
-      if (provider.request) {
-        provider.request({ method: 'stx_requestAccounts' })
-          .then(function(resp) {
-            if (resp && resp.result && resp.result.addresses) {
-              var stxAddr = null;
-              for (var i = 0; i < resp.result.addresses.length; i++) {
-                var a = resp.result.addresses[i];
-                if (a.symbol === 'STX' || a.type === 'stacks') {
-                  stxAddr = a;
-                  break;
-                }
-              }
-              if (stxAddr) {
-                _state = {
-                  isConnected: true,
-                  address: stxAddr.address,
-                  walletType: wallet.id,
-                  walletName: wallet.name
-                };
-                _saveState();
-                _emit('connect', _state);
-                _emit('stateChange', _state);
-                resolve(_state);
-                return;
-              }
-            }
-            reject(new Error('No STX address found'));
-          })
-          .catch(function(err) {
-            // Try legacy connect
-            if (provider.connect) {
-              provider.connect().then(function(result) {
-                if (result && result.addresses && result.addresses[0]) {
-                  _state = {
-                    isConnected: true,
-                    address: result.addresses[0].address || result.addresses[0],
-                    walletType: wallet.id,
-                    walletName: wallet.name
-                  };
-                  _saveState();
-                  _emit('connect', _state);
-                  _emit('stateChange', _state);
-                  resolve(_state);
-                } else {
-                  reject(new Error('Connection failed'));
-                }
-              }).catch(reject);
-            } else {
-              reject(err);
-            }
-          });
-      } else if (provider.connect) {
-        provider.connect().then(function(result) {
-          if (result && result.addresses && result.addresses[0]) {
-            _state = {
-              isConnected: true,
-              address: result.addresses[0].address || result.addresses[0],
-              walletType: wallet.id,
-              walletName: wallet.name
-            };
-            _saveState();
-            _emit('connect', _state);
-            _emit('stateChange', _state);
-            resolve(_state);
-          } else {
-            reject(new Error('Connection failed'));
-          }
-        }).catch(reject);
-      } else {
-        reject(new Error('No connect method available'));
-      }
-    });
-  }
-
-  // Disconnect
   function disconnect() {
     _state = {
       isConnected: false,
@@ -466,15 +500,24 @@ var WalletAuth = (function() {
       walletType: null,
       walletName: null
     };
+    _user = {
+      username: null,
+      createdAt: null
+    };
     try {
       localStorage.removeItem(CONFIG.storageKey);
+      localStorage.removeItem(CONFIG.userStorageKey);
     } catch (e) {}
     _emit('disconnect', _state);
     _emit('stateChange', _state);
+    _emit('userChange', _user);
     return _state;
   }
 
-  // Redirect after auth
+  function logout() {
+    return disconnect();
+  }
+
   function handleRedirectAfterAuth() {
     var redirect = sessionStorage.getItem('snozcoin_redirect');
     if (redirect) {
@@ -485,7 +528,6 @@ var WalletAuth = (function() {
     }
   }
 
-  // Require auth
   function requireAuth(redirectUrl) {
     if (!_state.isConnected) {
       sessionStorage.setItem('snozcoin_redirect', window.location.pathname);
@@ -495,23 +537,38 @@ var WalletAuth = (function() {
     return true;
   }
 
-  // Initialize on load
+  function updateUsername(newUsername) {
+    if (!newUsername || newUsername.length < 3) {
+      return false;
+    }
+    _user.username = newUsername.toLowerCase();
+    _saveUser();
+    _emit('userChange', _user);
+    return true;
+  }
+
   init();
 
-  // Public API
   return {
     init: init,
     connect: connect,
     disconnect: disconnect,
+    logout: logout,
     isConnected: isConnected,
+    hasUsername: hasUsername,
     getState: getState,
+    getUser: getUser,
     getAddress: getAddress,
+    getUsername: getUsername,
+    updateUsername: updateUsername,
     formatAddress: formatAddress,
     on: on,
     off: off,
     showWalletModal: showWalletModal,
+    showUsernameModal: showUsernameModal,
     hideWalletModal: hideWalletModal,
     getAllWallets: getAllWallets,
+    getCatPawIcon: getCatPawIcon,
     handleRedirectAfterAuth: handleRedirectAfterAuth,
     requireAuth: requireAuth,
     CONFIG: CONFIG
