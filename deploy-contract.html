@@ -211,7 +211,9 @@
     </div>
 
     <!-- Stacks Connect -->
-    <script src="https://unpkg.com/@stacks/connect@7.7.1/dist/umd/index.js"></script>
+    <script src="https://unpkg.com/@stacks/connect@7.4.0/dist/umd/index.js"></script>
+    <script src="https://unpkg.com/@stacks/transactions@6.9.0/dist/umd/index.js"></script>
+    <script src="https://unpkg.com/@stacks/network@6.9.0/dist/umd/index.js"></script>
     
     <script>
         // Contract source code
@@ -445,17 +447,29 @@
             status.innerHTML = message;
         }
 
-        // Connect wallet
+        // Check if Hiro Wallet is installed
+        function checkHiroWallet() {
+            return typeof window.StacksProvider !== 'undefined';
+        }
+
+        // Connect wallet using Stacks Connect
         async function connectWallet() {
+            showStatus('Connecting to Hiro Wallet...', 'info');
+            
+            if (!checkHiroWallet()) {
+                showStatus('❌ Hiro Wallet not detected. Please install it from <a href="https://wallet.hiro.so" target="_blank">wallet.hiro.so</a>', 'error');
+                return;
+            }
+
             try {
-                showStatus('Connecting to Hiro Wallet...', 'info');
-                
-                const response = await StacksConnect.showConnect({
+                // Use the correct Stacks Connect API
+                window.StacksConnect.showConnect({
                     appDetails: {
                         name: 'SNOZCOIN',
-                        icon: 'https://snozcoin.xyz/assets/SNOZCOIN-512.png'
+                        icon: window.location.origin + '/assets/SNOZCOIN-512.png'
                     },
-                    onFinish: (data) => {
+                    onFinish: function(data) {
+                        console.log('Auth data:', data);
                         userAddress = data.authResponsePayload.profile.stxAddress.testnet;
                         document.getElementById('walletAddress').textContent = userAddress;
                         document.getElementById('contractAddress').textContent = userAddress + '.snozcoin-profiles';
@@ -464,13 +478,13 @@
                         document.getElementById('deployBtn').disabled = false;
                         showStatus('✅ Wallet connected! Ready to deploy.', 'success');
                     },
-                    onCancel: () => {
+                    onCancel: function() {
                         showStatus('Connection cancelled.', 'error');
-                    },
-                    userSession: null
+                    }
                 });
             } catch (error) {
-                showStatus('Error: ' + error.message, 'error');
+                console.error('Connect error:', error);
+                showStatus('Error: ' + error.message + '. Make sure Hiro Wallet browser extension is installed.', 'error');
             }
         }
 
@@ -486,26 +500,22 @@
                 document.getElementById('deployBtn').disabled = true;
                 document.getElementById('deployBtn').textContent = 'Deploying...';
 
-                await StacksConnect.openContractDeploy({
+                window.StacksConnect.openContractDeploy({
                     contractName: 'snozcoin-profiles',
                     codeBody: CONTRACT_SOURCE,
                     network: 'testnet',
-                    anchorMode: 3, // Any
-                    onFinish: (data) => {
-                        const txId = data.txId;
-                        showStatus(\`
-                            ✅ <strong>Contract Deployed!</strong><br><br>
-                            Transaction ID: <code>\${txId}</code><br><br>
-                            <a href="https://explorer.hiro.so/txid/\${txId}?chain=testnet" target="_blank">
-                                View on Explorer →
-                            </a><br><br>
-                            ⏳ Wait 10-30 minutes for confirmation.<br>
-                            Your contract address will be:<br>
-                            <code>\${userAddress}.snozcoin-profiles</code>
-                        \`, 'success');
+                    onFinish: function(data) {
+                        var txId = data.txId;
+                        var html = '✅ <strong>Contract Deployed!</strong><br><br>' +
+                            'Transaction ID: <code>' + txId + '</code><br><br>' +
+                            '<a href="https://explorer.hiro.so/txid/' + txId + '?chain=testnet" target="_blank">View on Explorer →</a><br><br>' +
+                            '⏳ Wait 10-30 minutes for confirmation.<br>' +
+                            'Your contract address will be:<br>' +
+                            '<code>' + userAddress + '.snozcoin-profiles</code>';
+                        showStatus(html, 'success');
                         document.getElementById('deployBtn').textContent = '✅ Deployed!';
                     },
-                    onCancel: () => {
+                    onCancel: function() {
                         showStatus('Deployment cancelled.', 'error');
                         document.getElementById('deployBtn').disabled = false;
                         document.getElementById('deployBtn').textContent = '🚀 Deploy Contract';
