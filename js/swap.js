@@ -119,6 +119,52 @@ const WALLETS = {
     }
 };
 
+// Wallet Providers with detect, connect, and getAddress methods
+const WALLET_PROVIDERS = {
+    metamask: {
+        name: 'MetaMask',
+        icon: '🦊',
+        type: 'evm',
+        detect: function() {
+            return typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
+        },
+        connect: async function() {
+            if (!window.ethereum) {
+                throw new Error('MetaMask not installed');
+            }
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            return accounts[0];
+        },
+        getAddress: async function() {
+            if (!window.ethereum) return null;
+            const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+            return accounts[0] || null;
+        }
+    },
+    phantom: {
+        name: 'Phantom',
+        icon: '👻',
+        type: 'solana',
+        detect: function() {
+            return window.phantom && window.phantom.solana;
+        },
+        connect: async function() {
+            if (!window.phantom || !window.phantom.solana) {
+                throw new Error('Phantom not installed');
+            }
+            const response = await window.phantom.solana.connect();
+            return response.publicKey.toString();
+        },
+        getAddress: async function() {
+            if (!window.phantom || !window.phantom.solana) return null;
+            if (window.phantom.solana.isConnected) {
+                return window.phantom.solana.publicKey.toString();
+            }
+            return null;
+        }
+    }
+};
+
 // State
 let state = {
     fromToken: 'USDC',
