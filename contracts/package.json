@@ -1,0 +1,23 @@
+{
+  "name": "snozcoin-contracts",
+  "version": "1.0.0",
+  "description": "SNOZCOIN Smart Contracts for Stacks Blockchain",
+  "main": "index.js",
+  "scripts": {
+    "test": "clarinet test",
+    "check": "clarinet check",
+    "console": "clarinet console",
+    "deploy:testnet": "node scripts/deploy-testnet.js",
+    "deploy:mainnet": "node scripts/deploy-mainnet.js"
+  },
+  "dependencies": {
+    "@stacks/network": "^6.13.0",
+    "@stacks/transactions": "^6.13.0",
+    "@stacks/connect": "^7.7.1",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {},
+  "keywords": ["stacks", "clarity", "smart-contract", "snozcoin", "web3"],
+  "author": "SNOZCOIN",
+  "license": "MIT"
+}
