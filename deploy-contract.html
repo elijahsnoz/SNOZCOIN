@@ -13,21 +13,16 @@
             color: #fff;
             padding: 40px 20px;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
+        .container { max-width: 800px; margin: 0 auto; }
         h1 {
             font-size: 2rem;
             margin-bottom: 10px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .subtitle {
-            color: #888;
-            margin-bottom: 30px;
-        }
+        .subtitle { color: #888; margin-bottom: 30px; }
         .card {
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
@@ -35,11 +30,7 @@
             padding: 30px;
             margin-bottom: 20px;
         }
-        .card h2 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: #e0e0e0;
-        }
+        .card h2 { font-size: 1.2rem; margin-bottom: 15px; color: #e0e0e0; }
         .info-row {
             display: flex;
             justify-content: space-between;
@@ -48,11 +39,7 @@
         }
         .info-row:last-child { border-bottom: none; }
         .info-label { color: #888; }
-        .info-value { 
-            font-family: monospace; 
-            color: #4ade80;
-            word-break: break-all;
-        }
+        .info-value { font-family: monospace; color: #4ade80; word-break: break-all; }
         .btn {
             display: inline-block;
             padding: 15px 30px;
@@ -65,76 +52,46 @@
             cursor: pointer;
             margin-top: 20px;
             transition: all 0.2s;
+            text-decoration: none;
         }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102,126,234,0.4);
-        }
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid rgba(255,255,255,0.3);
-        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(102,126,234,0.4); }
         .status {
             padding: 15px;
             border-radius: 10px;
             margin-top: 20px;
-            display: none;
         }
-        .status.success {
-            display: block;
-            background: rgba(74,222,128,0.2);
-            border: 1px solid rgba(74,222,128,0.3);
-        }
-        .status.error {
-            display: block;
-            background: rgba(239,68,68,0.2);
-            border: 1px solid rgba(239,68,68,0.3);
-            color: #fca5a5;
-        }
-        .status.info {
-            display: block;
-            background: rgba(102,126,234,0.2);
-            border: 1px solid rgba(102,126,234,0.3);
-        }
+        .status.success { background: rgba(74,222,128,0.2); border: 1px solid rgba(74,222,128,0.3); }
+        .status.info { background: rgba(102,126,234,0.2); border: 1px solid rgba(102,126,234,0.3); }
         pre {
             background: rgba(0,0,0,0.3);
             padding: 15px;
             border-radius: 8px;
             overflow-x: auto;
-            font-size: 0.85rem;
-            max-height: 300px;
+            font-size: 0.75rem;
+            max-height: 200px;
             overflow-y: auto;
         }
-        .step {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        .step-num {
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-        .step-content h3 {
-            margin-bottom: 5px;
-        }
-        .step-content p {
-            color: #888;
-            font-size: 0.9rem;
-        }
         a { color: #667eea; }
+        .method-card {
+            background: rgba(102,126,234,0.1);
+            border: 1px solid rgba(102,126,234,0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        .method-card h3 { color: #667eea; margin-bottom: 10px; }
+        .method-card ol { margin-left: 20px; line-height: 1.8; }
+        .copy-btn {
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        .copy-btn:hover { background: rgba(255,255,255,0.2); }
     </style>
 </head>
 <body>
@@ -154,11 +111,11 @@
             </div>
             <div class="info-row">
                 <span class="info-label">Your Address</span>
-                <span class="info-value" id="walletAddress">Not connected</span>
+                <span class="info-value">ST10N4Q241TTN6TYC5HNAX2YTGNMWB1K1AZ8YTS6A</span>
             </div>
             <div class="info-row">
                 <span class="info-label">Contract Address (after deploy)</span>
-                <span class="info-value" id="contractAddress">-</span>
+                <span class="info-value">ST10N4Q241TTN6TYC5HNAX2YTGNMWB1K1AZ8YTS6A.snozcoin-profiles</span>
             </div>
             <div class="info-row">
                 <span class="info-label">Estimated Cost</span>
@@ -167,63 +124,37 @@
         </div>
 
         <div class="card">
-            <h2>📝 Steps to Deploy</h2>
+            <h2>🛠️ Deploy Using Hiro Sandbox (Recommended)</h2>
             
-            <div class="step">
-                <div class="step-num">1</div>
-                <div class="step-content">
-                    <h3>Connect Hiro Wallet</h3>
-                    <p>Click the button below to connect your Hiro Wallet</p>
-                </div>
+            <div class="method-card">
+                <h3>Step-by-Step Instructions</h3>
+                <ol>
+                    <li>Click the button below to open <strong>Hiro Sandbox</strong></li>
+                    <li>Click <strong>"Connect Wallet"</strong> in the top right</li>
+                    <li>Connect your <strong>Leather Wallet</strong></li>
+                    <li>Make sure you're on <strong>Testnet</strong> (check top right)</li>
+                    <li>In the contract name field, enter: <code>snozcoin-profiles</code></li>
+                    <li>Copy the contract code below and paste it in the editor</li>
+                    <li>Click <strong>"Deploy"</strong></li>
+                    <li>Approve the transaction in Leather Wallet</li>
+                </ol>
             </div>
 
-            <div class="step">
-                <div class="step-num">2</div>
-                <div class="step-content">
-                    <h3>Deploy Contract</h3>
-                    <p>Sign the transaction to deploy the contract to testnet</p>
-                </div>
+            <a href="https://explorer.hiro.so/sandbox/deploy?chain=testnet" target="_blank" class="btn">
+                🚀 Open Hiro Sandbox
+            </a>
+
+            <div class="status info" style="margin-top: 20px;">
+                💡 <strong>Tip:</strong> The Hiro Sandbox is the official tool from Hiro and works reliably with Leather Wallet.
             </div>
-
-            <div class="step">
-                <div class="step-num">3</div>
-                <div class="step-content">
-                    <h3>Wait for Confirmation</h3>
-                    <p>Transaction takes ~10-30 minutes to confirm on Stacks</p>
-                </div>
-            </div>
-
-            <button class="btn" id="connectBtn" onclick="connectWallet()">
-                🔗 Connect Leather Wallet
-            </button>
-            
-            <button class="btn" id="deployBtn" onclick="deployContract()" disabled style="display:none;">
-                🚀 Deploy Contract
-            </button>
-
-            <div class="status" id="status"></div>
         </div>
 
         <div class="card">
-            <h2>📄 Contract Source Code</h2>
-            <pre id="contractSource">Loading...</pre>
-        </div>
-    </div>
-
-    <!-- Stacks Connect -->
-    <script src="https://unpkg.com/@stacks/connect@7.4.0/dist/umd/index.js"></script>
-    <script src="https://unpkg.com/@stacks/transactions@6.9.0/dist/umd/index.js"></script>
-    <script src="https://unpkg.com/@stacks/network@6.9.0/dist/umd/index.js"></script>
-    
-    <script>
-        // Contract source code
-        const CONTRACT_SOURCE = `;; SNOZCOIN User Profiles Contract
+            <h2>📄 Contract Code (Copy This)</h2>
+            <button class="copy-btn" onclick="copyContract()">📋 Copy Contract Code</button>
+            <pre id="contractCode">;; SNOZCOIN User Profiles Contract
 ;; Stores user profile data on the Stacks blockchain with Bitcoin security
 ;; Version: 1.0.0
-
-;; ============================================
-;; CONSTANTS
-;; ============================================
 
 ;; Error codes
 (define-constant ERR-NOT-AUTHORIZED (err u100))
@@ -242,11 +173,7 @@
 ;; Contract owner (deployer)
 (define-constant CONTRACT-OWNER tx-sender)
 
-;; ============================================
-;; DATA STORAGE
-;; ============================================
-
-;; Main profile storage - maps wallet address to profile data
+;; Main profile storage
 (define-map profiles
     principal
     {
@@ -261,7 +188,7 @@
     }
 )
 
-;; Username to address mapping (for username uniqueness)
+;; Username to address mapping
 (define-map username-to-address
     (string-ascii 20)
     principal
@@ -273,9 +200,7 @@
 ;; Contract pause state
 (define-data-var is-paused bool false)
 
-;; ============================================
 ;; READ-ONLY FUNCTIONS
-;; ============================================
 
 (define-read-only (get-profile (wallet principal))
     (map-get? profiles wallet)
@@ -314,9 +239,7 @@
     )
 )
 
-;; ============================================
 ;; PUBLIC FUNCTIONS
-;; ============================================
 
 (define-public (register-profile 
     (username (string-ascii 20))
@@ -399,9 +322,7 @@
     )
 )
 
-;; ============================================
 ;; ADMIN FUNCTIONS
-;; ============================================
 
 (define-public (verify-user (wallet principal))
     (let
@@ -433,103 +354,36 @@
         (var-set is-paused false)
         (ok true)
     )
-)`;
+)</pre>
+            <div class="status success" id="copyStatus" style="display:none;">
+                ✅ Contract code copied to clipboard!
+            </div>
+        </div>
 
-        let userAddress = null;
+        <div class="card">
+            <h2>✅ After Deployment</h2>
+            <p>Once deployed, your contract will be available at:</p>
+            <pre>ST10N4Q241TTN6TYC5HNAX2YTGNMWB1K1AZ8YTS6A.snozcoin-profiles</pre>
+            <p style="margin-top: 15px;">View it on the explorer:</p>
+            <a href="https://explorer.hiro.so/address/ST10N4Q241TTN6TYC5HNAX2YTGNMWB1K1AZ8YTS6A.snozcoin-profiles?chain=testnet" target="_blank">
+                View Contract on Explorer →
+            </a>
+            <p style="margin-top: 15px; color: #888;">
+                ⏳ Note: After deployment, wait 10-30 minutes for the transaction to confirm on the Stacks blockchain.
+            </p>
+        </div>
+    </div>
 
-        // Display contract source
-        document.getElementById('contractSource').textContent = CONTRACT_SOURCE;
-
-        // Show status
-        function showStatus(message, type) {
-            const status = document.getElementById('status');
-            status.className = 'status ' + type;
-            status.innerHTML = message;
-        }
-
-        // Check if Leather/Hiro Wallet is installed
-        function checkWallet() {
-            // Leather wallet uses LeatherProvider or StacksProvider
-            return typeof window.LeatherProvider !== 'undefined' || 
-                   typeof window.StacksProvider !== 'undefined' ||
-                   typeof window.btc !== 'undefined';
-        }
-
-        // Connect wallet using Leather/Stacks Connect
-        async function connectWallet() {
-            showStatus('Connecting to Leather Wallet...', 'info');
-            
-            // Check for Leather wallet
-            if (!checkWallet()) {
-                showStatus('❌ Leather Wallet not detected. Please make sure the extension is installed and enabled. <a href="https://leather.io" target="_blank">Get Leather Wallet</a>', 'error');
-                return;
-            }
-
-            try {
-                // Use Stacks Connect API
-                window.StacksConnect.showConnect({
-                    appDetails: {
-                        name: 'SNOZCOIN',
-                        icon: window.location.origin + '/assets/SNOZCOIN-512.png'
-                    },
-                    onFinish: function(data) {
-                        console.log('Auth data:', data);
-                        userAddress = data.authResponsePayload.profile.stxAddress.testnet;
-                        document.getElementById('walletAddress').textContent = userAddress;
-                        document.getElementById('contractAddress').textContent = userAddress + '.snozcoin-profiles';
-                        document.getElementById('connectBtn').style.display = 'none';
-                        document.getElementById('deployBtn').style.display = 'inline-block';
-                        document.getElementById('deployBtn').disabled = false;
-                        showStatus('✅ Wallet connected! Ready to deploy.', 'success');
-                    },
-                    onCancel: function() {
-                        showStatus('Connection cancelled.', 'error');
-                    }
-                });
-            } catch (error) {
-                console.error('Connect error:', error);
-                showStatus('Error: ' + error.message + '. Make sure Hiro Wallet browser extension is installed.', 'error');
-            }
-        }
-
-        // Deploy contract
-        async function deployContract() {
-            if (!userAddress) {
-                showStatus('Please connect your wallet first.', 'error');
-                return;
-            }
-
-            try {
-                showStatus('Preparing deployment transaction...', 'info');
-                document.getElementById('deployBtn').disabled = true;
-                document.getElementById('deployBtn').textContent = 'Deploying...';
-
-                window.StacksConnect.openContractDeploy({
-                    contractName: 'snozcoin-profiles',
-                    codeBody: CONTRACT_SOURCE,
-                    network: 'testnet',
-                    onFinish: function(data) {
-                        var txId = data.txId;
-                        var html = '✅ <strong>Contract Deployed!</strong><br><br>' +
-                            'Transaction ID: <code>' + txId + '</code><br><br>' +
-                            '<a href="https://explorer.hiro.so/txid/' + txId + '?chain=testnet" target="_blank">View on Explorer →</a><br><br>' +
-                            '⏳ Wait 10-30 minutes for confirmation.<br>' +
-                            'Your contract address will be:<br>' +
-                            '<code>' + userAddress + '.snozcoin-profiles</code>';
-                        showStatus(html, 'success');
-                        document.getElementById('deployBtn').textContent = '✅ Deployed!';
-                    },
-                    onCancel: function() {
-                        showStatus('Deployment cancelled.', 'error');
-                        document.getElementById('deployBtn').disabled = false;
-                        document.getElementById('deployBtn').textContent = '🚀 Deploy Contract';
-                    }
-                });
-            } catch (error) {
-                showStatus('Error: ' + error.message, 'error');
-                document.getElementById('deployBtn').disabled = false;
-                document.getElementById('deployBtn').textContent = '🚀 Deploy Contract';
-            }
+    <script>
+        function copyContract() {
+            var code = document.getElementById('contractCode').textContent;
+            navigator.clipboard.writeText(code).then(function() {
+                var status = document.getElementById('copyStatus');
+                status.style.display = 'block';
+                setTimeout(function() {
+                    status.style.display = 'none';
+                }, 3000);
+            });
         }
     </script>
 </body>
