@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deploy SNOZCOIN Contract - Base Sepolia</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .deploy-container {
+            max-width: 900px;
+            margin: 100px auto;
+            padding: 40px;
+            background: rgba(30, 30, 50, 0.9);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        .deploy-container h1 { color: #ffd700; margin-bottom: 10px; }
+        .deploy-container h2 { color: #fff; font-size: 1.2rem; margin-bottom: 30px; opacity: 0.8; }
+        .network-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #0052ff, #3b82f6);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .info-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .info-box p { margin: 8px 0; color: #fff; }
+        .info-box strong { color: #ffd700; }
+        .info-box code {
+            background: rgba(0,0,0,0.3);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #00ff88;
+        }
+        .steps {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        .steps h3 { color: #00ff88; margin-bottom: 20px; margin-top: 0; }
+        .steps ol { color: #fff; padding-left: 20px; }
+        .steps li { margin-bottom: 15px; line-height: 1.6; }
+        .steps li strong { color: #ffd700; }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            text-decoration: none;
+            margin: 5px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #ffd700, #ffaa00);
+            color: #000;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+        }
+        .btn-blue {
+            background: linear-gradient(135deg, #0052ff, #3b82f6);
+            color: #fff;
+        }
+        .btn-blue:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 82, 255, 0.4);
+        }
+        .contract-code {
+            background: #1a1a2e;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 11px;
+            color: #00ff88;
+            overflow-x: auto;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre;
+            margin: 20px 0;
+        }
+        .copied-toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #00ff88;
+            color: #000;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            display: none;
+        }
+        .faucet-box {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .faucet-box h4 { color: #3b82f6; margin-top: 0; }
+    </style>
+</head>
+<body>
+    <div class="deploy-container">
+        <span class="network-badge">⬡ Base Sepolia Testnet</span>
+        <h1>🚀 Deploy SNOZCOIN Profiles Contract</h1>
+        <h2>Easy deployment via Remix IDE</h2>
+
+        <div class="info-box">
+            <p><strong>Network:</strong> Base Sepolia (Testnet)</p>
+            <p><strong>Chain ID:</strong> <code>84532</code></p>
+            <p><strong>Contract:</strong> <code>SnozcoinProfiles.sol</code></p>
+            <p><strong>Language:</strong> Solidity ^0.8.20</p>
+        </div>
+
+        <div class="faucet-box">
+            <h4>💰 Step 1: Get Free Testnet ETH</h4>
+            <p>You need Base Sepolia ETH to deploy. Get some free from these faucets:</p>
+            <a href="https://www.alchemy.com/faucets/base-sepolia" target="_blank" rel="noopener" class="btn btn-blue">Alchemy Faucet →</a>
+            <a href="https://faucet.quicknode.com/base/sepolia" target="_blank" rel="noopener" class="btn btn-blue">QuickNode Faucet →</a>
+        </div>
+
+        <div class="steps">
+            <h3>📋 Step 2: Deploy via Remix IDE</h3>
+            <ol>
+                <li>Click <strong>"Copy Contract Code"</strong> below</li>
+                <li>Open <strong>Remix IDE</strong>: <a href="https://remix.ethereum.org" target="_blank" rel="noopener">remix.ethereum.org</a></li>
+                <li>Create new file: <code>SnozcoinProfiles.sol</code></li>
+                <li>Paste the contract code</li>
+                <li>Go to <strong>"Solidity Compiler"</strong> tab → Compile</li>
+                <li>Go to <strong>"Deploy & Run"</strong> tab</li>
+                <li>Set Environment: <strong>"Injected Provider - MetaMask"</strong></li>
+                <li>In MetaMask: Switch to <strong>Base Sepolia</strong> network</li>
+                <li>Click <strong>"Deploy"</strong> → Confirm in MetaMask</li>
+                <li>Copy the deployed contract address!</li>
+            </ol>
+        </div>
+
+        <h3>📜 Contract Code</h3>
+        <button class="btn btn-primary" onclick="copyCode()">📋 Copy Contract Code</button>
+        <a href="https://remix.ethereum.org" target="_blank" rel="noopener" class="btn btn-blue">Open Remix IDE →</a>
+
+        <div class="contract-code" id="contractCode">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+/**
+ * @title SNOZCOIN User Profiles
+ * @notice Stores user profile data on-chain for the SNOZCOIN platform
+ * @dev Deployed on Base Sepolia Testnet
+ */
+contract SnozcoinProfiles {
+    
+    struct Profile {
+        string username;
+        string country;
+        uint8 userType;
+        string avatarSeed;
+        string ipfsHash;
+        uint256 createdAt;
+        uint256 updatedAt;
+        bool isVerified;
+        bool exists;
+    }
+    
+    address public owner;
+    uint256 public totalProfiles;
+    bool public paused;
+    
+    mapping(address => Profile) public profiles;
+    mapping(string => address) public usernameToAddress;
+    mapping(address => bool) public admins;
+    
+    event ProfileCreated(address indexed wallet, string username, uint8 userType, uint256 timestamp);
+    event ProfileUpdated(address indexed wallet, uint256 timestamp);
+    event UserVerified(address indexed wallet, uint256 timestamp);
+    
+    modifier onlyOwner() { require(msg.sender == owner, "Not authorized"); _; }
+    modifier onlyAdmin() { require(msg.sender == owner || admins[msg.sender], "Not authorized"); _; }
+    modifier whenNotPaused() { require(!paused, "Contract is paused"); _; }
+    
+    constructor() { owner = msg.sender; admins[msg.sender] = true; }
+    
+    function registerProfile(
+        string calldata username,
+        string calldata country,
+        uint8 userType,
+        string calldata avatarSeed
+    ) external whenNotPaused {
+        require(!profiles[msg.sender].exists, "Profile exists");
+        bytes memory ub = bytes(username);
+        require(ub.length >= 3 && ub.length <= 20, "Username: 3-20 chars");
+        require(usernameToAddress[username] == address(0), "Username taken");
+        require(bytes(country).length == 3, "Country: 3 chars");
+        require(userType >= 1 && userType <= 4, "UserType: 1-4");
+        
+        profiles[msg.sender] = Profile({
+            username: username, country: country, userType: userType,
+            avatarSeed: avatarSeed, ipfsHash: "", createdAt: block.timestamp,
+            updatedAt: block.timestamp, isVerified: false, exists: true
+        });
+        usernameToAddress[username] = msg.sender;
+        totalProfiles++;
+        emit ProfileCreated(msg.sender, username, userType, block.timestamp);
+    }
+    
+    function updateProfile(string calldata country, uint8 userType, string calldata avatarSeed) external whenNotPaused {
+        require(profiles[msg.sender].exists, "No profile");
+        profiles[msg.sender].country = country;
+        profiles[msg.sender].userType = userType;
+        profiles[msg.sender].avatarSeed = avatarSeed;
+        profiles[msg.sender].updatedAt = block.timestamp;
+        emit ProfileUpdated(msg.sender, block.timestamp);
+    }
+    
+    function getProfile(address wallet) external view returns (
+        string memory, string memory, uint8, string memory, string memory, uint256, uint256, bool
+    ) {
+        Profile storage p = profiles[wallet];
+        require(p.exists, "No profile");
+        return (p.username, p.country, p.userType, p.avatarSeed, p.ipfsHash, p.createdAt, p.updatedAt, p.isVerified);
+    }
+    
+    function hasProfile(address wallet) external view returns (bool) { return profiles[wallet].exists; }
+    function isUsernameAvailable(string calldata u) external view returns (bool) { return usernameToAddress[u] == address(0); }
+    function verifyUser(address w) external onlyAdmin { profiles[w].isVerified = true; emit UserVerified(w, block.timestamp); }
+    function pause() external onlyOwner { paused = true; }
+    function unpause() external onlyOwner { paused = false; }
+}</div>
+
+        <div class="info-box">
+            <h4>🔧 Add Base Sepolia to MetaMask</h4>
+            <p><strong>Network Name:</strong> Base Sepolia</p>
+            <p><strong>RPC URL:</strong> <code>https://sepolia.base.org</code></p>
+            <p><strong>Chain ID:</strong> <code>84532</code></p>
+            <p><strong>Currency:</strong> ETH</p>
+            <p><strong>Explorer:</strong> <code>https://sepolia.basescan.org</code></p>
+        </div>
+
+        <p><a href="index.html">← Back to Home</a></p>
+    </div>
+
+    <div class="copied-toast" id="copiedToast">✅ Contract code copied!</div>
+
+    <script>
+        function copyCode() {
+            const code = document.getElementById('contractCode').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const toast = document.getElementById('copiedToast');
+                toast.style.display = 'block';
+                setTimeout(() => toast.style.display = 'none', 3000);
+            });
+        }
+    </script>
+</body>
+</html>

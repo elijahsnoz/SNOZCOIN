@@ -1,0 +1,19 @@
+{
+  "name": "snozcoin",
+  "version": "1.0.0",
+  "description": "This is a lightweight, mobile-first one-page website scaffold for SNOZCOIN ($SNOZ). It uses a premium gold on dark theme, smooth animations, and is SEO-friendly.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@stacks/network": "^7.3.1",
+    "@stacks/transactions": "^7.3.1"
+  }
+}
