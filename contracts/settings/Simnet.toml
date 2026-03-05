@@ -1,5 +1,5 @@
 [network]
-name = "devnet"
+name = "simnet"
 
 [accounts.deployer]
 mnemonic = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about"
@@ -12,7 +12,3 @@ balance = 100_000_000_000_000
 [accounts.wallet_2]
 mnemonic = "legal winner thank year wave sausage worth useful legal winner thank yellow"
 balance = 100_000_000_000_000
-
-[devnet]
-disable_stacks_explorer = false
-disable_stacks_api = false

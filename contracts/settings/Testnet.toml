@@ -1,0 +1,7 @@
+[network]
+name = "testnet"
+stacks_node_rpc_address = "https://api.testnet.hiro.so"
+
+[accounts.deployer]
+# Your testnet address
+stx_address = "ST10N4Q241TTN6TYC5HNAX2YTGNMWB1K1AZ8YTS6A"

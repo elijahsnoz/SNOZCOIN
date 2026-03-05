@@ -1,0 +1,18 @@
+---
+id: 0
+name: Testnet deployment
+network: testnet
+stacks-node: "https://api.testnet.hiro.so"
+bitcoin-node: "http://blockstack:blockstacksystem@bitcoind.testnet.stacks.co:18332"
+plan:
+  batches:
+    - id: 0
+      transactions:
+        - contract-publish:
+            contract-name: snozcoin-profiles
+            expected-sender: ST10N4Q241TTN6TYC5HNAX2YTGNMWB1K1AZ8YTS6A
+            cost: 1056054
+            path: snozcoin-profiles.clar
+            anchor-block-only: true
+            clarity-version: 2
+      epoch: "2.5"
