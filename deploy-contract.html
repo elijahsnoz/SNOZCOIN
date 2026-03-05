@@ -194,7 +194,7 @@
             </div>
 
             <button class="btn" id="connectBtn" onclick="connectWallet()">
-                🔗 Connect Hiro Wallet
+                🔗 Connect Leather Wallet
             </button>
             
             <button class="btn" id="deployBtn" onclick="deployContract()" disabled style="display:none;">
@@ -447,22 +447,26 @@
             status.innerHTML = message;
         }
 
-        // Check if Hiro Wallet is installed
-        function checkHiroWallet() {
-            return typeof window.StacksProvider !== 'undefined';
+        // Check if Leather/Hiro Wallet is installed
+        function checkWallet() {
+            // Leather wallet uses LeatherProvider or StacksProvider
+            return typeof window.LeatherProvider !== 'undefined' || 
+                   typeof window.StacksProvider !== 'undefined' ||
+                   typeof window.btc !== 'undefined';
         }
 
-        // Connect wallet using Stacks Connect
+        // Connect wallet using Leather/Stacks Connect
         async function connectWallet() {
-            showStatus('Connecting to Hiro Wallet...', 'info');
+            showStatus('Connecting to Leather Wallet...', 'info');
             
-            if (!checkHiroWallet()) {
-                showStatus('❌ Hiro Wallet not detected. Please install it from <a href="https://wallet.hiro.so" target="_blank">wallet.hiro.so</a>', 'error');
+            // Check for Leather wallet
+            if (!checkWallet()) {
+                showStatus('❌ Leather Wallet not detected. Please make sure the extension is installed and enabled. <a href="https://leather.io" target="_blank">Get Leather Wallet</a>', 'error');
                 return;
             }
 
             try {
-                // Use the correct Stacks Connect API
+                // Use Stacks Connect API
                 window.StacksConnect.showConnect({
                     appDetails: {
                         name: 'SNOZCOIN',
