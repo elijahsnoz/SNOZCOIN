@@ -647,6 +647,7 @@
             var target = e.target.closest('#getting-started-connect-btn, .get-started-btn, [data-action="get-started"]');
             if (target) {
                 e.preventDefault();
+                e.stopPropagation();
                 
                 // Check if already registered
                 if (isUserRegistered()) {
@@ -657,8 +658,28 @@
             }
         });
 
+        // Also directly bind to hero button
+        var heroBtn = document.getElementById('hero-get-started-btn');
+        if (heroBtn) {
+            heroBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (isUserRegistered()) {
+                    window.location.href = '/dashboard.html';
+                } else {
+                    showOnboardingModal();
+                }
+            });
+        }
+
         console.log('Onboarding system initialized');
     }
+
+    // Expose globally BEFORE init runs
+    window.SnozOnboarding = {
+        show: showOnboardingModal,
+        isRegistered: isUserRegistered,
+        getProfile: loadProfile
+    };
 
     // Run on DOM ready
     if (document.readyState === 'loading') {
@@ -666,12 +687,5 @@
     } else {
         init();
     }
-
-    // Expose globally
-    window.SnozOnboarding = {
-        show: showOnboardingModal,
-        isRegistered: isUserRegistered,
-        getProfile: loadProfile
-    };
 
 })();
