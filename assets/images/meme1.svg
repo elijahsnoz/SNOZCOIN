@@ -1,0 +1,11 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SNOZ character wide-eyed in shock, pink background">
+  <rect width="400" height="400" fill="#ff3d81"/>
+  <circle cx="200" cy="220" r="120" fill="#0a0910"/>
+  <circle cx="160" cy="200" r="38" fill="#efe8d6"/>
+  <circle cx="248" cy="196" r="34" fill="#efe8d6"/>
+  <g stroke="#0a0910" stroke-width="8" stroke-linecap="round">
+    <line x1="140" y1="180" x2="180" y2="220"/><line x1="180" y1="180" x2="140" y2="220"/>
+    <line x1="228" y1="176" x2="264" y2="212"/><line x1="264" y1="176" x2="228" y2="212"/>
+  </g>
+  <ellipse cx="200" cy="288" rx="22" ry="30" fill="#0a0910"/>
+</svg>

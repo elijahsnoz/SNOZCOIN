@@ -1,0 +1,17 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bloom — colour splatter explosion in the SNOZ palette">
+  <rect width="400" height="400" fill="#08070c"/>
+  <g opacity="0.92">
+    <circle cx="140" cy="150" r="70" fill="#ff3d81"/>
+    <circle cx="260" cy="120" r="46" fill="#f4ff3a"/>
+    <circle cx="230" cy="250" r="90" fill="#34e5ff" opacity="0.85"/>
+    <circle cx="110" cy="280" r="40" fill="#f4ff3a" opacity="0.8"/>
+  </g>
+  <path d="M40,60 q40,-20 30,20 q-10,30 -40,10 q-20,-14 10,-30z" fill="#ff3d81"/>
+  <path d="M340,300 q26,-10 20,22 q-8,22 -30,8 q-16,-12 10,-30z" fill="#f4ff3a"/>
+  <circle cx="200" cy="190" r="150" fill="none" stroke="#efe8d6" stroke-width="3" stroke-dasharray="2 10" opacity="0.5"/>
+  <g stroke="#0c0b10" stroke-width="10" stroke-linecap="round">
+    <line x1="160" y1="170" x2="196" y2="206"/><line x1="196" y1="170" x2="160" y2="206"/>
+    <line x1="230" y1="168" x2="262" y2="200"/><line x1="262" y1="168" x2="230" y2="200"/>
+  </g>
+  <text x="24" y="380" fill="#efe8d6" font-family="Arial, sans-serif" font-size="13" letter-spacing="2" opacity="0.6">STUDY NO.2 — BLOOM</text>
+</svg>

@@ -1,0 +1,20 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fracture — geometric fragmented study of the SNOZ character">
+  <rect width="400" height="400" fill="#0a0910"/>
+  <g fill="#efe8d6">
+    <polygon points="200,60 260,140 190,180 120,140"/>
+    <polygon points="120,140 190,180 150,260 90,220"/>
+    <polygon points="260,140 330,190 260,250 190,180"/>
+    <polygon points="190,180 260,250 200,320 150,260"/>
+  </g>
+  <polygon points="150,150 180,150 165,178" fill="#0a0910"/>
+  <polygon points="220,150 250,150 235,178" fill="#0a0910"/>
+  <g stroke="#f4ff3a" stroke-width="6" stroke-linecap="round">
+    <line x1="152" y1="152" x2="178" y2="176"/><line x1="178" y1="152" x2="152" y2="176"/>
+  </g>
+  <g stroke="#34e5ff" stroke-width="6" stroke-linecap="round">
+    <line x1="222" y1="152" x2="248" y2="176"/><line x1="248" y1="152" x2="222" y2="176"/>
+  </g>
+  <line x1="0" y1="0" x2="400" y2="400" stroke="#ff3d81" stroke-width="1" opacity="0.3"/>
+  <line x1="400" y1="0" x2="0" y2="400" stroke="#34e5ff" stroke-width="1" opacity="0.25"/>
+  <text x="24" y="380" fill="#efe8d6" font-family="Arial, sans-serif" font-size="13" letter-spacing="2" opacity="0.6">STUDY NO.3 — FRACTURE</text>
+</svg>

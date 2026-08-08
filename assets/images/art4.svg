@@ -1,0 +1,24 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Night Watch — silhouette of the SNOZ character against a grainy moon">
+  <defs>
+    <radialGradient id="moon" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f4ff3a"/>
+      <stop offset="100%" stop-color="#8a8f1a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="400" fill="#050508"/>
+  <circle cx="290" cy="100" r="90" fill="url(#moon)"/>
+  <circle cx="290" cy="100" r="46" fill="#f4ff3a" opacity="0.9"/>
+  <path d="M200,140
+           C260,138 300,180 306,240
+           C312,300 288,340 250,360
+           C210,378 170,378 130,360
+           C92,340 68,300 74,240
+           C80,180 140,142 200,140Z" fill="#050505" stroke="#f4ff3a" stroke-width="2" opacity="0.95"/>
+  <path d="M150,80 q-40,-30 -70,-14" stroke="#0c0c10" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <circle cx="70" cy="60" r="8" fill="#0c0c10" stroke="#f4ff3a" stroke-width="2"/>
+  <g fill="#f4ff3a" opacity="0.06">
+    <circle cx="60" cy="300" r="1.5"/><circle cx="120" cy="330" r="1.5"/><circle cx="340" cy="260" r="1.5"/>
+    <circle cx="360" cy="340" r="1.5"/><circle cx="30" cy="200" r="1.5"/>
+  </g>
+  <text x="24" y="380" fill="#efe8d6" font-family="Arial, sans-serif" font-size="13" letter-spacing="2" opacity="0.6">STUDY NO.4 — NIGHT WATCH</text>
+</svg>
