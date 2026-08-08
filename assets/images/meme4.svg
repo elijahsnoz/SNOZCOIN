@@ -1,0 +1,13 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SNOZ character crying with laughter, black and cream background">
+  <rect width="400" height="400" fill="#0a0910"/>
+  <circle cx="200" cy="210" r="120" fill="#efe8d6"/>
+  <circle cx="158" cy="196" r="30" fill="#0a0910"/>
+  <circle cx="246" cy="192" r="27" fill="#0a0910"/>
+  <g stroke="#f4ff3a" stroke-width="6" stroke-linecap="round">
+    <line x1="144" y1="182" x2="172" y2="210"/><line x1="172" y1="182" x2="144" y2="210"/>
+    <line x1="234" y1="180" x2="258" y2="204"/><line x1="258" y1="180" x2="234" y2="204"/>
+  </g>
+  <path d="M150,180 q10,60 -6,90 q-10,-4 -4,-40 q4,-30 10,-50z" fill="#34e5ff"/>
+  <path d="M258,178 q-8,58 8,86 q10,-4 2,-40 q-6,-28 -10,-46z" fill="#34e5ff"/>
+  <path d="M164,258 q40,34 80,0" stroke="#0a0910" stroke-width="7" fill="none" stroke-linecap="round"/>
+</svg>

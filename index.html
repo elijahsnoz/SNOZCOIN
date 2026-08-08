@@ -3,1800 +3,395 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="SNOZCOIN — A scalable creator monetization platform leveraging Bitcoin security via Stacks for low-cost payments, unlockable content, and loyalty rewards." />
-  <meta name="keywords" content="SNOZCOIN, STX, Stacks, Bitcoin, creator economy, blockchain, web3, creator monetization, tipping, unlockable content" />
-  <title>SNOZCOIN — The Future of Creator Economy</title>
+  <title>SNOZ — Not Just a Coin. A Movement.</title>
+  <meta name="description" content="SNOZ is an original character, art universe and meme culture created by artist Elijah Snoz — and the community token that carries it, live on Solana." />
+  <meta name="keywords" content="SNOZ, SnozCoin, Elijah Snoz, Buttersnoz, Solana meme coin, SNOZ token, SNOZ art, SNOZ community" />
+  <meta name="theme-color" content="#07060a" />
+  <link rel="canonical" href="https://snozcoin.xyz/" />
 
-  <!-- SEO/Open Graph -->
-  <meta property="og:title" content="SNOZCOIN — The Future of Creator Economy" />
-  <meta property="og:description" content="Empower creators with direct STX payments. Unlock exclusive content. Earn community rewards. All transactions transparent and on-chain." />
+  <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://snozcoin.xyz" />
-  <meta property="og:image" content="https://snozcoin.xyz/assets/SNOZCOIN-512.png" />
+  <meta property="og:title" content="SNOZ — Not Just a Coin. A Movement." />
+  <meta property="og:description" content="A meme born from art. A community driven by creativity, individuality and constant transformation." />
+  <meta property="og:url" content="https://snozcoin.xyz/" />
+  <meta property="og:image" content="https://snozcoin.xyz/assets/images/snoz-hero.svg" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@Elijahsnoz" />
-  <meta name="twitter:title" content="SNOZCOIN — The Future of Creator Economy" />
-  <meta name="twitter:description" content="Empower creators with direct STX payments. Unlock exclusive content. Earn community rewards. Built on Stacks." />
-  <meta name="twitter:image" content="https://snozcoin.xyz/assets/SNOZCOIN-512.png" />
+  <meta name="twitter:title" content="SNOZ — Not Just a Coin. A Movement." />
+  <meta name="twitter:description" content="An art universe, meme culture and community by Elijah Snoz. SNOZ runs on Solana." />
+  <meta name="twitter:image" content="https://snozcoin.xyz/assets/images/snoz-hero.svg" />
 
-  <link rel="stylesheet" href="css/style.css" />
-  <!-- Fonts (preconnect + display=swap for performance) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
 
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Organization","name":"SnozCoin","url":"https://snozcoin.xyz","sameAs":["https://t.me/SnozCoin","https://x.com/Elijahsnoz"]}
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"SNOZ",
+    "url":"https://snozcoin.xyz",
+    "founder":{"@type":"Person","name":"Elijah Snoz"},
+    "sameAs":["https://x.com/snoz","https://t.me/snoz"]
+  }
   </script>
 
-  <link rel="icon" href="assets/SNOZCOIN-128.png" />
-  <meta name="theme-color" content="#000000">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <!-- Connection Status Indicator (hidden by default) -->
-  <div id="connection-status" class="connection-status hidden-default">
-    <span class="status-dot"></span>
-    <span class="status-text">Connecting...</span>
+  <a class="skip-link" href="#main" style="position:absolute;left:-9999px">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#hero">SNOZ<span class="dot">.</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav" id="nav">
+        <a href="#universe">Universe</a>
+        <a href="#butter">Butter Snoz</a>
+        <a href="#art">Art</a>
+        <a href="#memes">Memes</a>
+        <a href="#community">Community</a>
+        <a href="#token">Token</a>
+        <a href="#roadmap">Roadmap</a>
+        <a class="cta" href="#join">Join SNOZ</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="accent-y">Create</span><span class="accent-m">Transform</span><span class="accent-c">Inspire</span><span>Elijah Snoz</span><span class="accent-y">Buttersnoz</span><span class="accent-m">Individuality</span>
+      <span class="accent-y">Create</span><span class="accent-m">Transform</span><span class="accent-c">Inspire</span><span>Elijah Snoz</span><span class="accent-y">Buttersnoz</span><span class="accent-m">Individuality</span>
+    </div>
   </div>
 
-  <!-- Toast Container for Notifications -->
-  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+  <main id="main">
 
-  <!-- Dynamic Header (rendered by JS based on wallet state) -->
-  <div id="header-container"></div>
-
-  <main>
-    <section class="hero" id="home">
-      <div class="container hero-inner">
-        <div class="hero-content">
-          <h1>The Future of <span>Creator Economy</span></h1>
-          <p class="lead">A community-driven platform empowering creators and supporters through secure, peer-to-peer payments. No middlemen. Full ownership. Transparent and verifiable on-chain.</p>
-          <div class="hero-ctas">
-            <button class="btn btn-primary" id="getStartedBtn">🚀 Get Started</button>
-            <a class="btn btn-swap" href="/swap.html">🔄 Swap Stablecoins</a>
-            <a class="btn btn-ghost" id="openWhitepaper" href="/assets/whitepaper.html" target="_blank" rel="noopener">Whitepaper</a>
+    <!-- 1. HERO -->
+    <section class="hero" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <div class="hero-kicker"><span class="pulse"></span><span>An art universe by Elijah Snoz</span></div>
+          <h1>SNOZ ISN'T JUST A COIN.<span class="accent">IT'S A MOVEMENT.</span></h1>
+          <p class="lead">A meme born from art. A community driven by creativity, individuality and constant transformation.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#join">Join SNOZ</a>
+            <a class="btn btn-ghost" href="#universe">Enter the universe</a>
           </div>
-          <p class="small-text">SNOZCOIN is a scalable creator monetization platform built on Stacks with Bitcoin security.</p>
+          <div class="hero-foot">
+            <div class="social-row" aria-label="SNOZ on social media">
+              <a href="https://x.com/snoz" target="_blank" rel="noopener" aria-label="SNOZ on X"><svg viewBox="0 0 24 24"><path d="M18.9 2H22l-7.6 8.7L23 22h-6.9l-5.4-6.9L4.4 22H1.3l8.2-9.4L1 2h7l4.9 6.3L18.9 2Zm-2.4 18h1.9L7.6 4H5.6l10.9 16Z"/></svg></a>
+              <a href="https://t.me/snoz" target="_blank" rel="noopener" aria-label="SNOZ on Telegram"><svg viewBox="0 0 24 24"><path d="M21.5 3.5 2.7 10.9c-1 .4-1 1.9.1 2.2l4.6 1.5 1.8 5.6c.3.9 1.4 1.1 2.1.4l2.6-2.6 4.7 3.5c.8.6 2 .2 2.2-.8l3-17.5c.2-1-.8-1.9-1.7-1.5ZM9.1 14.9 8 18.4l-1-3.5 10.2-9.1-8.1 9.1Z"/></svg></a>
+              <a href="https://discord.gg/snoz" target="_blank" rel="noopener" aria-label="SNOZ on Discord"><svg viewBox="0 0 24 24"><path d="M20.3 5.3A18 18 0 0 0 15.9 4l-.3.6a13 13 0 0 1 3.8 1.5 15 15 0 0 0-15.2 0A13 13 0 0 1 8 4.6L7.7 4a18 18 0 0 0-4.4 1.3C1.5 9 1 12.6 1.2 16.1a15 15 0 0 0 4.6 2.3l.9-1.4a10 10 0 0 1-1.6-.8l.4-.3a13.7 13.7 0 0 0 12 0l.4.3a10 10 0 0 1-1.6.8l.9 1.4a15 15 0 0 0 4.6-2.3c.3-4-.5-7.5-1.5-10.8ZM8.7 14.4c-.8 0-1.5-.8-1.5-1.7s.7-1.7 1.5-1.7 1.5.8 1.5 1.7-.7 1.7-1.5 1.7Zm6.6 0c-.8 0-1.5-.8-1.5-1.7s.7-1.7 1.5-1.7 1.5.8 1.5 1.7-.7 1.7-1.5 1.7Z"/></svg></a>
+              <a href="https://instagram.com/elijahsnoz" target="_blank" rel="noopener" aria-label="SNOZ on Instagram"><svg viewBox="0 0 24 24"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm5.2-3.4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z"/></svg></a>
+            </div>
+          </div>
         </div>
-        <div class="hero-visual">
-          <div class="coin-card">
-            <picture>
-              <source media="(min-width:900px)" srcset="assets/SNOZCOIN-1024.webp" type="image/webp">
-              <source srcset="assets/SNOZCOIN-512.webp" type="image/webp">
-              <img src="assets/SNOZCOIN-512.png" alt="SNOZ coin" class="coin-img" />
-            </picture>
-            <div class="coin-shadow"></div>
+
+        <div class="hero-art">
+          <div class="frame">
+            <div class="ring" aria-hidden="true"></div>
+            <img src="assets/images/snoz-hero.svg" alt="SNOZ — a cream ghost-like character with black X-marked eyes, an antenna and a black SNOZ hoodie, standing against a dark background with paint splatter accents" width="760" height="860" />
+            <div class="tag">Est. by Elijah Snoz</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-cue"><span class="line"></span><span>Scroll</span></div>
+    </section>
+
+    <!-- 2. THE SNOZ UNIVERSE -->
+    <section id="universe" class="section" aria-labelledby="universe-h">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">The Snoz Universe</div>
+          <h2 id="universe-h">One idea. Endless transformation.</h2>
+          <p>SNOZ began as an artistic idea from Elijah Snoz — a sketch, a feeling, a character who refused to look like anything else. It evolved into a full visual universe, a meme, and a community that keeps reshaping what SNOZ can be.</p>
+        </div>
+
+        <div class="origin-grid">
+          <div class="origin-card reveal">
+            <div class="num">01</div>
+            <h3>The Sketch</h3>
+            <p>A single doodle by Elijah Snoz — a strange, expressive face with X eyes. No brief, no plan. Just instinct.</p>
+          </div>
+          <div class="origin-card reveal">
+            <div class="num">02</div>
+            <h3>The Character</h3>
+            <p>SNOZ takes shape — a hoodie, an antenna, a personality. Playful, defiant, impossible to ignore.</p>
+          </div>
+          <div class="origin-card reveal">
+            <div class="num">03</div>
+            <h3>The Universe</h3>
+            <p>Buttersnoz, art studies, memes and mythology start stacking around the character, building a world.</p>
+          </div>
+          <div class="origin-card reveal">
+            <div class="num">04</div>
+            <h3>The Movement</h3>
+            <p>The community starts remixing, posting and holding SNOZ — turning a character into a culture.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PLATFORM METRICS SECTION -->
-    <section class="platform-metrics" id="metrics">
-      <div class="container">
-        <div class="metrics-header">
-          <h2>Platform Activity</h2>
-          <span class="metrics-badge" id="metrics-status">
-            <span class="status-dot live"></span>
-            <span>Pre-Launch Demo</span>
-          </span>
+    <!-- 3. BUTTER SNOZ -->
+    <section id="butter" class="section alt" aria-labelledby="butter-h">
+      <div class="container butter-wrap">
+        <div class="butter-art reveal">
+          <img src="assets/images/buttersnoz.svg" alt="Buttersnoz — a golden, melting variant of the SNOZ character wearing a small crown" width="400" height="440" />
+          <div class="butter-badge">who is this?</div>
         </div>
-        
-        <div class="metrics-grid">
-          <div class="metric-card">
-            <div class="metric-icon">💸</div>
-            <div class="metric-value" id="metric-total-tips">12,847</div>
-            <div class="metric-label">Total Tips (STX)</div>
-            <div class="metric-change positive">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 15l-6-6-6 6"/>
-              </svg>
-              <span>+24.5%</span>
-            </div>
-          </div>
-
-          <div class="metric-card">
-            <div class="metric-icon">👥</div>
-            <div class="metric-value" id="metric-creators">156</div>
-            <div class="metric-label">Active Creators</div>
-            <div class="metric-change positive">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 15l-6-6-6 6"/>
-              </svg>
-              <span>+12 this week</span>
-            </div>
-          </div>
-
-          <div class="metric-card">
-            <div class="metric-icon">🎁</div>
-            <div class="metric-value" id="metric-content">1,234</div>
-            <div class="metric-label">Content Unlocked</div>
-            <div class="metric-change positive">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 15l-6-6-6 6"/>
-              </svg>
-              <span>+89 today</span>
-            </div>
-          </div>
-
-          <div class="metric-card">
-            <div class="metric-icon">🏆</div>
-            <div class="metric-value" id="metric-snoz-distributed">2.4M</div>
-            <div class="metric-label">SNOZ Distributed</div>
-            <div class="metric-change positive">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 15l-6-6-6 6"/>
-              </svg>
-              <span>Growing daily</span>
-            </div>
-          </div>
-        </div>
-
-        <p class="metrics-disclaimer">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M12 16v-4M12 8h.01"/>
-          </svg>
-          Demo data shown. Live metrics will be available after mainnet launch.
-        </p>
-      </div>
-    </section>
-
-    <!-- QUICK SWAP SECTION -->
-    <section class="panel swap-section" id="swap">
-      <div class="container">
-        <div class="swap-section-header">
-          <h2>Quick Swap</h2>
-          <p class="muted">Swap stablecoins to STX instantly without leaving this page</p>
-        </div>
-        
-        <div class="swap-widget-container">
-          <div class="swap-widget" id="swapWidget">
-            <!-- From Token -->
-            <div class="widget-input-group">
-              <div class="widget-input-header">
-                <span class="widget-label">From</span>
-                <span class="widget-balance">Balance: <span id="widgetFromBalance">0.00</span></span>
-              </div>
-              <div class="widget-input-row">
-                <input type="text" id="widgetFromAmount" class="widget-amount" placeholder="0.00" inputmode="decimal">
-                <button class="widget-token-btn" id="widgetFromToken">
-                  <img src="https://assets.coingecko.com/coins/images/6319/small/USD_Coin_icon.png" alt="USDC" id="widgetFromLogo">
-                  <span id="widgetFromSymbol">USDC</span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-                    <path d="M6 9l6 6 6-6"/>
-                  </svg>
-                </button>
-              </div>
-              <div class="widget-quick-btns">
-                <button class="widget-quick-btn" data-percent="25">25%</button>
-                <button class="widget-quick-btn" data-percent="50">50%</button>
-                <button class="widget-quick-btn" data-percent="75">75%</button>
-                <button class="widget-quick-btn" data-percent="100">MAX</button>
-              </div>
-            </div>
-
-            <!-- Swap Direction Button -->
-            <button class="widget-swap-direction" id="widgetSwapDirection" aria-label="Switch tokens">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-                <path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/>
-              </svg>
-            </button>
-
-            <!-- To Token -->
-            <div class="widget-input-group">
-              <div class="widget-input-header">
-                <span class="widget-label">To</span>
-                <span class="widget-balance">Balance: <span id="widgetToBalance">0.00</span></span>
-              </div>
-              <div class="widget-input-row">
-                <input type="text" id="widgetToAmount" class="widget-amount" placeholder="0.00" readonly>
-                <button class="widget-token-btn widget-token-fixed">
-                  <img src="https://assets.coingecko.com/coins/images/2069/small/Stacks_logo_full.png" alt="STX">
-                  <span>STX</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Rate Info -->
-            <div class="widget-rate-info" id="widgetRateInfo">
-              <span class="widget-rate">1 USDC = <span id="widgetRate">0.00</span> STX</span>
-              <span class="widget-via">via <span id="widgetDex">ALEX</span></span>
-            </div>
-
-            <!-- Swap Button -->
-            <button class="widget-swap-btn" id="widgetSwapBtn">
-              <span>Connect Wallet to Swap</span>
-            </button>
-
-            <!-- Powered By -->
-            <div class="widget-powered">
-              <span>Powered by</span>
-              <div class="widget-dex-logos">
-                <span class="dex-badge">ALEX</span>
-                <span class="dex-badge">Velar</span>
-                <span class="dex-badge">StacksSwap</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Swap Benefits -->
-          <div class="swap-benefits">
-            <div class="benefit-card">
-              <div class="benefit-icon">⚡</div>
-              <h4>Instant Swaps</h4>
-              <p>Execute swaps in seconds with optimized routing across multiple DEXs</p>
-            </div>
-            <div class="benefit-card">
-              <div class="benefit-icon">💰</div>
-              <h4>Best Rates</h4>
-              <p>Smart routing finds the best prices across ALEX, Velar, and StacksSwap</p>
-            </div>
-            <div class="benefit-card">
-              <div class="benefit-icon">🔒</div>
-              <h4>Secure</h4>
-              <p>Non-custodial swaps directly from your wallet with MEV protection</p>
-            </div>
-            <div class="benefit-card">
-              <div class="benefit-icon">📊</div>
-              <h4>Low Fees</h4>
-              <p>Minimal network fees on Stacks with transparent pricing</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Supported Tokens -->
-        <div class="supported-tokens">
-          <span class="supported-label">Supported Stablecoins:</span>
-          <div class="token-badges">
-            <span class="token-badge" data-token="USDC">
-              <img src="https://assets.coingecko.com/coins/images/6319/small/USD_Coin_icon.png" alt="USDC">
-              USDC
-            </span>
-            <span class="token-badge" data-token="USDT">
-              <img src="https://assets.coingecko.com/coins/images/325/small/Tether.png" alt="USDT">
-              USDT
-            </span>
-            <span class="token-badge" data-token="DAI">
-              <img src="https://assets.coingecko.com/coins/images/9956/small/4943.png" alt="DAI">
-              DAI
-            </span>
-            <span class="token-badge" data-token="BUSD">
-              <img src="https://assets.coingecko.com/coins/images/9576/small/BUSD.png" alt="BUSD">
-              BUSD
-            </span>
-            <span class="token-badge" data-token="FRAX">
-              <img src="https://assets.coingecko.com/coins/images/13422/small/FRAX_icon.png" alt="FRAX">
-              FRAX
-            </span>
-          </div>
-        </div>
-
-        <p class="swap-cta">
-          Need more options? <a href="/swap.html">Open Full Swap Interface →</a>
-        </p>
-      </div>
-    </section>
-
-    <!-- GETTING STARTED SECTION -->
-    <section class="panel getting-started" id="getting-started">
-      <div class="container">
-        <h2>Getting Started</h2>
-        <p class="muted">New to SNOZCOIN? Follow these simple steps to start supporting creators or earning as a creator.</p>
-        
-        <div class="steps-grid">
-          <!-- Step 1 -->
-          <div class="step-card">
-            <div class="step-number">1</div>
-            <div class="step-content">
-              <h3>Get a Stacks Wallet</h3>
-              <p>Download a Stacks-compatible wallet to store STX and interact with SNOZCOIN.</p>
-              <div class="wallet-options-mini">
-                <a href="https://leather.io" target="_blank" rel="noopener" class="wallet-option-link">
-                  <span class="wallet-icon">👝</span>
-                  <span>Leather Wallet</span>
-                  <span class="recommended-badge">Recommended</span>
-                </a>
-                <a href="https://www.xverse.app" target="_blank" rel="noopener" class="wallet-option-link">
-                  <span class="wallet-icon">📱</span>
-                  <span>Xverse Wallet</span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 2 -->
-          <div class="step-card">
-            <div class="step-number">2</div>
-            <div class="step-content">
-              <h3>Fund with STX</h3>
-              <p>Get STX tokens to tip creators and purchase content. STX is the native currency of the Stacks blockchain.</p>
-              <div class="funding-options">
-                <a href="https://www.coinbase.com/price/stacks" target="_blank" rel="noopener" class="funding-link">Buy on Coinbase</a>
-                <a href="https://www.binance.com/en/trade/STX_USDT" target="_blank" rel="noopener" class="funding-link">Buy on Binance</a>
-                <a href="https://www.okx.com/trade-spot/stx-usdt" target="_blank" rel="noopener" class="funding-link">Buy on OKX</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 3 -->
-          <div class="step-card">
-            <div class="step-number">3</div>
-            <div class="step-content">
-              <h3>Connect to SNOZCOIN</h3>
-              <p>Connect your Stacks wallet or sign in with your social account to get started.</p>
-              
-              <div class="connect-options">
-                <div class="connect-option-group">
-                  <span class="connect-group-label">Recommended</span>
-                  <button id="getting-started-connect-btn" class="btn btn-primary connect-step-btn">
-                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                      <path d="M0 3a2 2 0 0 1 2-2h13.5a.5.5 0 0 1 0 1H15v2a1 1 0 0 1 1 1v8.5a1.5 1.5 0 0 1-1.5 1.5h-12A2.5 2.5 0 0 1 0 12.5V3zm1 1.732V12.5A1.5 1.5 0 0 0 2.5 14h12a.5.5 0 0 0 .5-.5V5H2a1.99 1.99 0 0 1-1-.268zM1 3a1 1 0 0 0 1 1h12V2H2a1 1 0 0 0-1 1z"/>
-                    </svg>
-                    Connect Stacks Wallet
-                  </button>
-                </div>
-                
-                <div class="connect-divider">
-                  <span>or continue with</span>
-                </div>
-                
-                <div class="social-login-options">
-                  <button class="social-login-btn social-twitter" id="social-login-twitter" title="Sign in with X (Twitter)">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                    </svg>
-                    <span>X / Twitter</span>
-                  </button>
-                  <button class="social-login-btn social-discord" id="social-login-discord" title="Sign in with Discord">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
-                    </svg>
-                    <span>Discord</span>
-                  </button>
-                  <button class="social-login-btn social-google" id="social-login-google" title="Sign in with Google">
-                    <svg width="20" height="20" viewBox="0 0 24 24">
-                      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                    </svg>
-                    <span>Google</span>
-                  </button>
-                </div>
-                
-                <p class="social-login-note">
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
-                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                  </svg>
-                  Social login creates a custodial wallet. For full control, connect a Stacks wallet.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 4 -->
-          <div class="step-card">
-            <div class="step-number">4</div>
-            <div class="step-content">
-              <h3>Start Supporting or Creating</h3>
-              <p>You're ready! Explore creators to tip, or register as a creator to start earning.</p>
-              <div class="action-buttons">
-                <a href="#creators" class="btn btn-secondary">Browse Creators</a>
-                <a href="/creator.html" class="btn btn-outline">Become a Creator</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Quick FAQ -->
-        <div class="quick-faq">
-          <h3>Quick Questions</h3>
-          <div class="quick-faq-grid">
-            <div class="quick-faq-item">
-              <strong>Do I need to pay to sign up?</strong>
-              <p>No! Connecting your wallet is free. You only pay when you tip or purchase content.</p>
-            </div>
-            <div class="quick-faq-item">
-              <strong>What is STX?</strong>
-              <p>STX is the native cryptocurrency of the Stacks blockchain. It's the only currency used for payments on SNOZCOIN.</p>
-            </div>
-            <div class="quick-faq-item">
-              <strong>What is SNOZ?</strong>
-              <p>SNOZ is a non-tradeable utility token you earn for platform activity. It grants tier perks and governance voting rights.</p>
-            </div>
-            <div class="quick-faq-item">
-              <strong>Is my money safe?</strong>
-              <p>Yes! SNOZCOIN is non-custodial — we never hold your funds. All transactions happen directly on the blockchain.</p>
-            </div>
+        <div class="butter-copy reveal">
+          <div class="eyebrow">Mythology</div>
+          <h2 id="butter-h">Butter Snoz</h2>
+          <p>Deep in the SNOZ universe, something melts differently. Buttersnoz is the golden, softer counterpart to SNOZ — mythic, a little mysterious, and still being written.</p>
+          <p>Nobody fully agrees on what Buttersnoz is yet. A rival? A memory? A future form of SNOZ itself? That's the point — Buttersnoz exists in the space between lore and the community's own imagination, left open for collectibles, animation, stories and fan-made art still to come.</p>
+          <div class="butter-chips">
+            <span class="chip">Collectibles — soon</span>
+            <span class="chip">Animation — soon</span>
+            <span class="chip">Community lore — open</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- WHY SNOZCOIN SECTION -->
-    <section class="panel why-buy" id="why-buy">
+    <!-- 4. SNOZ ART -->
+    <section id="art" class="section" aria-labelledby="art-h">
       <div class="container">
-        <h2>Why SNOZCOIN?</h2>
-        <p class="lead">A scalable creator monetization platform leveraging Bitcoin security via Stacks.</p>
-        
-        <div class="why-buy-grid">
-          <div class="why-buy-card">
-            <div class="why-buy-icon">₿</div>
-            <h3>Bitcoin Security</h3>
-            <p>Built on Stacks, inheriting Bitcoin's unmatched security. All transactions settle to the Bitcoin blockchain.</p>
-          </div>
-
-          <div class="why-buy-card">
-            <div class="why-buy-icon">⚡</div>
-            <h3>Low-Cost Payments</h3>
-            <p>Pay creators directly with STX. No middlemen, minimal fees, instant settlement on-chain.</p>
-          </div>
-
-          <div class="why-buy-card">
-            <div class="why-buy-icon">🔓</div>
-            <h3>Unlockable Content</h3>
-            <p>Creators gate exclusive content with on-chain payments. Fans unlock with STX, all verifiable on the blockchain.</p>
+        <div class="section-tag-row reveal">
+          <div class="section-head" style="margin-bottom:0">
+            <div class="eyebrow">Snoz Art</div>
+            <h2 id="art-h">Made by hand. Made by Elijah.</h2>
+            <p>Every SNOZ study starts as original art — ink, paint, digital, whatever the character demands that day. This is a working gallery, not a finished collection.</p>
           </div>
         </div>
 
-        <div class="why-buy-grid why-buy-grid-spaced">
-          <div class="why-buy-card">
-            <div class="why-buy-icon">🏆</div>
-            <h3>Loyalty Rewards</h3>
-            <p>Earn SNOZ tokens for platform activity. Reputation-based rewards that recognize your contributions.</p>
-          </div>
+        <div class="gallery" aria-label="SNOZ art gallery">
+          <figure class="gallery-item reveal"><div class="thumb"><img src="assets/images/art1.svg" alt="Genesis — ink portrait study of the SNOZ character" loading="lazy"></div><figcaption><span>Genesis</span><span class="credit">Study No.1</span></figcaption></figure>
+          <figure class="gallery-item reveal"><div class="thumb"><img src="assets/images/art2.svg" alt="Bloom — colour splatter explosion in the SNOZ palette" loading="lazy"></div><figcaption><span>Bloom</span><span class="credit">Study No.2</span></figcaption></figure>
+          <figure class="gallery-item reveal"><div class="thumb"><img src="assets/images/art3.svg" alt="Fracture — geometric fragmented study of the SNOZ character" loading="lazy"></div><figcaption><span>Fracture</span><span class="credit">Study No.3</span></figcaption></figure>
+          <figure class="gallery-item reveal"><div class="thumb"><img src="assets/images/art4.svg" alt="Night Watch — silhouette of the SNOZ character against a grainy moon" loading="lazy"></div><figcaption><span>Night Watch</span><span class="credit">Study No.4</span></figcaption></figure>
+          <figure class="gallery-item reveal"><div class="thumb"><img src="assets/images/art5.svg" alt="Drip — graffiti-style SNOZ tag with paint drips" loading="lazy"></div><figcaption><span>Drip</span><span class="credit">Study No.5</span></figcaption></figure>
+          <figure class="gallery-item reveal"><div class="thumb"><img src="assets/images/art6.svg" alt="Static — glitch portrait of the SNOZ character" loading="lazy"></div><figcaption><span>Static</span><span class="credit">Study No.6</span></figcaption></figure>
+        </div>
 
-          <div class="why-buy-card">
-            <div class="why-buy-icon">🔍</div>
-            <h3>100% Transparent</h3>
-            <p>Every tip, purchase, and reward is recorded on-chain. Open-source smart contracts, verifiable by anyone.</p>
+        <div class="artist-strip reveal">
+          <div class="artist-avatar">ES</div>
+          <div>
+            <div class="name">Elijah Snoz</div>
+            <div class="role">Artist &amp; creator of the SNOZ universe</div>
           </div>
-
-          <div class="why-buy-card">
-            <div class="why-buy-icon">👥</div>
-            <h3>Community Governed</h3>
-            <p>SNOZ holders participate in platform governance. Propose changes and vote on the future of SNOZCOIN.</p>
-          </div>
+          <a class="btn-outline-sm" href="https://instagram.com/elijahsnoz" target="_blank" rel="noopener">Follow the artist →</a>
         </div>
       </div>
     </section>
 
-    <!-- TRANSPARENCY & TRUST SECTION -->
-    <!-- TRUST & SECURITY SECTION -->
-    <section class="panel dark" id="transparency">
+    <!-- 5. SNOZ MEMES -->
+    <section id="memes" class="section alt" aria-labelledby="memes-h">
       <div class="container">
-        <h2>Trust & Security</h2>
-        <p class="muted">100% open-source. Verify everything yourself. We believe transparency builds trust.</p>
-        
-        <!-- Open Source Proof -->
-        <div class="trust-highlight">
-          <div class="trust-badge-row">
-            <a href="https://github.com/elijahsnoz/SNOZCOIN" target="_blank" rel="noopener" class="trust-badge">
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-              Open Source on GitHub
-            </a>
-            <span class="trust-badge trust-badge-info">
-              <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-              Clarity v3 Smart Contracts
-            </span>
-            <span class="trust-badge trust-badge-info">
-              <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z"/><path d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/></svg>
-              223+ Tests Passing
-            </span>
-          </div>
+        <div class="section-head reveal">
+          <div class="eyebrow">Snoz Memes</div>
+          <h2 id="memes-h">Chaos, but make it cute.</h2>
+          <p>SNOZ doesn't take itself seriously — that's the whole point. Screenshot it, remix it, caption it. If it makes someone laugh, it's doing its job.</p>
         </div>
 
-        <!-- Smart Contracts Grid -->
-        <h3 class="section-subtitle">Smart Contracts</h3>
-        <p class="small-text clarity-note">All contracts written in Clarity — a decidable, non-Turing complete language designed for predictable execution.</p>
-        
-        <div class="contracts-grid">
-          <div class="contract-card">
-            <div class="contract-header">
-              <span class="contract-icon">💸</span>
-              <h4>snozcoin-tipping</h4>
-            </div>
-            <p>Direct STX tips from fans to creators with zero platform fees.</p>
-            <div class="contract-links">
-              <a href="https://github.com/elijahsnoz/SNOZCOIN/blob/main/stacks-contracts/contracts/snozcoin-tipping.clar" target="_blank" rel="noopener" class="contract-link">
-                <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/></svg>
-                View Source
-              </a>
-              <span class="contract-status status-pending">Testnet Soon</span>
-            </div>
-          </div>
-
-          <div class="contract-card">
-            <div class="contract-header">
-              <span class="contract-icon">🔓</span>
-              <h4>snozcoin-content</h4>
-            </div>
-            <p>Gated content purchases with on-chain access verification.</p>
-            <div class="contract-links">
-              <a href="https://github.com/elijahsnoz/SNOZCOIN/blob/main/stacks-contracts/contracts/snozcoin-content.clar" target="_blank" rel="noopener" class="contract-link">
-                <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/></svg>
-                View Source
-              </a>
-              <span class="contract-status status-pending">Testnet Soon</span>
-            </div>
-          </div>
-
-          <div class="contract-card">
-            <div class="contract-header">
-              <span class="contract-icon">🏆</span>
-              <h4>snozcoin-rewards</h4>
-            </div>
-            <p>Platform activity rewards, badges, and achievement tracking.</p>
-            <div class="contract-links">
-              <a href="https://github.com/elijahsnoz/SNOZCOIN/blob/main/stacks-contracts/contracts/snozcoin-rewards.clar" target="_blank" rel="noopener" class="contract-link">
-                <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/></svg>
-                View Source
-              </a>
-              <span class="contract-status status-pending">Testnet Soon</span>
-            </div>
-          </div>
-
-          <div class="contract-card">
-            <div class="contract-header">
-              <span class="contract-icon">🪙</span>
-              <h4>snoz-token</h4>
-            </div>
-            <p>SIP-010 compliant utility token for rewards and governance.</p>
-            <div class="contract-links">
-              <a href="https://github.com/elijahsnoz/SNOZCOIN/blob/main/stacks-contracts/contracts/snoz-token.clar" target="_blank" rel="noopener" class="contract-link">
-                <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/></svg>
-                View Source
-              </a>
-              <span class="contract-status status-pending">Testnet Soon</span>
-            </div>
-          </div>
-
-          <div class="contract-card">
-            <div class="contract-header">
-              <span class="contract-icon">⚡</span>
-              <h4>snoz-rewards-engine</h4>
-            </div>
-            <p>Calculates and distributes SNOZ rewards for platform actions.</p>
-            <div class="contract-links">
-              <a href="https://github.com/elijahsnoz/SNOZCOIN/blob/main/stacks-contracts/contracts/snoz-rewards-engine.clar" target="_blank" rel="noopener" class="contract-link">
-                <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/></svg>
-                View Source
-              </a>
-              <span class="contract-status status-pending">Testnet Soon</span>
-            </div>
-          </div>
-
-          <div class="contract-card">
-            <div class="contract-header">
-              <span class="contract-icon">🗳️</span>
-              <h4>snoz-governance</h4>
-            </div>
-            <p>On-chain voting and proposal system for community decisions.</p>
-            <div class="contract-links">
-              <a href="https://github.com/elijahsnoz/SNOZCOIN/blob/main/stacks-contracts/contracts/snoz-governance.clar" target="_blank" rel="noopener" class="contract-link">
-                <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/></svg>
-                View Source
-              </a>
-              <span class="contract-status status-pending">Testnet Soon</span>
-            </div>
-          </div>
+        <div class="meme-grid">
+          <figure class="meme-card reveal">
+            <div class="thumb"><img src="assets/images/meme1.svg" alt="SNOZ character wide-eyed in shock" loading="lazy"></div>
+            <div class="cap"><p>WHEN THE CHART WIGGLES</p></div>
+            <button class="share" aria-label="Copy meme caption" data-caption="WHEN THE CHART WIGGLES">⇪</button>
+          </figure>
+          <figure class="meme-card reveal">
+            <div class="thumb"><img src="assets/images/meme2.svg" alt="SNOZ character laughing" loading="lazy"></div>
+            <div class="cap"><p>ME EXPLAINING SNOZ TO MY FRIENDS AGAIN</p></div>
+            <button class="share" aria-label="Copy meme caption" data-caption="ME EXPLAINING SNOZ TO MY FRIENDS AGAIN">⇪</button>
+          </figure>
+          <figure class="meme-card reveal">
+            <div class="thumb"><img src="assets/images/meme3.svg" alt="SNOZ character looking smug and confident" loading="lazy"></div>
+            <div class="cap"><p>CAUSE WHY NOT?</p></div>
+            <button class="share" aria-label="Copy meme caption" data-caption="CAUSE WHY NOT?">⇪</button>
+          </figure>
+          <figure class="meme-card reveal">
+            <div class="thumb"><img src="assets/images/meme4.svg" alt="SNOZ character crying with laughter" loading="lazy"></div>
+            <div class="cap"><p>SNOZ NEVER SLEEPS. IT TRANSFORMS.</p></div>
+            <button class="share" aria-label="Copy meme caption" data-caption="SNOZ NEVER SLEEPS. IT TRANSFORMS.">⇪</button>
+          </figure>
         </div>
-
-        <!-- Security Practices -->
-        <h3 class="section-subtitle">Security Practices</h3>
-        <div class="security-grid">
-          <div class="security-card">
-            <div class="security-icon">🔐</div>
-            <h4>Non-Custodial</h4>
-            <p>We never hold your private keys or funds. All transactions are signed locally in your wallet.</p>
-          </div>
-          <div class="security-card">
-            <div class="security-icon">📜</div>
-            <h4>Clarity Language</h4>
-            <p>Contracts written in Clarity — decidable and non-Turing complete. No hidden logic, no reentrancy attacks.</p>
-          </div>
-          <div class="security-card">
-            <div class="security-icon">🧪</div>
-            <h4>Comprehensive Testing</h4>
-            <p>223+ unit tests covering all contract functions, edge cases, and failure modes.</p>
-          </div>
-          <div class="security-card">
-            <div class="security-icon">👁️</div>
-            <h4>Full Transparency</h4>
-            <p>Every transaction is verifiable on-chain. No hidden fees, no backend manipulation.</p>
-          </div>
-        </div>
-
-        <!-- Audit Status -->
-        <div class="audit-status">
-          <h3>Audit Status</h3>
-          <div class="audit-card">
-            <div class="audit-icon">📋</div>
-            <div class="audit-content">
-              <span class="audit-label">Pre-Audit</span>
-              <p>Smart contracts have passed internal review and comprehensive testing. Third-party security audit planned before mainnet launch.</p>
-              <p class="small-text">We believe in transparency: we're pre-audit, but our code is 100% open-source for community review.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Quick Verify Links -->
-        <div class="verify-links">
-          <h3>Verify Everything</h3>
-          <div class="link-group">
-            <a href="https://github.com/elijahsnoz/SNOZCOIN" target="_blank" rel="noopener" class="verify-link">
-              <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-              GitHub Repository
-            </a>
-            <a href="https://github.com/elijahsnoz/SNOZCOIN/tree/main/stacks-contracts/contracts" target="_blank" rel="noopener" class="verify-link">
-              <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/></svg>
-              Smart Contracts
-            </a>
-            <a href="https://github.com/elijahsnoz/SNOZCOIN/tree/main/stacks-contracts/tests" target="_blank" rel="noopener" class="verify-link">
-              <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg>
-              Test Suite
-            </a>
-            <a href="https://explorer.hiro.so/?chain=mainnet" target="_blank" rel="noopener" class="verify-link">
-              <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/><path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/></svg>
-              Stacks Explorer
-            </a>
-          </div>
-        </div>
+        <p class="meme-note reveal">More drops weekly. Tag <strong>@snoz</strong> to get featured.</p>
       </div>
     </section>
 
-    <section class="panel" id="creators">
+    <!-- 6. SNOZ COMMUNITY -->
+    <section id="community" class="section" aria-labelledby="community-h">
       <div class="container">
-        <h2>Creator Features</h2>
-        <p class="muted">SNOZCOIN helps creators earn direct STX payments, distribute exclusive content, and build loyal communities.</p>
-
-        <div class="about-grid">
-          <div class="card">
-            <h3>💸 Direct STX Tipping</h3>
-            <p>Fans tip creators directly with STX. No middlemen, no platform fees. Instant on-chain settlement with Bitcoin security.</p>
-          </div>
-          <div class="card">
-            <h3>🔓 Unlockable Content</h3>
-            <p>Gate exclusive content with STX payments — early access, high-res downloads, tutorials, or backstage passes. All purchases verifiable on-chain.</p>
-          </div>
-          <div class="card">
-            <h3>🏆 SNOZ Loyalty Rewards</h3>
-            <p>Earn SNOZ tokens for tipping, buying content, and platform activity. Build reputation and unlock higher tier perks.</p>
-          </div>
+        <div class="section-head reveal">
+          <div class="eyebrow">Snoz Community</div>
+          <h2 id="community-h">We don't follow trends. We transform them.</h2>
+          <p>A global community of artists, collectors, builders and internet weirdos. This is just the beginning — join in and help shape where SNOZ goes next.</p>
         </div>
 
-        <div class="about-grid">
-          <div class="card">
-            <h3>📊 Creator Analytics</h3>
-            <p>Track tips, content sales, and fan engagement. All data on-chain and transparent.</p>
-          </div>
-          <div class="card">
-            <h3>🗳️ Community Governance</h3>
-            <p>SNOZ holders vote on platform features and creator fund distributions. Your engagement shapes the platform.</p>
-          </div>
-          <div class="card">
-            <h3>🔐 Privacy & Ownership</h3>
-            <p>Creators control their profiles and content. Connect your Stacks wallet and start earning in minutes.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SNOZ UTILITY TOKEN SECTION -->
-    <section class="panel snoz-section" id="snoz-token">
-      <div class="container">
-        <h2>SNOZ Utility Token</h2>
-        <p class="lead">Earn non-speculative rewards for platform activity. <strong>STX is the only monetary currency</strong> — SNOZ is for reputation, governance, and access.</p>
-        
-        <!-- Wallet Connection -->
-        <div class="text-center margin-y-2">
-          <button id="snoz-connect-btn" class="wallet-connect-btn">
-            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M0 3a2 2 0 0 1 2-2h13.5a.5.5 0 0 1 0 1H15v2a1 1 0 0 1 1 1v8.5a1.5 1.5 0 0 1-1.5 1.5h-12A2.5 2.5 0 0 1 0 12.5V3zm1 1.732V12.5A1.5 1.5 0 0 0 2.5 14h12a.5.5 0 0 0 .5-.5V5H2a1.99 1.99 0 0 1-1-.268zM1 3a1 1 0 0 0 1 1h12V2H2a1 1 0 0 0-1 1z"/>
-            </svg>
-            <span id="wallet-btn-text">Connect Wallet</span>
-          </button>
-          <button id="snoz-disconnect-btn" class="wallet-disconnect-btn hidden-default">
-            Disconnect
-          </button>
-        </div>
-        
-        <!-- Balance & Tier Display -->
-        <div class="snoz-stats-grid">
-          <div class="snoz-balance-card">
-            <h3 class="snoz-section-title">Your SNOZ Balance</h3>
-            <div id="snoz-balance">
-              <span class="snoz-label">Connect wallet to view</span>
-            </div>
-          </div>
-          <div class="snoz-balance-card">
-            <h3 class="snoz-section-title">Your Tier</h3>
-            <div id="snoz-tier">
-              <div class="tier-badge tier-bronze">
-                <span class="tier-icon">🥉</span>
-                <span class="tier-name">Bronze</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Transaction History Panel -->
-        <div id="tx-history-panel" class="tx-history-panel hidden-default">
-          <div class="tx-history-header">
-            <h3>Recent Transactions</h3>
-            <button id="tx-history-close" class="tx-history-close" aria-label="Close transaction history">&times;</button>
-          </div>
-          <div id="tx-history-list" class="tx-list">
-            <div class="tx-empty">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="48" height="48">
-                <path d="M12 2v20m10-10H2"/>
-              </svg>
-              <p>No transactions yet</p>
-              <span>Your transactions will appear here</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Transaction History Toggle Button -->
-        <div class="text-center margin-bottom-2">
-          <button id="tx-history-toggle" class="btn btn-ghost hidden-default">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" class="icon-margin-right">
-              <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            View Transaction History
-          </button>
-        </div>
-        
-        <!-- SNOZ Utility Purposes -->
-        <h3 class="snoz-subtitle">What is SNOZ For?</h3>
-        <div class="snoz-utility-grid">
-          <div class="snoz-utility-card">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-            <h4>Rewards</h4>
-            <p>Earn SNOZ for tipping creators, buying content, and platform activity.</p>
-          </div>
-          <div class="snoz-utility-card">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-              <line x1="9" y1="9" x2="9.01" y2="9"/>
-              <line x1="15" y1="9" x2="15.01" y2="9"/>
-            </svg>
-            <h4>Reputation</h4>
-            <p>Build reputation on-chain. Higher tiers unlock badges and perks.</p>
-          </div>
-          <div class="snoz-utility-card">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="3" width="20" height="14" rx="2"/>
-              <line x1="8" y1="21" x2="16" y2="21"/>
-              <line x1="12" y1="17" x2="12" y2="21"/>
-            </svg>
-            <h4>Governance</h4>
-            <p>Vote on platform proposals. More SNOZ = more voting power.</p>
-          </div>
-          <div class="snoz-utility-card">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-              <polyline points="22 4 12 14.01 9 11.01"/>
-            </svg>
-            <h4>Access Tiers</h4>
-            <p>Unlock exclusive content and features with higher SNOZ tiers.</p>
-          </div>
-        </div>
-        
-        <!-- Tier Levels -->
-        <h3 class="snoz-subtitle">SNOZ Tier Levels</h3>
-        <div class="snoz-tiers-grid">
-          <div class="snoz-tier-card bronze">
-            <div class="tier-icon">🥉</div>
-            <div class="tier-name tier-bronze">Bronze</div>
-            <div class="tier-threshold">0 SNOZ</div>
-          </div>
-          <div class="snoz-tier-card silver">
-            <div class="tier-icon">🥈</div>
-            <div class="tier-name tier-silver">Silver</div>
-            <div class="tier-threshold">1,000 SNOZ</div>
-          </div>
-          <div class="snoz-tier-card gold">
-            <div class="tier-icon">🥇</div>
-            <div class="tier-name tier-gold">Gold</div>
-            <div class="tier-threshold">10,000 SNOZ</div>
-          </div>
-          <div class="snoz-tier-card platinum">
-            <div class="tier-icon">💎</div>
-            <div class="tier-name tier-platinum">Platinum</div>
-            <div class="tier-threshold">100,000 SNOZ</div>
-          </div>
-          <div class="snoz-tier-card diamond">
-            <div class="tier-icon">💠</div>
-            <div class="tier-name tier-diamond">Diamond</div>
-            <div class="tier-threshold">1,000,000 SNOZ</div>
-          </div>
-        </div>
-        
-        <!-- Rewards Preview Calculator -->
-        <div class="snoz-rewards-preview">
-          <h3>Rewards Calculator</h3>
-          <p class="muted margin-top-0">See how much SNOZ you'd earn for platform activities.</p>
-          
-          <div class="rewards-calculator">
-            <div class="reward-row">
-              <label>Tip a Creator</label>
-              <div class="reward-input-group">
-                <input type="number" id="preview-tip-amount" placeholder="0" min="0" step="0.1" value="10">
-                <span class="unit">STX</span>
-              </div>
-              <div class="reward-result">
-                = <span id="preview-tip-reward">20.00 SNOZ</span>
-              </div>
-              <small class="text-muted">Rate: 2 SNOZ per STX tipped</small>
-            </div>
-            <div class="reward-row">
-              <label>Purchase Content</label>
-              <div class="reward-input-group">
-                <input type="number" id="preview-content-amount" placeholder="0" min="0" step="0.1" value="5">
-                <span class="unit">STX</span>
-              </div>
-              <div class="reward-result">
-                = <span id="preview-content-reward">15.00 SNOZ</span>
-              </div>
-              <small class="text-muted">Rate: 3 SNOZ per STX spent</small>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Important Notice -->
-        <div class="snoz-notice">
-          <p class="margin-0"><strong>Important:</strong> SNOZ is a non-speculative utility token with no monetary value. It cannot be traded or sold. STX (Stacks) remains the only currency for tipping, content purchases, and creator payouts. SNOZ exists solely to reward engagement and enable governance.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel" id="roadmap">
-      <div class="container">
-        <h2>Roadmap</h2>
-        <p class="muted">Building the future of creator monetization on Stacks. Transparent milestones, no financial promises.</p>
-        <div class="timeline">
-          <div class="phase completed">
-            <div class="phase-header">✅ Phase 1 — Smart Contracts</div>
-            <p><strong>Status:</strong> Complete</p>
-            <ul class="roadmap-list">
-              <li>Clarity smart contracts (tipping, content, rewards)</li>
-              <li>SNOZ utility token contract</li>
-              <li>Governance framework</li>
-              <li>Full test suite (223+ tests passing)</li>
-            </ul>
-          </div>
-          <div class="phase in-progress">
-            <div class="phase-header">🚧 Phase 2 — Platform Launch</div>
-            <p><strong>Status:</strong> In Progress</p>
-            <ul class="roadmap-list">
-              <li>Deploy contracts to Stacks mainnet</li>
-              <li>Wallet integration (Leather, Xverse)</li>
-              <li>Creator onboarding</li>
-              <li>Community beta testing</li>
-            </ul>
-          </div>
-          <div class="phase upcoming">
-            <div class="phase-header">📋 Phase 3 — Creator Tools</div>
-            <p><strong>Status:</strong> Planned</p>
-            <ul class="roadmap-list">
-              <li>Creator dashboard</li>
-              <li>Content management system</li>
-              <li>Analytics and insights</li>
-              <li>Mobile-friendly interface</li>
-            </ul>
-          </div>
-          <div class="phase upcoming">
-            <div class="phase-header">�️ Phase 4 — Governance</div>
-            <p><strong>Status:</strong> Future</p>
-            <ul class="roadmap-list">
-              <li>SNOZ-based voting system</li>
-              <li>Community proposals</li>
-              <li>Creator fund distributions</li>
-              <li>DAO transition</li>
-            </ul>
-          </div>
-        </div>
-        <p class="roadmap-note">
-          <strong>Note:</strong> This roadmap focuses on platform development. SNOZCOIN is a utility platform, not a speculative investment.
-        </p>
-      </div>
-    </section>
-
-    <section class="panel dark" id="community">
-      <div class="container">
-        <h2>Community Proof</h2>
-        <p class="muted">Real people building together. No bots. No fake engagement.</p>
-        
         <div class="community-grid">
-          <!-- Twitter Feed Embed -->
-          <div class="twitter-section">
-            <h3>Latest from X/Twitter</h3>
-            <!-- Twitter timeline embed - User should replace with actual embed code from Twitter -->
-            <div class="twitter-embed-container">
-              <a class="twitter-timeline" 
-                 data-height="400" 
-                 data-theme="dark" 
-                 data-chrome="noheader nofooter noborders"
-                 href="https://twitter.com/Elijahsnoz?ref_src=twsrc%5Etfw">
-                Tweets by @Elijahsnoz
-              </a>
-            </div>
-            <p class="small-text"><a href="https://x.com/Elijahsnoz" target="_blank" rel="noopener">Follow @Elijahsnoz on X/Twitter →</a></p>
+          <div class="community-card reveal">
+            <div class="who"><span class="avatar"></span><div><div class="handle">@buttersnoz</div><div class="role">Lore keeper</div></div></div>
+            <p class="quote">"Snoz never sleeps. It transforms."</p>
           </div>
-
-          <!-- Community Links & Stats -->
-          <div class="community-info">
-            <h3>Join the Community</h3>
-            <div class="community-links-vertical">
-              <a class="social-card" href="https://t.me/snozcoin" target="_blank" rel="noopener">
-                <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z"/></svg>
-                <div>
-                  <strong>Telegram</strong>
-                  <span id="telegram-members" class="member-count">Join now</span>
-                </div>
-              </a>
-              
-              <a class="social-card" href="https://x.com/Elijahsnoz" target="_blank" rel="noopener">
-                <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z"/></svg>
-                <div>
-                  <strong>X (Twitter)</strong>
-                  <span class="member-count">@Elijahsnoz</span>
-                </div>
-              </a>
-
-              <a class="social-card" href="https://www.instagram.com/Elijahsnoz" target="_blank" rel="noopener">
-                <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg>
-                <div>
-                  <strong>Instagram</strong>
-                  <span class="member-count">@Elijahsnoz</span>
-                </div>
-              </a>
-
-              <a class="social-card" href="https://www.youtube.com/@Elijahsnoz" target="_blank" rel="noopener">
-                <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/></svg>
-                <div>
-                  <strong>YouTube</strong>
-                  <span class="member-count">@Elijahsnoz</span>
-                </div>
-              </a>
-            </div>
-
-            <div class="cta-box">
-              <h4>Join the community to build together</h4>
-              <p>We're looking for developers, designers, community managers, and anyone who believes in transparent, community-first projects.</p>
-              <a href="https://t.me/snozcoin" target="_blank" rel="noopener" class="btn btn-primary">Join Telegram Community</a>
-            </div>
+          <div class="community-card reveal">
+            <div class="who"><span class="avatar"></span><div><div class="handle">@snoz.art</div><div class="role">Fan artist</div></div></div>
+            <p class="quote">"Another piece from the void."</p>
           </div>
+          <div class="community-card reveal">
+            <div class="who"><span class="avatar"></span><div><div class="handle">@snoz.king</div><div class="role">Meme lord</div></div></div>
+            <p class="quote">"Meme it. Live it. Be it."</p>
+          </div>
+          <div class="community-card reveal">
+            <div class="who"><span class="avatar"></span><div><div class="handle">@elijahsnoz</div><div class="role">Creator</div></div></div>
+            <p class="quote">"Creating the SNOZ universe, one drop at a time."</p>
+          </div>
+        </div>
+
+        <div class="community-stats reveal">
+          <div class="stat"><div class="num">—</div><div class="label">Members</div></div>
+          <div class="stat"><div class="num">—</div><div class="label">Artworks shared</div></div>
+          <div class="stat"><div class="num">—</div><div class="label">Countries</div></div>
         </div>
       </div>
     </section>
 
-    <!-- FAQ SECTION -->
-    <section class="panel" id="faq">
+    <!-- 7. SNOZ TOKEN -->
+    <section id="token" class="section alt" aria-labelledby="token-h">
       <div class="container">
-        <h2>Frequently Asked Questions</h2>
-        <p class="muted">Honest answers about SNOZCOIN.</p>
-        
-        <div class="faq-grid">
-          <div class="faq-item">
-            <h3>What is SNOZCOIN?</h3>
-            <p>SNOZCOIN is a scalable creator monetization platform built on Stacks, leveraging Bitcoin's security. Creators receive direct STX payments for tips and content, while earning SNOZ loyalty rewards.</p>
+        <div class="section-head reveal">
+          <div class="eyebrow">Snoz Token</div>
+          <h2 id="token-h">The culture has a token.</h2>
+          <p>SNOZ the token exists to carry SNOZ the culture on-chain. It's part of the universe — not the point of it.</p>
+        </div>
+
+        <div class="token-panel reveal">
+          <div class="token-top">
+            <div class="token-id">
+              <div class="token-mark"><img src="assets/images/favicon.svg" alt="" width="40" height="40"></div>
+              <div>
+                <h3>SNOZ</h3>
+                <div class="sub">SYMBOL: SNOZ</div>
+              </div>
+            </div>
+            <div class="token-network"><span class="dot"></span>Solana</div>
           </div>
 
-          <div class="faq-item">
-            <h3>What is STX vs SNOZ?</h3>
-            <p><strong>STX</strong> is the currency — used for all payments, tips, and content purchases. <strong>SNOZ</strong> is a non-tradeable utility token for rewards, reputation, and governance. You can't buy or sell SNOZ.</p>
+          <div class="mint-row">
+            <label for="mintAddr">Mint address</label>
+            <div class="mint-box">
+              <code id="mintAddr">Ghy5KXwBbfagjtMx7pTfR7RTfbtTNjuHrVS54q59pump</code>
+              <button class="copy-btn" id="copyMint" data-mint="Ghy5KXwBbfagjtMx7pTfR7RTfbtTNjuHrVS54q59pump" type="button">Copy</button>
+            </div>
           </div>
 
-          <div class="faq-item">
-            <h3>How do creators earn money?</h3>
-            <p>Creators receive STX directly from fans through tipping and content unlocks. 100% of payments go to creators (minus minimal network fees). No middlemen, no platform cuts.</p>
+          <div class="token-stats">
+            <div class="token-stat"><div class="v">—</div><div class="l">Price (USD)</div></div>
+            <div class="token-stat"><div class="v">—</div><div class="l">Market Cap</div></div>
+            <div class="token-stat"><div class="v">—</div><div class="l">Liquidity</div></div>
+            <div class="token-stat"><div class="v">—</div><div class="l">Holders</div></div>
           </div>
 
-          <div class="faq-item">
-            <h3>How do I earn SNOZ?</h3>
-            <p>Earn SNOZ by tipping creators (2 SNOZ per STX), buying content (3 SNOZ per STX), or registering as a creator (200 SNOZ bonus). Higher SNOZ balances unlock better tiers and perks.</p>
+          <div class="token-links">
+            <a class="btn-outline-sm" href="https://explorer.solana.com/address/Ghy5KXwBbfagjtMx7pTfR7RTfbtTNjuHrVS54q59pump" target="_blank" rel="noopener">Solana Explorer →</a>
+            <a class="btn-outline-sm" href="https://solscan.io/token/Ghy5KXwBbfagjtMx7pTfR7RTfbtTNjuHrVS54q59pump" target="_blank" rel="noopener">Solscan →</a>
+            <a class="btn-outline-sm" href="https://dexscreener.com/solana/Ghy5KXwBbfagjtMx7pTfR7RTfbtTNjuHrVS54q59pump" target="_blank" rel="noopener">DexScreener →</a>
+            <a class="btn-outline-sm" href="https://pump.fun/coin/Ghy5KXwBbfagjtMx7pTfR7RTfbtTNjuHrVS54q59pump" target="_blank" rel="noopener">pump.fun →</a>
           </div>
 
-          <div class="faq-item">
-            <h3>Why Stacks and Bitcoin?</h3>
-            <p>Stacks brings smart contracts to Bitcoin. All SNOZCOIN transactions inherit Bitcoin's security through Proof of Transfer. Your funds are protected by the most secure blockchain.</p>
-          </div>
+          <p class="disclaimer">Live market data isn't pulled into this page — figures show as "—" until a data source is wired up, so nothing here is guessed or estimated. SNOZ is a cultural and community token; nothing on this site is financial advice, and no returns are promised or implied. Always verify the mint address above before trading.</p>
+        </div>
+      </div>
+    </section>
 
-          <div class="faq-item">
-            <h3>What wallets work with SNOZCOIN?</h3>
-            <p>Connect with <strong>Leather</strong> or <strong>Xverse</strong> wallets. Both support Stacks and make it easy to tip creators, buy content, and check your SNOZ balance.</p>
-          </div>
+    <!-- 8. ROADMAP -->
+    <section id="roadmap" class="section" aria-labelledby="roadmap-h">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">Roadmap</div>
+          <h2 id="roadmap-h">Where SNOZ is headed.</h2>
+          <p>No promises of price. Just the plan for the universe.</p>
+        </div>
 
-          <div class="faq-item">
-            <h3>Is this a speculative investment?</h3>
-            <p><strong>No.</strong> SNOZCOIN is a creator platform, not an investment. SNOZ tokens have no monetary value and cannot be traded. STX is the only currency used for payments.</p>
+        <div class="timeline">
+          <div class="timeline-item done reveal">
+            <span class="node"></span>
+            <div class="phase-label">Phase 00 — Live</div>
+            <h3>Genesis</h3>
+            <p>SNOZ character defined, token deployed on Solana, first art studies and memes released to the community.</p>
+            <div class="tags"><span class="chip">Character design</span><span class="chip">Token live</span></div>
+          </div>
+          <div class="timeline-item reveal">
+            <span class="node"></span>
+            <div class="phase-label">Phase 01 — In progress</div>
+            <h3>Culture Build</h3>
+            <p>Weekly meme drops, community art contests, and the first Buttersnoz lore fragments released.</p>
+            <div class="tags"><span class="chip">Meme contests</span><span class="chip">Community art</span></div>
+          </div>
+          <div class="timeline-item reveal">
+            <span class="node"></span>
+            <div class="phase-label">Phase 02 — Planned</div>
+            <h3>Expansion</h3>
+            <p>Buttersnoz storyline expands, first animated shorts explored, community-created SNOZ art highlighted site-wide.</p>
+            <div class="tags"><span class="chip">Animation</span><span class="chip">Storytelling</span></div>
+          </div>
+          <div class="timeline-item reveal">
+            <span class="node"></span>
+            <div class="phase-label">Phase 03 — Planned</div>
+            <h3>Collectibles</h3>
+            <p>Collectible SNOZ and Buttersnoz releases, designed with and for the community that got us here.</p>
+            <div class="tags"><span class="chip">Collectibles</span><span class="chip">Community rewards</span></div>
           </div>
         </div>
       </div>
     </section>
-    
-    <!-- Whitepaper modal template (loads content on demand to avoid inline rendering) -->
-    <template id="whitepaper-template">
-      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="wpTitle">
-        <div id="wpContent">
-          <h3 id="wpTitle">SNOZCOIN — Whitepaper</h3>
-          <p class="muted">Loading whitepaper…</p>
+
+    <!-- 9. JOIN SNOZ -->
+    <section id="join" class="section join" aria-labelledby="join-h">
+      <div class="container">
+        <div class="eyebrow" style="justify-content:center">Join Snoz</div>
+        <h2 id="join-h">Become part of the movement.</h2>
+        <p>Artists, collectors, meme lords and internet weirdos welcome. Bring your creativity — SNOZ will do the transforming.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="https://t.me/snoz" target="_blank" rel="noopener">Join Telegram</a>
+          <a class="btn btn-ghost" href="https://x.com/snoz" target="_blank" rel="noopener">Follow on X</a>
         </div>
-        <div class="modal-actions">
-          <a class="btn btn-primary" href="/assets/whitepaper.html" id="downloadWP" target="_blank" rel="noopener">View Whitepaper</a>
-          <button class="btn btn-ghost" id="closeWP">Close</button>
+        <div class="social-row" aria-label="More ways to follow SNOZ">
+          <a href="https://discord.gg/snoz" target="_blank" rel="noopener" aria-label="SNOZ on Discord"><svg viewBox="0 0 24 24"><path d="M20.3 5.3A18 18 0 0 0 15.9 4l-.3.6a13 13 0 0 1 3.8 1.5 15 15 0 0 0-15.2 0A13 13 0 0 1 8 4.6L7.7 4a18 18 0 0 0-4.4 1.3C1.5 9 1 12.6 1.2 16.1a15 15 0 0 0 4.6 2.3l.9-1.4a10 10 0 0 1-1.6-.8l.4-.3a13.7 13.7 0 0 0 12 0l.4.3a10 10 0 0 1-1.6.8l.9 1.4a15 15 0 0 0 4.6-2.3c.3-4-.5-7.5-1.5-10.8ZM8.7 14.4c-.8 0-1.5-.8-1.5-1.7s.7-1.7 1.5-1.7 1.5.8 1.5 1.7-.7 1.7-1.5 1.7Zm6.6 0c-.8 0-1.5-.8-1.5-1.7s.7-1.7 1.5-1.7 1.5.8 1.5 1.7-.7 1.7-1.5 1.7Z"/></svg></a>
+          <a href="https://instagram.com/elijahsnoz" target="_blank" rel="noopener" aria-label="SNOZ on Instagram"><svg viewBox="0 0 24 24"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm5.2-3.4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z"/></svg></a>
+          <a href="https://youtube.com/@snoz" target="_blank" rel="noopener" aria-label="SNOZ on YouTube"><svg viewBox="0 0 24 24"><path d="M22 12s0-3.2-.4-4.7c-.3-.9-1-1.6-1.9-1.9C18.2 5 12 5 12 5s-6.2 0-7.7.4c-.9.3-1.6 1-1.9 1.9C2 8.8 2 12 2 12s0 3.2.4 4.7c.3.9 1 1.6 1.9 1.9C5.8 19 12 19 12 19s6.2 0 7.7-.4c.9-.3 1.6-1 1.9-1.9.4-1.5.4-4.7.4-4.7ZM10 15.5v-7l6 3.5-6 3.5Z"/></svg></a>
         </div>
       </div>
-    </template>
+    </section>
+
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <div class="footer-left">
-        <p class="disclaimer">
-          <strong>Platform Notice:</strong> SNOZCOIN is a creator monetization platform built on Stacks. 
-          STX is used for all payments. SNOZ tokens are non-tradeable utility tokens for rewards and governance only.
-        </p>
-        <div class="footer-legal-links">
-          <a href="/terms.html">Terms of Service</a>
-          <span class="separator">•</span>
-          <a href="/privacy.html">Privacy Policy</a>
-          <span class="separator">•</span>
-          <a href="/risk-disclosure.html">Risk Disclosure</a>
-        </div>
+    <div class="container">
+      <div class="footer-inner">
+        <a class="brand" href="#hero">SNOZ<span class="dot">.</span></a>
+        <nav class="footer-links">
+          <a href="#universe">Universe</a>
+          <a href="#art">Art</a>
+          <a href="#token">Token</a>
+          <a href="assets/whitepaper.html">Whitepaper</a>
+        </nav>
+        <div>© <span id="year"></span> Elijah Snoz — SNOZ</div>
       </div>
-      <div class="footer-right">
-        <p>Built on Stacks with Bitcoin Security</p>
-        <p class="small-text">Open source on <a href="https://github.com/elijahsnoz/SNOZCOIN" target="_blank" rel="noopener">GitHub</a></p>
-      </div>
+      <p class="footer-disclaimer">SNOZ (Solana mint: Ghy5KXwBbfagjtMx7pTfR7RTfbtTNjuHrVS54q59pump) is a community and cultural token. It is not a security, an investment contract, or financial advice, and carries no promise or expectation of profit. Digital assets are volatile and can lose value — always do your own research before interacting with any token or trading platform.</p>
     </div>
   </footer>
 
-  <!-- Twitter Widgets Script (for embedded timeline) -->
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-  
-  <!-- 
-    Stacks Integration Libraries
-    Using official @stacks packages for blockchain interaction
-  -->
-  <script src="https://unpkg.com/@stacks/connect@7.7.2/dist/umd/index.js"></script>
-  <script src="https://unpkg.com/@stacks/network@6.13.0/dist/umd/index.js"></script>
-  <script src="https://unpkg.com/@stacks/transactions@6.13.0/dist/umd/index.js"></script>
-  
-  <!-- Core JS -->
-  <script src="js/main.js"></script>
-  
-  <!-- UI Components: Toast notifications, Loading states, Modals, Transaction history -->
-  <script src="js/ui-components.js"></script>
-  
-  <!-- Stacks Integration -->
-  <script src="js/snoz-stacks.js"></script>
-  
-  <!-- Wallet Auth & Dynamic Header -->
-  <script src="js/wallet-auth.js"></script>
-  <script src="js/header.js"></script>
-  <script src="js/route-guard.js"></script>
-  
-  <!-- Onboarding System -->
-  <script src="js/onboarding.js"></script>
-  
-  <!-- Loading Overlay (for async operations) -->
-  <div id="loading-overlay" class="loading-overlay hidden-default">
-    <div class="loading-content">
-      <div class="spinner spinner-lg"></div>
-      <p id="loading-message">Processing...</p>
-    </div>
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button class="lb-close" aria-label="Close">×</button>
+    <button class="lb-prev" aria-label="Previous">‹</button>
+    <img class="lb-image" src="" alt="">
+    <button class="lb-next" aria-label="Next">›</button>
+    <div class="lb-caption"></div>
   </div>
 
-  <!-- Modal Container -->
-  <div id="modal-container"></div>
-
-  <!-- Get Started Modal -->
-  <div id="getStartedModal" class="gs-modal-overlay" style="display:none;">
-    <div class="gs-modal">
-      <button class="gs-modal-close" id="closeModal">&times;</button>
-      
-      <!-- Step Indicator -->
-      <div class="gs-steps">
-        <div class="gs-step active" data-step="1">1</div>
-        <div class="gs-step-line"></div>
-        <div class="gs-step" data-step="2">2</div>
-        <div class="gs-step-line"></div>
-        <div class="gs-step" data-step="3">3</div>
-      </div>
-
-      <!-- Step 1: Connect Wallet -->
-      <div class="gs-step-content" id="gsStep1">
-        <h2>Connect Your Wallet</h2>
-        <p>Choose your preferred wallet to get started</p>
-        
-        <div class="gs-wallet-options">
-          <button class="gs-wallet-btn" id="connectMetaMask">
-            <span class="gs-wallet-icon">🦊</span>
-            <div>
-              <strong>MetaMask</strong>
-              <small>Ethereum & EVM Networks</small>
-            </div>
-          </button>
-          
-          <button class="gs-wallet-btn" id="connectPhantom">
-            <span class="gs-wallet-icon">👻</span>
-            <div>
-              <strong>Phantom</strong>
-              <small>Solana Network</small>
-            </div>
-          </button>
-        </div>
-        
-        <div class="gs-wallet-connected" id="walletConnectedBox" style="display:none;">
-          <span class="gs-check">✅</span>
-          <div>
-            <strong id="connectedWalletType">Wallet Connected</strong>
-            <small id="connectedWalletAddr"></small>
-          </div>
-        </div>
-        
-        <button class="gs-btn-primary" id="toStep2" style="display:none;">Continue →</button>
-        <p class="gs-error" id="walletError"></p>
-      </div>
-
-      <!-- Step 2: Profile Setup -->
-      <div class="gs-step-content" id="gsStep2" style="display:none;">
-        <h2>Create Your Profile</h2>
-        <p>Tell us a bit about yourself</p>
-        
-        <div class="gs-form-group">
-          <label>Username *</label>
-          <input type="text" id="gsUsername" placeholder="Enter username (3-20 chars)" maxlength="20">
-        </div>
-        
-        <div class="gs-form-group">
-          <label>Country *</label>
-          <select id="gsCountry">
-            <option value="">Select your country</option>
-            <option value="US">🇺🇸 United States</option>
-            <option value="GB">🇬🇧 United Kingdom</option>
-            <option value="CA">🇨🇦 Canada</option>
-            <option value="AU">🇦🇺 Australia</option>
-            <option value="DE">🇩🇪 Germany</option>
-            <option value="FR">🇫🇷 France</option>
-            <option value="JP">🇯🇵 Japan</option>
-            <option value="KR">🇰🇷 South Korea</option>
-            <option value="IN">🇮🇳 India</option>
-            <option value="BR">🇧🇷 Brazil</option>
-            <option value="NG">🇳🇬 Nigeria</option>
-            <option value="ZA">🇿🇦 South Africa</option>
-            <option value="KE">🇰🇪 Kenya</option>
-            <option value="GH">🇬🇭 Ghana</option>
-            <option value="AE">🇦🇪 UAE</option>
-            <option value="SG">🇸🇬 Singapore</option>
-            <option value="NL">🇳🇱 Netherlands</option>
-            <option value="ES">🇪🇸 Spain</option>
-            <option value="IT">🇮🇹 Italy</option>
-            <option value="MX">🇲🇽 Mexico</option>
-            <option value="OTHER">🌍 Other</option>
-          </select>
-        </div>
-        
-        <div class="gs-form-group">
-          <label>Your Unique Avatar</label>
-          <p class="gs-avatar-subtitle">Generated from your wallet address - click to regenerate with different style</p>
-          <div class="gs-avatar-preview-container">
-            <div class="gs-avatar-main" id="gsAvatarMain">
-              <img id="gsAvatarImage" src="" alt="Your Avatar">
-            </div>
-            <div class="gs-avatar-styles" id="gsAvatarStyles">
-              <div class="gs-style-btn selected" data-style="pixel-art" title="Pixel Art">
-                <img src="https://api.dicebear.com/7.x/pixel-art/svg?seed=demo1&size=40" alt="Pixel">
-              </div>
-              <div class="gs-style-btn" data-style="identicon" title="Identicon">
-                <img src="https://api.dicebear.com/7.x/identicon/svg?seed=demo2&size=40" alt="Identicon">
-              </div>
-              <div class="gs-style-btn" data-style="bottts" title="Robot">
-                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=demo3&size=40" alt="Robot">
-              </div>
-              <div class="gs-style-btn" data-style="shapes" title="Shapes">
-                <img src="https://api.dicebear.com/7.x/shapes/svg?seed=demo4&size=40" alt="Shapes">
-              </div>
-              <div class="gs-style-btn" data-style="thumbs" title="Thumbs">
-                <img src="https://api.dicebear.com/7.x/thumbs/svg?seed=demo5&size=40" alt="Thumbs">
-              </div>
-              <div class="gs-style-btn" data-style="fun-emoji" title="Fun Emoji">
-                <img src="https://api.dicebear.com/7.x/fun-emoji/svg?seed=demo6&size=40" alt="Emoji">
-              </div>
-            </div>
-            <button class="gs-randomize-btn" id="gsRandomizeAvatar">� Randomize</button>
-          </div>
-        </div>
-        
-        <button class="gs-btn-primary" id="toStep3" disabled>Continue →</button>
-        <button class="gs-btn-secondary" id="backToStep1">← Back</button>
-      </div>
-
-      <!-- Step 3: User Type -->
-      <div class="gs-step-content" id="gsStep3" style="display:none;">
-        <h2>How will you use SNOZCOIN?</h2>
-        <p>Select your primary role</p>
-        
-        <div class="gs-type-grid" id="gsTypeGrid">
-          <div class="gs-type-option" data-type="creator">
-            <span class="gs-type-icon">🎤</span>
-            <strong>Creator</strong>
-            <small>Artists & musicians</small>
-          </div>
-          <div class="gs-type-option" data-type="supporter">
-            <span class="gs-type-icon">💜</span>
-            <strong>Supporter</strong>
-            <small>Fans & music lovers</small>
-          </div>
-          <div class="gs-type-option" data-type="corporate">
-            <span class="gs-type-icon">🏢</span>
-            <strong>Corporate</strong>
-            <small>Labels & businesses</small>
-          </div>
-          <div class="gs-type-option" data-type="investor">
-            <span class="gs-type-icon">💰</span>
-            <strong>VC / Investor</strong>
-            <small>Angel investors & VCs</small>
-          </div>
-        </div>
-        
-        <button class="gs-btn-primary" id="completeSetup" disabled>Complete Setup 🚀</button>
-        <button class="gs-btn-secondary" id="backToStep2">← Back</button>
-      </div>
-    </div>
-  </div>
-
-  <style>
-    /* Get Started Modal Styles */
-    .gs-modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.85);
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .gs-modal {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      border-radius: 20px;
-      padding: 40px;
-      max-width: 500px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      position: relative;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-    .gs-modal-close {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 2rem;
-      cursor: pointer;
-      opacity: 0.7;
-    }
-    .gs-modal-close:hover { opacity: 1; }
-    
-    /* Steps */
-    .gs-steps {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 30px;
-    }
-    .gs-step {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: #333;
-      color: #888;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-    }
-    .gs-step.active {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: #fff;
-    }
-    .gs-step.completed {
-      background: #4ade80;
-      color: #000;
-    }
-    .gs-step-line {
-      width: 40px;
-      height: 3px;
-      background: #333;
-      margin: 0 5px;
-    }
-    
-    /* Content */
-    .gs-step-content h2 {
-      color: #fff;
-      margin-bottom: 8px;
-      text-align: center;
-    }
-    .gs-step-content > p {
-      color: #a0a0a0;
-      text-align: center;
-      margin-bottom: 25px;
-    }
-    
-    /* Wallet Buttons */
-    .gs-wallet-options {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    .gs-wallet-btn {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      padding: 18px 20px;
-      background: rgba(255,255,255,0.05);
-      border: 2px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      color: #fff;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-align: left;
-    }
-    .gs-wallet-btn:hover {
-      background: rgba(255,255,255,0.1);
-      border-color: #667eea;
-    }
-    .gs-wallet-icon { font-size: 2rem; }
-    .gs-wallet-btn small { color: #888; display: block; }
-    
-    .gs-wallet-connected {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 15px;
-      background: rgba(74,222,128,0.1);
-      border: 1px solid rgba(74,222,128,0.3);
-      border-radius: 12px;
-      margin-bottom: 20px;
-      color: #fff;
-    }
-    .gs-wallet-connected small { color: #4ade80; display: block; font-family: monospace; }
-    .gs-check { font-size: 1.5rem; }
-    
-    /* Form */
-    .gs-form-group {
-      margin-bottom: 20px;
-    }
-    .gs-form-group label {
-      display: block;
-      color: #e0e0e0;
-      margin-bottom: 8px;
-      font-weight: 500;
-    }
-    .gs-form-group input,
-    .gs-form-group select {
-      width: 100%;
-      padding: 14px;
-      background: rgba(255,255,255,0.05);
-      border: 2px solid rgba(255,255,255,0.1);
-      border-radius: 10px;
-      color: #fff;
-      font-size: 1rem;
-    }
-    .gs-form-group input:focus,
-    .gs-form-group select:focus {
-      outline: none;
-      border-color: #667eea;
-    }
-    .gs-form-group select option {
-      background: #1a1a2e;
-    }
-    
-    /* Avatar Preview System */
-    .gs-avatar-subtitle {
-      color: #888;
-      font-size: 0.85rem;
-      margin-bottom: 15px;
-    }
-    .gs-avatar-preview-container {
-      text-align: center;
-    }
-    .gs-avatar-main {
-      width: 120px;
-      height: 120px;
-      margin: 0 auto 20px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 3px solid #667eea;
-      background: rgba(255,255,255,0.05);
-      box-shadow: 0 0 30px rgba(102,126,234,0.3);
-    }
-    .gs-avatar-main img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .gs-avatar-styles {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 15px;
-      flex-wrap: wrap;
-    }
-    .gs-style-btn {
-      width: 50px;
-      height: 50px;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 2px solid rgba(255,255,255,0.1);
-      cursor: pointer;
-      transition: all 0.2s;
-      background: rgba(255,255,255,0.05);
-    }
-    .gs-style-btn:hover {
-      transform: scale(1.1);
-      border-color: rgba(255,255,255,0.3);
-    }
-    .gs-style-btn.selected {
-      border-color: #667eea;
-      box-shadow: 0 0 15px rgba(102,126,234,0.4);
-    }
-    .gs-style-btn img {
-      width: 100%;
-      height: 100%;
-    }
-    .gs-randomize-btn {
-      padding: 10px 20px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 8px;
-      color: #fff;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: all 0.2s;
-    }
-    .gs-randomize-btn:hover {
-      background: rgba(255,255,255,0.15);
-    }
-    
-    /* Type Grid */
-    .gs-type-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    .gs-type-option {
-      padding: 20px 15px;
-      background: rgba(255,255,255,0.05);
-      border: 2px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s;
-      color: #fff;
-    }
-    .gs-type-option:hover {
-      background: rgba(255,255,255,0.1);
-    }
-    .gs-type-option.selected {
-      border-color: #667eea;
-      background: rgba(102,126,234,0.15);
-    }
-    .gs-type-icon { font-size: 2rem; display: block; margin-bottom: 8px; }
-    .gs-type-option strong { display: block; margin-bottom: 4px; }
-    .gs-type-option small { color: #888; }
-    
-    /* Buttons */
-    .gs-btn-primary {
-      width: 100%;
-      padding: 16px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border: none;
-      border-radius: 10px;
-      color: #fff;
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .gs-btn-primary:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 20px rgba(102,126,234,0.4);
-    }
-    .gs-btn-primary:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    .gs-btn-secondary {
-      width: 100%;
-      padding: 12px;
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 10px;
-      color: #fff;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    .gs-btn-secondary:hover {
-      background: rgba(255,255,255,0.05);
-    }
-    .gs-error {
-      color: #ef4444;
-      text-align: center;
-      margin-top: 10px;
-      min-height: 20px;
-    }
-    
-    @media (max-width: 500px) {
-      .gs-modal { padding: 25px 20px; }
-      .gs-avatar-grid { grid-template-columns: repeat(4, 1fr); }
-      .gs-type-grid { grid-template-columns: 1fr; }
-    }
-  </style>
-
-  <script>
-  (function() {
-    // State
-    var state = {
-      step: 1,
-      wallet: null,
-      walletType: null,
-      walletAddress: null,
-      username: '',
-      country: '',
-      avatar: '',
-      avatarStyle: 'pixel-art',
-      avatarSeed: null,
-      userType: null
-    };
-
-    // Elements
-    var modal = document.getElementById('getStartedModal');
-    var getStartedBtn = document.getElementById('getStartedBtn');
-    var closeModalBtn = document.getElementById('closeModal');
-
-    // Check if already registered
-    function isRegistered() {
-      try {
-        var profile = localStorage.getItem('snoz_user_profile');
-        if (profile) {
-          var data = JSON.parse(profile);
-          return data.walletAddress && data.username && data.userType;
-        }
-      } catch(e) {}
-      return false;
-    }
-
-    // Open modal
-    function openModal() {
-      if (isRegistered()) {
-        window.location.href = '/dashboard.html';
-        return;
-      }
-      modal.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    }
-
-    // Close modal
-    function closeModal() {
-      modal.style.display = 'none';
-      document.body.style.overflow = '';
-    }
-
-    // Show step
-    function showStep(num) {
-      state.step = num;
-      document.getElementById('gsStep1').style.display = num === 1 ? 'block' : 'none';
-      document.getElementById('gsStep2').style.display = num === 2 ? 'block' : 'none';
-      document.getElementById('gsStep3').style.display = num === 3 ? 'block' : 'none';
-      
-      // Update indicators
-      document.querySelectorAll('.gs-step').forEach(function(el, i) {
-        el.classList.remove('active', 'completed');
-        if (i + 1 < num) el.classList.add('completed');
-        if (i + 1 === num) el.classList.add('active');
-      });
-    }
-
-    // Shorten address
-    function shorten(addr) {
-      return addr.slice(0, 6) + '...' + addr.slice(-4);
-    }
-
-    // Connect MetaMask
-    async function connectMetaMask() {
-      if (typeof window.ethereum === 'undefined') {
-        document.getElementById('walletError').textContent = 'MetaMask not installed. Please install it first.';
-        return;
-      }
-      try {
-        var accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        if (accounts && accounts[0]) {
-          state.wallet = 'metamask';
-          state.walletType = 'MetaMask';
-          state.walletAddress = accounts[0];
-          showWalletConnected();
-        }
-      } catch(e) {
-        document.getElementById('walletError').textContent = e.code === 4001 ? 'Connection rejected.' : 'Failed to connect.';
-      }
-    }
-
-    // Connect Phantom
-    async function connectPhantom() {
-      if (!window.solana || !window.solana.isPhantom) {
-        document.getElementById('walletError').textContent = 'Phantom not installed. Please install it first.';
-        return;
-      }
-      try {
-        var resp = await window.solana.connect();
-        if (resp && resp.publicKey) {
-          state.wallet = 'phantom';
-          state.walletType = 'Phantom';
-          state.walletAddress = resp.publicKey.toString();
-          showWalletConnected();
-        }
-      } catch(e) {
-        document.getElementById('walletError').textContent = e.code === 4001 ? 'Connection rejected.' : 'Failed to connect.';
-      }
-    }
-
-    // Show wallet connected
-    function showWalletConnected() {
-      document.getElementById('walletError').textContent = '';
-      document.querySelector('.gs-wallet-options').style.display = 'none';
-      document.getElementById('walletConnectedBox').style.display = 'flex';
-      document.getElementById('connectedWalletType').textContent = state.walletType + ' Connected';
-      document.getElementById('connectedWalletAddr').textContent = shorten(state.walletAddress);
-      document.getElementById('toStep2').style.display = 'block';
-    }
-
-    // Validate step 2
-    function validateStep2() {
-      var username = document.getElementById('gsUsername').value.trim();
-      var country = document.getElementById('gsCountry').value;
-      var valid = username.length >= 3 && country && state.avatar;
-      document.getElementById('toStep3').disabled = !valid;
-    }
-
-    // Generate avatar URL
-    function generateAvatarUrl(style, seed) {
-      return 'https://api.dicebear.com/7.x/' + style + '/svg?seed=' + encodeURIComponent(seed) + '&size=200';
-    }
-
-    // Update avatar display
-    function updateAvatar() {
-      var seed = state.avatarSeed || state.walletAddress || 'default';
-      var url = generateAvatarUrl(state.avatarStyle, seed);
-      document.getElementById('gsAvatarImage').src = url;
-      state.avatar = url;
-      validateStep2();
-    }
-
-    // Randomize avatar seed
-    function randomizeSeed() {
-      state.avatarSeed = Math.random().toString(36).substring(2, 15);
-      updateAvatar();
-    }
-
-    // Save profile
-    function saveProfile() {
-      var profile = {
-        walletType: state.walletType,
-        walletAddress: state.walletAddress,
-        username: state.username,
-        country: state.country,
-        avatar: state.avatar,
-        userType: state.userType,
-        createdAt: new Date().toISOString()
-      };
-      localStorage.setItem('snoz_user_profile', JSON.stringify(profile));
-    }
-
-    // Init
-    function init() {
-      // Open modal button
-      if (getStartedBtn) {
-        getStartedBtn.addEventListener('click', openModal);
-      }
-
-      // Close modal
-      if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', closeModal);
-      }
-
-      // Click outside to close
-      modal.addEventListener('click', function(e) {
-        if (e.target === modal) closeModal();
-      });
-
-      // Wallet buttons
-      document.getElementById('connectMetaMask').addEventListener('click', connectMetaMask);
-      document.getElementById('connectPhantom').addEventListener('click', connectPhantom);
-
-      // Step navigation
-      document.getElementById('toStep2').addEventListener('click', function() {
-        showStep(2);
-        // Generate initial avatar based on wallet address
-        state.avatarSeed = state.walletAddress;
-        updateAvatar();
-      });
-
-      document.getElementById('backToStep1').addEventListener('click', function() {
-        showStep(1);
-      });
-
-      document.getElementById('toStep3').addEventListener('click', function() {
-        state.username = document.getElementById('gsUsername').value.trim();
-        state.country = document.getElementById('gsCountry').value;
-        showStep(3);
-      });
-
-      document.getElementById('backToStep2').addEventListener('click', function() {
-        showStep(2);
-      });
-
-      // Profile validation
-      document.getElementById('gsUsername').addEventListener('input', validateStep2);
-      document.getElementById('gsCountry').addEventListener('change', validateStep2);
-
-      // Avatar style selection
-      document.querySelectorAll('.gs-style-btn').forEach(function(el) {
-        el.addEventListener('click', function() {
-          document.querySelectorAll('.gs-style-btn').forEach(function(b) { b.classList.remove('selected'); });
-          this.classList.add('selected');
-          state.avatarStyle = this.getAttribute('data-style');
-          updateAvatar();
-        });
-      });
-
-      // Randomize avatar
-      document.getElementById('gsRandomizeAvatar').addEventListener('click', randomizeSeed);
-
-      // User type selection
-      document.querySelectorAll('.gs-type-option').forEach(function(el) {
-        el.addEventListener('click', function() {
-          document.querySelectorAll('.gs-type-option').forEach(function(t) { t.classList.remove('selected'); });
-          this.classList.add('selected');
-          state.userType = this.getAttribute('data-type');
-          document.getElementById('completeSetup').disabled = false;
-        });
-      });
-
-      // Complete setup
-      document.getElementById('completeSetup').addEventListener('click', function() {
-        this.disabled = true;
-        this.textContent = 'Setting up...';
-        saveProfile();
-        setTimeout(function() {
-          window.location.href = '/dashboard.html';
-        }, 1000);
-      });
-    }
-
-    // Run when DOM ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
-    } else {
-      init();
-    }
-  })();
-  </script>
+  <script src="assets/js/main.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,23 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Static — glitch portrait of the SNOZ character">
+  <rect width="400" height="400" fill="#0a0910"/>
+  <g transform="translate(-6,0)" opacity="0.7">
+    <circle cx="206" cy="190" r="120" fill="#ff3d81"/>
+  </g>
+  <g transform="translate(6,4)" opacity="0.7">
+    <circle cx="194" cy="186" r="120" fill="#34e5ff"/>
+  </g>
+  <circle cx="200" cy="188" r="120" fill="#efe8d6" opacity="0.92"/>
+  <circle cx="152" cy="176" r="30" fill="#0a0910"/>
+  <circle cx="248" cy="172" r="27" fill="#0a0910"/>
+  <g stroke="#f4ff3a" stroke-width="6" stroke-linecap="round">
+    <line x1="136" y1="160" x2="168" y2="192"/><line x1="168" y1="160" x2="136" y2="192"/>
+    <line x1="234" y1="158" x2="262" y2="186"/><line x1="262" y1="158" x2="234" y2="186"/>
+  </g>
+  <g stroke="#0a0910" stroke-width="2" opacity="0.5">
+    <line x1="0" y1="60" x2="400" y2="58"/>
+    <line x1="0" y1="140" x2="400" y2="142"/>
+    <line x1="0" y1="260" x2="400" y2="258"/>
+    <line x1="0" y1="320" x2="400" y2="322"/>
+  </g>
+  <text x="24" y="380" fill="#efe8d6" font-family="Arial, sans-serif" font-size="13" letter-spacing="2" opacity="0.6">STUDY NO.6 — STATIC</text>
+</svg>

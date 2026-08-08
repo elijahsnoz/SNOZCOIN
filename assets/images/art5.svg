@@ -1,0 +1,16 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Drip — graffiti-style SNOZ tag with paint drips">
+  <rect width="400" height="400" fill="#111014"/>
+  <g opacity="0.5">
+    <rect x="0" y="0" width="400" height="1" fill="#efe8d6"/>
+    <rect x="0" y="60" width="400" height="1" fill="#efe8d6"/>
+    <rect x="0" y="340" width="400" height="1" fill="#efe8d6"/>
+  </g>
+  <text x="200" y="230" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="86" letter-spacing="4" fill="#f4ff3a" transform="rotate(-4 200 200)">SNOZ</text>
+  <text x="200" y="230" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="86" letter-spacing="4" fill="none" stroke="#ff3d81" stroke-width="2" transform="rotate(-4 200 200)" opacity="0.7">SNOZ</text>
+  <g fill="#f4ff3a">
+    <path d="M108,244 q-2,30 4,44 q8,-6 4,-34 q-2,-14 -8,-10z"/>
+    <path d="M300,240 q4,26 -4,38 q-8,-4 -4,-28 q2,-12 8,-10z"/>
+  </g>
+  <path d="M40,340 q60,-40 80,4" stroke="#34e5ff" stroke-width="3" fill="none" opacity="0.6"/>
+  <text x="24" y="380" fill="#efe8d6" font-family="Arial, sans-serif" font-size="13" letter-spacing="2" opacity="0.6">STUDY NO.5 — DRIP</text>
+</svg>
