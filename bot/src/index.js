@@ -23,15 +23,17 @@ bot.catch((err, ctx) => {
   console.error(`Unhandled error for update ${ctx.updateType}:`, err);
 });
 
+// telegraf's launch() promise only resolves once the bot STOPS polling — it
+// never resolves during normal operation. The onLaunch callback (fired right
+// after auth, before the polling loop starts) is the real "ready" signal.
 let launched = false;
 bot
-  .launch()
-  .then(() => {
+  .launch({}, () => {
     launched = true;
-    console.log('SNOZ bot is running.');
+    console.log(`SNOZ bot is running as @${bot.botInfo?.username ?? '?'}.`);
   })
   .catch((err) => {
-    console.error('Failed to launch bot — check that BOT_TOKEN is valid:', err.message);
+    console.error('Bot stopped unexpectedly — check that BOT_TOKEN is valid:', err.message);
     process.exit(1);
   });
 
