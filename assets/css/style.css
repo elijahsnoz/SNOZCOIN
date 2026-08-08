@@ -163,6 +163,10 @@ body::before{
 .hero-text h1{font-size:clamp(38px,7.2vw,84px);color:var(--paper)}
 .hero-text h1 .accent{color:var(--yellow);display:block}
 .hero-text .lead{color:var(--muted);margin-top:22px;max-width:46ch;font-size:18px;line-height:1.6}
+.mystery{
+  margin-top:14px;font-family:'Space Grotesk',monospace;font-style:italic;font-size:13px;
+  letter-spacing:0.5px;color:var(--cyan);opacity:0.75;max-width:40ch;
+}
 .hero-cta{margin-top:32px;display:flex;gap:16px;flex-wrap:wrap}
 .hero-foot{margin-top:34px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
 .social-row{display:flex;gap:14px}
@@ -175,7 +179,7 @@ body::before{
 .social-row svg{width:16px;height:16px;fill:currentColor}
 
 .hero-art{position:relative;display:flex;justify-content:center;align-items:center}
-.hero-art .frame{position:relative;width:100%;max-width:480px}
+.hero-art .frame{position:relative;width:100%;max-width:480px;transition:transform 0.5s cubic-bezier(.2,.8,.2,1)}
 .hero-art img{width:100%;filter:drop-shadow(0 30px 60px rgba(0,0,0,0.55));animation:float 7s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-14px) rotate(-1.2deg)}}
 .hero-art .ring{
@@ -447,6 +451,60 @@ body::before{
 
 @media(max-width:480px){
   .meme-grid{grid-template-columns:1fr}
+}
+
+/* ============================================================
+   Universe page — Phase 1 portal hub
+   ============================================================ */
+.uv-header{position:sticky;top:0;z-index:80;background:var(--ink);border-bottom:1px solid var(--line)}
+.uv-header-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 28px}
+.uv-exit{color:var(--muted);text-decoration:none;font-family:'Space Grotesk',monospace;font-size:13px;letter-spacing:0.5px;transition:color .25s}
+.uv-exit:hover{color:var(--paper)}
+
+.uv-hero{padding:64px 0 80px;text-align:center}
+.uv-hero-inner{display:flex;flex-direction:column;align-items:center}
+.uv-title{font-size:clamp(38px,8vw,88px);color:var(--paper);margin-top:22px}
+.uv-title .accent{color:var(--yellow)}
+.uv-sub{color:var(--muted);max-width:52ch;margin:20px auto 0;font-size:17px;line-height:1.6}
+.uv-hero .hero-art{margin:44px 0 30px}
+.uv-hero .hero-art .frame{max-width:360px}
+
+.starfield{
+  position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0.5;
+  background-image:
+    radial-gradient(1.5px 1.5px at 20% 30%, rgba(239,232,214,0.6) 100%, transparent),
+    radial-gradient(1px 1px at 70% 15%, rgba(52,229,255,0.5) 100%, transparent),
+    radial-gradient(1px 1px at 85% 60%, rgba(239,232,214,0.5) 100%, transparent),
+    radial-gradient(1.5px 1.5px at 40% 80%, rgba(255,61,129,0.4) 100%, transparent),
+    radial-gradient(1px 1px at 10% 65%, rgba(239,232,214,0.5) 100%, transparent),
+    radial-gradient(1px 1px at 55% 45%, rgba(239,232,214,0.4) 100%, transparent);
+  background-size:600px 600px;
+  animation:drift 60s linear infinite;
+}
+@keyframes drift{from{background-position:0 0}to{background-position:-600px 300px}}
+
+.portal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.portal-card{
+  display:block;text-decoration:none;border-radius:var(--radius);padding:28px 24px;
+  border:1px solid var(--line);background:var(--glass);transition:all .35s var(--ease);
+}
+.portal-card .portal-num{font-family:'Anton',sans-serif;font-size:32px;color:var(--muted-2);opacity:0.7}
+.portal-card .portal-name{font-family:'Space Grotesk',Inter,sans-serif;font-weight:700;font-size:19px;color:var(--paper);margin-top:10px}
+.portal-card .portal-status{font-family:'Space Grotesk',monospace;font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-top:14px;color:var(--muted-2)}
+
+.portal-card.is-live{border-color:rgba(244,255,58,0.35)}
+.portal-card.is-live .portal-num{color:var(--yellow);opacity:1}
+.portal-card.is-live .portal-status{color:var(--yellow)}
+.portal-card.is-live:hover{transform:translateY(-6px);border-color:var(--yellow);box-shadow:0 20px 50px -20px rgba(244,255,58,0.3)}
+
+.portal-card.is-soon{opacity:0.55;border-style:dashed;cursor:not-allowed}
+
+@media(max-width:1080px){
+  .portal-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  .portal-grid{grid-template-columns:1fr}
+  .uv-hero{padding:48px 0 56px}
 }
 
 @media(prefers-reduced-motion:reduce){

@@ -130,4 +130,23 @@ document.addEventListener('DOMContentLoaded', () => {
   // footer year
   const yearEl = document.getElementById('year')
   if (yearEl) yearEl.textContent = new Date().getFullYear()
+
+  // SNOZ should feel alive: a subtle cursor-reactive lean on the hero character.
+  // CSS transition on .frame handles the easing, so this just sets a target transform.
+  const heroSection = document.querySelector('.hero')
+  const heroFrame = document.querySelector('.hero-art .frame')
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (heroSection && heroFrame && !reducedMotion) {
+    heroSection.addEventListener('mousemove', (e) => {
+      const rect = heroSection.getBoundingClientRect()
+      const dx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2)
+      const dy = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2)
+      const x = Math.max(-1, Math.min(1, dx))
+      const y = Math.max(-1, Math.min(1, dy))
+      heroFrame.style.transform = `translate(${x * 10}px, ${y * 8}px) rotate(${x * 3}deg)`
+    })
+    heroSection.addEventListener('mouseleave', () => {
+      heroFrame.style.transform = ''
+    })
+  }
 })
