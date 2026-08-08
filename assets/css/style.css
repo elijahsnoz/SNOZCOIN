@@ -97,8 +97,16 @@ body::before{
    ============================================================ */
 .site-header{
   position:sticky;top:0;z-index:80;
-  background:rgba(7,6,10,0.72);-webkit-backdrop-filter:blur(10px) saturate(140%);backdrop-filter:blur(10px) saturate(140%);
   border-bottom:1px solid var(--line);
+}
+/* the blur lives on a pseudo-element, not .site-header itself, because an
+   element with backdrop-filter becomes the containing block for its
+   position:fixed descendants (spec-compliant on WebKit/Safari) — that
+   trapped the mobile nav overlay inside the header's own small box instead
+   of letting it cover the viewport. */
+.site-header::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:rgba(7,6,10,0.72);-webkit-backdrop-filter:blur(10px) saturate(140%);backdrop-filter:blur(10px) saturate(140%);
 }
 .header-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;gap:16px}
 .brand{display:flex;align-items:center;gap:8px;text-decoration:none;font-family:'Anton',sans-serif;font-size:24px;letter-spacing:1px;color:var(--paper)}
@@ -408,7 +416,7 @@ body::before{
 @media(max-width:900px){
   .container{padding:0 20px}
   .nav{
-    position:fixed;top:73px;left:0;right:0;bottom:0;background:rgba(7,6,10,0.98);
+    position:fixed;top:73px;left:0;right:0;bottom:0;background:var(--ink);
     flex-direction:column;align-items:flex-start;gap:0;padding:10px 24px 30px;
     transform:translateY(-8px);opacity:0;visibility:hidden;transition:all .3s var(--ease);overflow-y:auto;
   }
