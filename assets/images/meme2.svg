@@ -1,6 +1,10 @@
 <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SNOZ character laughing, yellow background">
   <rect width="400" height="400" fill="#f4ff3a"/>
   <g transform="rotate(-6 200 210)">
+    <g fill="#0a0910">
+      <circle cx="150" cy="145" r="36"/><circle cx="168" cy="108" r="35"/><circle cx="200" cy="92" r="37"/><circle cx="232" cy="108" r="35"/><circle cx="250" cy="145" r="36"/>
+    </g>
+    <path d="M178,75 L188,58 L200,70 L212,58 L222,75 Z" fill="#f4ff3a"/>
     <circle cx="200" cy="210" r="118" fill="#0a0910"/>
     <path d="M148,190 q14,-14 28,0" stroke="#f4ff3a" stroke-width="7" fill="none" stroke-linecap="round"/>
     <path d="M226,186 q14,-14 28,0" stroke="#f4ff3a" stroke-width="7" fill="none" stroke-linecap="round"/>

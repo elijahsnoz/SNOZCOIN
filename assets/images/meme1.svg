@@ -1,5 +1,9 @@
 <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SNOZ character wide-eyed in shock, pink background">
   <rect width="400" height="400" fill="#ff3d81"/>
+  <g fill="#0a0910">
+    <circle cx="150" cy="155" r="38"/><circle cx="168" cy="118" r="36"/><circle cx="200" cy="102" r="38"/><circle cx="232" cy="118" r="36"/><circle cx="250" cy="155" r="38"/>
+  </g>
+  <path d="M178,85 L188,68 L200,80 L212,68 L222,85 Z" fill="#f4ff3a"/>
   <circle cx="200" cy="220" r="120" fill="#0a0910"/>
   <circle cx="160" cy="200" r="38" fill="#efe8d6"/>
   <circle cx="248" cy="196" r="34" fill="#efe8d6"/>

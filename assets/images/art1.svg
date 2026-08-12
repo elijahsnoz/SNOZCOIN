@@ -3,7 +3,11 @@
     <filter id="g1"><feTurbulence baseFrequency="0.85" numOctaves="2" seed="3" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/><feComposite operator="over" in2="SourceGraphic"/></filter>
   </defs>
   <rect width="400" height="400" fill="#0c0b10"/>
-  <circle cx="200" cy="190" r="130" fill="#efe8d6" filter="url(#g1)"/>
+  <g fill="#0c0b10" stroke="#333" stroke-width="2">
+    <circle cx="140" cy="122" r="34"/><circle cx="160" cy="88" r="34"/><circle cx="200" cy="72" r="36"/><circle cx="240" cy="88" r="34"/><circle cx="260" cy="122" r="34"/>
+  </g>
+  <path d="M180,60 L190,42 L200,56 L210,42 L220,60 Z" fill="#f4ff3a"/>
+  <circle cx="200" cy="190" r="130" fill="#a9764b" filter="url(#g1)"/>
   <circle cx="150" cy="180" r="34" fill="#0c0b10"/>
   <circle cx="252" cy="176" r="30" fill="#0c0b10"/>
   <g stroke="#f4ff3a" stroke-width="7" stroke-linecap="round">
