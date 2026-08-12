@@ -6,7 +6,11 @@
   <g transform="translate(6,4)" opacity="0.7">
     <circle cx="194" cy="186" r="120" fill="#34e5ff"/>
   </g>
-  <circle cx="200" cy="188" r="120" fill="#efe8d6" opacity="0.92"/>
+  <g fill="#0a0910" stroke="#333" stroke-width="2">
+    <circle cx="140" cy="118" r="32"/><circle cx="158" cy="86" r="32"/><circle cx="196" cy="70" r="34"/><circle cx="234" cy="86" r="32"/><circle cx="254" cy="118" r="32"/>
+  </g>
+  <path d="M176,58 L186,41 L196,54 L206,41 L216,58 Z" fill="#f4ff3a"/>
+  <circle cx="200" cy="188" r="120" fill="#a9764b" opacity="0.92"/>
   <circle cx="152" cy="176" r="30" fill="#0a0910"/>
   <circle cx="248" cy="172" r="27" fill="#0a0910"/>
   <g stroke="#f4ff3a" stroke-width="6" stroke-linecap="round">

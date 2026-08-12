@@ -1,5 +1,5 @@
 <svg viewBox="0 0 760 860" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="snozHeroTitle">
-  <title id="snozHeroTitle">SNOZ character — a cream ghost-like figure with X-marked eyes, a single antenna and a black SNOZ hoodie</title>
+  <title id="snozHeroTitle">SNOZ character — an afro-haired figure with a yellow crown, a spiral antenna, X-marked eyes and a black SNOZ hoodie</title>
   <defs>
     <radialGradient id="glow" cx="50%" cy="42%" r="60%">
       <stop offset="0%" stop-color="#ffe15c" stop-opacity="0.35"/>
@@ -7,8 +7,8 @@
       <stop offset="100%" stop-color="#050409" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f4efe2"/>
-      <stop offset="100%" stop-color="#d9d0ba"/>
+      <stop offset="0%" stop-color="#a9764b"/>
+      <stop offset="100%" stop-color="#6e4020"/>
     </linearGradient>
     <linearGradient id="hoodie" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#181818"/>
@@ -42,11 +42,6 @@
   <path d="M240,60 q-4,30 6,42 q10,-6 6,-30 q-2,-14 -12,-12z" fill="#f4ff3a" opacity="0.85"/>
   <path d="M520,52 q6,26 -4,40 q-12,-4 -8,-28 q2,-14 12,-12z" fill="#ff3d81" opacity="0.85"/>
 
-  <!-- crown mark (individuality) -->
-  <g transform="translate(600,90) scale(0.9)" opacity="0.9">
-    <path d="M0,26 L10,0 L22,18 L34,-4 L46,18 L58,0 L68,26 Z" fill="none" stroke="#f4ff3a" stroke-width="3" stroke-linejoin="round"/>
-  </g>
-
   <!-- body / hoodie -->
   <path d="M180,560 Q170,700 210,780 Q380,840 550,780 Q590,700 580,560 Q470,610 380,610 Q290,610 180,560Z" fill="url(#hoodie)"/>
   <path d="M300,610 q80,26 160,0 l-10,40 q-70,20 -140,0z" fill="#050505"/>
@@ -54,54 +49,59 @@
   <circle cx="425" cy="660" r="5" fill="#f4ff3a"/>
   <text x="380" y="740" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="42" letter-spacing="4" fill="#f4efe2">SNOZ</text>
 
-  <!-- antenna -->
-  <path d="M250,180 q-70,-70 -130,-58" fill="none" stroke="#d9d0ba" stroke-width="7" stroke-linecap="round"/>
-  <circle cx="118" cy="122" r="13" fill="#f4efe2"/>
-  <circle cx="118" cy="122" r="6" fill="#ff3d81"/>
-
-  <!-- head (irregular blob, not a perfect circle) -->
-  <path d="M380,120
-           C 500,116 592,190 604,300
-           C 616,400 596,470 560,530
-           C 520,592 450,614 380,614
-           C 310,614 240,592 200,530
-           C 164,470 144,400 156,300
-           C 168,190 260,124 380,120 Z"
-        fill="url(#skin)" stroke="#050505" stroke-width="4" filter="url(#grain)"/>
-
-  <!-- ink cracks / texture lines on head -->
-  <g stroke="#050505" stroke-width="2" opacity="0.18" fill="none">
-    <path d="M240,220 q30,40 10,90"/>
-    <path d="M520,230 q-24,50 -4,96"/>
-    <path d="M300,500 q40,20 90,6"/>
+  <!-- afro: a puffy cluster of overlapping circles behind the face -->
+  <g fill="#0b0b0c" filter="url(#grain)">
+    <circle cx="380" cy="330" r="230"/>
+    <circle cx="164" cy="388" r="55"/>
+    <circle cx="150" cy="310" r="60"/>
+    <circle cx="164" cy="232" r="58"/>
+    <circle cx="203" cy="163" r="62"/>
+    <circle cx="265" cy="110" r="60"/>
+    <circle cx="341" cy="85" r="65"/>
+    <circle cx="419" cy="85" r="65"/>
+    <circle cx="495" cy="110" r="60"/>
+    <circle cx="557" cy="163" r="62"/>
+    <circle cx="596" cy="232" r="58"/>
+    <circle cx="610" cy="310" r="60"/>
+    <circle cx="596" cy="388" r="55"/>
   </g>
+  <!-- subtle rim light so the afro reads as textured hair, not a flat disc -->
+  <g stroke="#2a2a2a" stroke-width="3" opacity="0.5" fill="none">
+    <path d="M180,220 q20,-70 90,-100"/>
+    <path d="M500,120 q60,20 80,90"/>
+  </g>
+
+  <!-- antenna: emerges from the afro's left edge, curls up to a ball tip -->
+  <path d="M172,220 q-30,-8 -40,-36 q-6,-18 10,-22" fill="none" stroke="#efe8d6" stroke-width="7" stroke-linecap="round"/>
+  <path d="M188,240 q-64,-50 -114,-48" fill="none" stroke="#efe8d6" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="70" cy="188" r="14" fill="#efe8d6"/>
+  <circle cx="70" cy="188" r="6" fill="#ff3d81"/>
+
+  <!-- crown, worn on top of the afro -->
+  <g transform="translate(330,42)">
+    <path d="M0,58 L18,4 L40,42 L66,-6 L92,42 L114,4 L132,58 Z" fill="#f4ff3a" stroke="#0b0b0c" stroke-width="4" stroke-linejoin="round"/>
+  </g>
+
+  <!-- face -->
+  <ellipse cx="380" cy="440" rx="168" ry="182" fill="url(#skin)" stroke="#050505" stroke-width="4"/>
 
   <!-- eyes -->
   <g>
-    <circle cx="292" cy="330" r="70" fill="#0b0b0c" stroke="#f4efe2" stroke-width="4"/>
-    <circle cx="470" cy="322" r="62" fill="#0b0b0c" stroke="#f4efe2" stroke-width="4"/>
+    <circle cx="298" cy="410" r="66" fill="#0b0b0c"/>
+    <circle cx="466" cy="404" r="58" fill="#0b0b0c"/>
     <!-- X marks -->
     <g stroke="#f4ff3a" stroke-width="12" stroke-linecap="round">
-      <line x1="256" y1="296" x2="328" y2="364"/>
-      <line x1="328" y1="296" x2="256" y2="364"/>
+      <line x1="264" y1="378" x2="332" y2="442"/>
+      <line x1="332" y1="378" x2="264" y2="442"/>
     </g>
     <g stroke="#ff3d81" stroke-width="11" stroke-linecap="round">
-      <line x1="440" y1="290" x2="500" y2="354"/>
-      <line x1="500" y1="290" x2="440" y2="354"/>
+      <line x1="438" y1="372" x2="494" y2="432"/>
+      <line x1="494" y1="372" x2="438" y2="432"/>
     </g>
-    <!-- glossy highlight -->
-    <circle cx="266" cy="304" r="10" fill="#ffffff" opacity="0.35"/>
-    <circle cx="450" cy="298" r="8" fill="#ffffff" opacity="0.3"/>
   </g>
 
   <!-- mouth -->
-  <path d="M330,470 q50,34 100,2" fill="none" stroke="#050505" stroke-width="6" stroke-linecap="round"/>
-
-  <!-- stitches (handmade plush feel) -->
-  <g stroke="#050505" stroke-width="2" opacity="0.5">
-    <path d="M188,360 l14,10 l-14,10 l14,10" fill="none"/>
-    <path d="M572,360 l-14,10 l14,10 l-14,10" fill="none"/>
-  </g>
+  <path d="M328,540 q50,32 96,2" fill="none" stroke="#050505" stroke-width="6" stroke-linecap="round"/>
 
   <!-- ground shadow -->
   <ellipse cx="380" cy="800" rx="180" ry="18" fill="#000000" opacity="0.4" filter="url(#soft)"/>

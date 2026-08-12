@@ -1,6 +1,10 @@
 <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SNOZ character crying with laughter, black and cream background">
   <rect width="400" height="400" fill="#0a0910"/>
-  <circle cx="200" cy="210" r="120" fill="#efe8d6"/>
+  <g fill="#0a0910">
+    <circle cx="150" cy="150" r="38"/><circle cx="168" cy="112" r="36"/><circle cx="200" cy="96" r="38"/><circle cx="232" cy="112" r="36"/><circle cx="250" cy="150" r="38"/>
+  </g>
+  <path d="M178,80 L188,63 L200,75 L212,63 L222,80 Z" fill="#f4ff3a"/>
+  <circle cx="200" cy="210" r="120" fill="#8a5a34"/>
   <circle cx="158" cy="196" r="30" fill="#0a0910"/>
   <circle cx="246" cy="192" r="27" fill="#0a0910"/>
   <g stroke="#f4ff3a" stroke-width="6" stroke-linecap="round">
