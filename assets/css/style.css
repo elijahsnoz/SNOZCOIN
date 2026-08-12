@@ -246,15 +246,22 @@ body::before{
    ============================================================ */
 .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:10px}
 .gallery-item{
-  background:var(--glass);border:1px solid var(--line);border-radius:var(--radius);
+  position:relative;background:var(--glass);border:1px solid var(--line);border-radius:var(--radius);
   padding:14px;cursor:pointer;overflow:hidden;transition:transform .4s var(--ease),border-color .4s var(--ease);
 }
 .gallery-item:hover{transform:translateY(-6px) rotate(-0.4deg);border-color:rgba(244,255,58,0.35)}
-.gallery-item .thumb{border-radius:12px;overflow:hidden;aspect-ratio:1/1}
+.gallery-item .thumb{border-radius:12px;overflow:hidden;aspect-ratio:1/1;background:#fff}
 .gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s var(--ease)}
 .gallery-item:hover img{transform:scale(1.06)}
 .gallery-item figcaption{display:flex;justify-content:space-between;color:var(--muted);font-size:13px;margin-top:12px;font-family:'Space Grotesk',monospace}
 .gallery-item figcaption .credit{color:var(--muted-2)}
+
+.gallery-item.is-featured{border-color:rgba(244,255,58,0.4)}
+.gallery-item .featured-badge{
+  position:absolute;top:24px;left:24px;z-index:2;background:var(--yellow);color:var(--ink);
+  font-family:'Space Grotesk',monospace;font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  padding:5px 10px;border-radius:999px;
+}
 
 .artist-strip{
   display:flex;align-items:center;gap:20px;margin-top:56px;padding:26px;
@@ -404,7 +411,15 @@ body::before{
 .lb-close{top:24px;right:24px}
 .lb-prev{left:24px;top:50%;transform:translateY(-50%)}
 .lb-next{right:24px;top:50%;transform:translateY(-50%)}
-.lb-caption{position:fixed;bottom:28px;color:var(--muted);font-size:14px;font-family:'Space Grotesk',monospace}
+.lb-info{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;gap:10px;align-items:center;
+  max-width:min(84vw,64ch);max-height:22vh;overflow-y:auto;padding:0 20px;text-align:center;
+}
+.lb-caption{color:var(--muted);font-size:14px;font-family:'Space Grotesk',monospace}
+.lb-meta:empty{display:none}
+.lb-details{color:var(--yellow);font-size:12px;letter-spacing:1px;text-transform:uppercase;font-family:'Space Grotesk',monospace;margin:0 0 8px}
+.lb-story{color:var(--paper);font-size:14.5px;line-height:1.6;margin:0}
 
 /* ============================================================
    Responsive

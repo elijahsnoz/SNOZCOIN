@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const lightbox = document.getElementById('lightbox')
   const lbImage = lightbox && lightbox.querySelector('.lb-image')
   const lbCaption = lightbox && lightbox.querySelector('.lb-caption')
+  const lbMeta = lightbox && lightbox.querySelector('.lb-meta')
   let currentIndex = 0
 
   function openLightbox(i) {
@@ -58,7 +59,20 @@ document.addEventListener('DOMContentLoaded', () => {
     currentIndex = i
     lbImage.src = img.src
     lbImage.alt = img.alt || ''
-    lbCaption.textContent = item.querySelector('figcaption')?.textContent || ''
+    const figTitle = item.querySelector('figcaption span:not(.credit)')?.textContent || ''
+    const figCredit = item.querySelector('figcaption .credit')?.textContent || ''
+    lbCaption.textContent = figCredit ? `${figTitle} — ${figCredit}` : figTitle
+
+    // real, catalogued pieces carry year/medium/size/story data attributes;
+    // sketch-style studies don't, so lb-meta just stays empty for those.
+    const { year, medium, size, story } = item.dataset
+    if (story) {
+      const details = [year, medium, size].filter(Boolean).join(' · ')
+      lbMeta.innerHTML = `${details ? `<p class="lb-details">${details}</p>` : ''}<p class="lb-story">${story}</p>`
+    } else {
+      lbMeta.innerHTML = ''
+    }
+
     lightbox.setAttribute('aria-hidden', 'false')
   }
 
