@@ -26,6 +26,7 @@
   <main id="main">
     <section class="hero uv-hero" id="uv-hero">
       <div class="starfield" aria-hidden="true"></div>
+      <div id="snoz-universe-canvas" class="uv-canvas" aria-hidden="true"></div>
 
       <div class="container uv-hero-inner">
         <div class="hero-kicker" style="justify-content:center">
@@ -100,5 +101,49 @@
   </footer>
 
   <script src="assets/js/main.js" defer></script>
+  <script defer>
+    // Phase 2: progressively upgrade the static 2D hub above into a live
+    // React Three Fiber scene — but only for devices that can actually take
+    // it. The 2D markup is the real fallback, not a loading placeholder:
+    // if WebGL is unavailable, the device looks low-end, or the user has
+    // Save-Data on, we never even request the ~300KB bundle.
+    (function () {
+      var heroEl = document.getElementById('uv-hero')
+      var canvasEl = document.getElementById('snoz-universe-canvas')
+      if (!heroEl || !canvasEl) return
+
+      function supportsWebGL() {
+        try {
+          var canvas = document.createElement('canvas')
+          return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')))
+        } catch (e) {
+          return false
+        }
+      }
+
+      function isLowEndOrDataSaving() {
+        if (navigator.connection && navigator.connection.saveData) return true
+        if (typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency < 4) return true
+        if (typeof navigator.deviceMemory === 'number' && navigator.deviceMemory < 2) return true
+        return false
+      }
+
+      if (!supportsWebGL() || isLowEndOrDataSaving()) return
+
+      window.addEventListener('snoz-universe:mounted', function () {
+        heroEl.classList.add('is-3d-active')
+      })
+      window.addEventListener('snoz-universe:error', function () {
+        heroEl.classList.remove('is-3d-active')
+        canvasEl.style.display = 'none'
+      })
+
+      canvasEl.style.display = 'block'
+      var script = document.createElement('script')
+      script.type = 'module'
+      script.src = 'assets/universe-build/universe.js'
+      document.body.appendChild(script)
+    })()
+  </script>
 </body>
 </html>

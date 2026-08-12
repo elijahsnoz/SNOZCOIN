@@ -461,13 +461,22 @@ body::before{
 .uv-exit{color:var(--muted);text-decoration:none;font-family:'Space Grotesk',monospace;font-size:13px;letter-spacing:0.5px;transition:color .25s}
 .uv-exit:hover{color:var(--paper)}
 
-.uv-hero{padding:64px 0 80px;text-align:center}
-.uv-hero-inner{display:flex;flex-direction:column;align-items:center}
+.uv-hero{padding:64px 0 80px;text-align:center;min-height:75vh}
+.uv-hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
 .uv-title{font-size:clamp(38px,8vw,88px);color:var(--paper);margin-top:22px}
 .uv-title .accent{color:var(--yellow)}
 .uv-sub{color:var(--muted);max-width:52ch;margin:20px auto 0;font-size:17px;line-height:1.6}
 .uv-hero .hero-art{margin:44px 0 30px}
 .uv-hero .hero-art .frame{max-width:360px}
+
+/* Phase 2: the live 3D canvas sits between the background glow and the text.
+   pointer-events stay off on the text layer while 3D is active so drags for
+   camera orbit / portal clicks reach the canvas underneath instead of being
+   swallowed by non-interactive text. */
+.uv-canvas{position:absolute;inset:0;z-index:1;display:none}
+.uv-hero.is-3d-active .starfield,
+.uv-hero.is-3d-active .hero-art{display:none}
+.uv-hero.is-3d-active .uv-hero-inner{pointer-events:none}
 
 .starfield{
   position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0.5;

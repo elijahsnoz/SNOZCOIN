@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SNOZ Universe — dev</title>
+  <style>html,body{margin:0;height:100%;background:#07060a}#snoz-universe-canvas{position:fixed;inset:0}</style>
+</head>
+<body>
+  <!--
+    Dev-only entry point (`npm run dev`). Production doesn't use this file —
+    universe.html (in the repo root) hosts the real #snoz-universe-canvas
+    div and loads the built universe.js directly. This exists so Vite has
+    an HTML entry to discover the module graph from during both dev and
+    `npm run build`.
+  -->
+  <div id="snoz-universe-canvas"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>
