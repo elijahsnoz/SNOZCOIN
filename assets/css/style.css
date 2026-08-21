@@ -227,21 +227,6 @@ body::before{
 @media(min-width:901px){.origin-card:not(:last-child)::after{display:block}}
 
 /* ============================================================
-   Buttersnoz
-   ============================================================ */
-.butter-wrap{display:grid;grid-template-columns:0.85fr 1.15fr;gap:56px;align-items:center}
-.butter-art{position:relative;display:flex;justify-content:center}
-.butter-art img{width:100%;max-width:320px;filter:drop-shadow(0 24px 50px rgba(244,185,58,0.18));animation:float 8s ease-in-out infinite}
-.butter-badge{
-  position:absolute;top:6%;right:6%;background:var(--yellow);color:var(--ink);
-  font-family:'Space Grotesk',monospace;font-size:11px;letter-spacing:1.5px;padding:6px 12px;border-radius:999px;
-  transform:rotate(6deg);
-}
-.butter-copy p{color:var(--muted);font-size:17px;line-height:1.75;max-width:52ch}
-.butter-copy p + p{margin-top:16px}
-.butter-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
-
-/* ============================================================
    Gallery / Art
    ============================================================ */
 .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:10px}
@@ -449,7 +434,6 @@ body::before{
   .hero-art .frame{max-width:280px;margin:0 auto}
   .hero-kicker{margin-bottom:14px}
   .scroll-cue{margin-top:36px}
-  .butter-wrap{grid-template-columns:1fr;gap:36px;text-align:left}
   .section{padding:76px 0}
 }
 
