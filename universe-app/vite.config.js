@@ -7,6 +7,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: './',
+  assetsInclude: ['**/*.glb'],
   build: {
     outDir: '../assets/universe-build',
     emptyOutDir: true,

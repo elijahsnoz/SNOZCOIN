@@ -1,22 +1,41 @@
-import { useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { useTexture } from '@react-three/drei'
-import heroTextureUrl from './snoz-hero.png'
+import { useGLTF } from '@react-three/drei'
+import * as THREE from 'three'
+import modelUrl from './snoz-3d.glb'
 
-// SNOZ as a large, always-camera-facing billboard rather than a modeled
-// character — the brief asks for a "large SNOZ presence," not a polygon
-// budget. Reusing the site's own flat art keeps this consistent with the
-// 2D identity instead of introducing a different-looking 3D mascot.
-//
-// Importing the PNG (rather than a bare './snoz-hero.png' string) matters:
-// a plain string is resolved by the browser relative to the HOST page
-// (universe.html, at the site root), not relative to this bundle inside
-// assets/universe-build/ — that mismatch 404'd in testing. The import lets
-// Vite bake in the correct final URL at build time.
+// SNOZ as a real generated mesh (image-to-3D from the site's own hero art)
+// rather than a flat billboard. The GLB carries baked vertex colors and no
+// material, so the color/metalness fix below is required for it to render
+// visibly under App.jsx's scene lighting.
 export default function SnozPresence({ reducedMotion }) {
-  const texture = useTexture(heroTextureUrl)
+  const { scene } = useGLTF(modelUrl)
+  const model = useMemo(() => {
+    const clone = scene.clone(true)
+    // The GLB ships no material (just baked vertex colors), so GLTFLoader
+    // falls back to its default fully-metallic material — with no
+    // environment map that reads as near-black regardless of vertex color.
+    clone.traverse((child) => {
+      if (child.isMesh) {
+        child.material = child.material.clone()
+        child.material.metalness = 0
+        child.material.roughness = 0.85
+        child.material.vertexColors = true
+      }
+    })
+    return clone
+  }, [scene])
   const group = useRef()
   const { viewport } = useThree()
+
+  // The export's own bounds/pivot aren't guaranteed to be centered, so
+  // measure and re-center at runtime instead of hardcoding an offset.
+  const { center, unitScale } = useMemo(() => {
+    const box = new THREE.Box3().setFromObject(model)
+    const size = new THREE.Vector3()
+    box.getSize(size)
+    return { center: box.getCenter(new THREE.Vector3()), unitScale: 1 / Math.max(size.y, 0.0001) }
+  }, [model])
 
   useFrame((state) => {
     if (!group.current) return
@@ -33,14 +52,18 @@ export default function SnozPresence({ reducedMotion }) {
   })
 
   const height = Math.min(5.6, viewport.height * 0.62)
-  const width = height * (760 / 860)
+  const scale = height * unitScale
 
   return (
     <group ref={group} position={[0, 0, 0]}>
-      <mesh>
-        <planeGeometry args={[width, height]} />
-        <meshBasicMaterial map={texture} transparent toneMapped={false} />
-      </mesh>
+      <primitive
+        object={model}
+        scale={scale}
+        rotation={[0, Math.PI, 0]}
+        position={[center.x * scale, -center.y * scale, center.z * scale]}
+      />
     </group>
   )
 }
+
+useGLTF.preload(modelUrl)
