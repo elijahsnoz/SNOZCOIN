@@ -20,6 +20,26 @@ python3 -m http.server 8000
 # then open http://localhost:8000 in your browser
 ```
 
+### Snoz World multiplayer prototype
+
+The universe entry page is available at `/universe.html`, with Portal 02
+leading to the multiplayer prototype at `/world.html`. It uses a
+server-authoritative in-memory room and movement state; it does not require a
+wallet, token purchase, or blockchain transaction.
+
+After dependencies are installed, run:
+
+```bash
+node server/index.js
+# then open http://localhost:3000/world.html
+```
+
+Players can choose a display name and room, then move with WASD or the arrow
+keys. Room state resets when the server stops. The world description is
+inspired by publicly presented information about Elijah Snoz as an artist,
+musician, and creative technologist; it does not claim endorsement or expose
+private personal information.
+
 2. Or open `index.html` directly in a browser (some features like `file://` cross-file requests are avoided here, so a local server is best).
 
 Replace the logo:

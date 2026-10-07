@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Snoz World multiplayer prototype: explore a shared creative plaza.">
+  <title>Snoz World — Multiplayer Prototype</title>
+  <link rel="stylesheet" href="css/world.css">
+</head>
+<body>
+  <main class="world-shell">
+    <header class="world-header">
+      <a class="brand" href="https://www.snozcoin.xyz/universe.html" rel="noopener">SNOZ<span>.</span></a>
+      <div class="header-actions">
+        <span class="phase">Prototype — Phase 01</span>
+        <div id="connection" class="connection offline">Offline</div>
+      </div>
+    </header>
+
+    <section class="intro">
+      <p class="eyebrow">Portal 02 / The World</p>
+      <h1>THE WORLD.</h1>
+      <p>Step into the first shared space of the SNOZ universe. Explore, meet other players, and help shape what gets built next.</p>
+    </section>
+
+    <section class="controls" aria-label="World entry">
+      <label>Display name <input id="name" maxlength="24" value="Wanderer" autocomplete="nickname"></label>
+      <label>Room <input id="room" maxlength="32" value="central-plaza" inputmode="text"></label>
+      <button id="join" class="primary">Enter the world <span>→</span></button>
+      <p id="message" class="message" role="status"></p>
+    </section>
+
+    <section class="world-panel">
+      <div class="world-toolbar">
+        <strong id="room-label">Not connected</strong>
+        <span class="controls-hint">Move with WASD or arrow keys</span>
+      </div>
+      <canvas id="world" width="960" height="540" aria-label="Shared multiplayer world"></canvas>
+    </section>
+
+    <section class="portal-strip" aria-label="Universe portals">
+      <div><span class="portal-number">01</span><strong>The Gallery</strong><small>Enter the art</small></div>
+      <div class="active"><span class="portal-number">02</span><strong>The World</strong><small>You are here</small></div>
+      <div class="locked"><span class="portal-number">03</span><strong>The Archive</strong><small>In development</small></div>
+      <div class="locked"><span class="portal-number">04</span><strong>Creator District</strong><small>In development</small></div>
+    </section>
+    <p class="note">The world is a free-to-play prototype. State resets when the server stops. Wallets and purchases are not required.</p>
+  </main>
+  <script src="js/world.js"></script>
+</body>
+</html>
