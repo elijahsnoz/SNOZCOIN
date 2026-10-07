@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: snoz-world-dev
+    runtime: node
+    plan: free
+    buildCommand: npm ci --ignore-scripts
+    startCommand: node server/index.js
+    healthCheckPath: /world.html
+    autoDeploy: true
